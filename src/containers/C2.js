@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 
-export default class C1 extends Component {
+export default class C2 extends Component {
   constructor(props) {
     super(props)
   }
@@ -11,7 +11,7 @@ export default class C1 extends Component {
   render() {
     return (
       <div>
-        <h1>C1</h1>
+        <h1>C2</h1>
         <Link to={`/`}>
           返回主页
         </Link>
