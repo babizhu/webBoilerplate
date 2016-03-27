@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import {findDOMNode} from 'ReactDOM';
+import {findDOMNode} from 'react-dom';
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'

@@ -22,7 +22,9 @@
     "redux": "latest",
     "redux-logger": "latest",
     "redux-thunk": "latest",
-    "antd": "latest"
+    "antd": "latest",
+//    "css-loader": "latest",
+    "style-loader": "latest"
   },
   "devDependencies": {
     "express": "latest",
