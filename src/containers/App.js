@@ -1,4 +1,5 @@
-import React, { Component, PropTypes,findDOMNode } from 'react'
+import React, { Component, PropTypes } from 'react'
+import {findDOMNode} from 'ReactDOM';
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
@@ -13,7 +14,7 @@ class App extends Component {
 
     }
 
-    handleDismissClick(dispatch) {
+    handleDismissClick() {
         //alert('handleDismissClick');
         const node = findDOMNode(this.refs.input);
         const text = node.value.trim();
@@ -24,14 +25,10 @@ class App extends Component {
     render() {
 
         const { children, url,name,dispatch } = this.props;
-        for( let x in this.props){
-            console.log( x );
-        }
-        console.log( dispatch)
         return (
             <div>
 
-                <button onClick={this.handleDismissClick.bind(this,dispatch)}>手动跳转</button><input type='text' ref='input' />
+                <button onClick={this.handleDismissClick.bind(this)}>手动跳转</button><input type='text' ref='input' />
                 <h1>导航</h1>
                 当前url: {url}<br />
                 当前查询:{name}

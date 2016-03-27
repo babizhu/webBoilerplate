@@ -12,31 +12,30 @@
   },
   "author": "liulaoye",
   "license": "ISC",
-  
   "dependencies": {
-  "babel-polyfill": "latest",
-  "react": "latest",
-  "react-dom": "latest",
-  "react-redux": "latest",
-  "react-router": "latest",
-  "react-router-redux": "latest",
-  "redux": "latest",
-  "redux-logger": "latest",
-  "redux-thunk": "latest"
-},
-"devDependencies": {
-
-  "express": "latest",
-  "babel-core": "latest",
-  "babel-loader": "latest",
-  "babel-preset-es2015": "latest",
-  "babel-preset-react": "latest",
-  "babel-preset-react-hmre": "latest",
-  "redux-devtools": "latest",
-  "redux-devtools-dock-monitor": "latest",
-  "redux-devtools-log-monitor": "latest",
-  "webpack": "latest",
-  "webpack-dev-middleware": "latest",
-  "webpack-hot-middleware": "latest"
-}
+    "babel-polyfill": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-redux": "latest",
+    "react-router": "latest",
+    "react-router-redux": "latest",
+    "redux": "latest",
+    "redux-logger": "latest",
+    "redux-thunk": "latest",
+    "antd": "latest"
+  },
+  "devDependencies": {
+    "express": "latest",
+    "babel-core": "latest",
+    "babel-loader": "latest",
+    "babel-preset-es2015": "latest",
+    "babel-preset-react": "latest",
+    "babel-preset-react-hmre": "latest",
+    "redux-devtools": "latest",
+    "redux-devtools-dock-monitor": "latest",
+    "redux-devtools-log-monitor": "latest",
+    "webpack": "latest",
+    "webpack-dev-middleware": "latest",
+    "webpack-hot-middleware": "latest"
+  }
 }
