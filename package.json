@@ -1,7 +1,7 @@
 {
-  "name": "youyou",
+  "name": "webBoilerplate",
   "version": "1.0.0",
-  "description": "",
+  "description": "一个包含react，redux，redux-devtools，react-route，antd的模板",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf dist",
@@ -23,7 +23,7 @@
     "redux-logger": "latest",
     "redux-thunk": "latest",
     "antd": "latest",
-//    "css-loader": "latest",
+    "css-loader": "latest",
     "style-loader": "latest"
   },
   "devDependencies": {
