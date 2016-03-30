@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-
+import * as profileActions from '../actions/Profile'
 /**
  * Created by liu_k on 2016/3/29.
  * 整个页面最上面一层的信息的智能容器
@@ -14,9 +14,9 @@ class Header extends Component {
 
     render() {
         const {profile} = this.props;
-        for (var obj    in        this.props) {
-            console.log( obj)
-        }
+
+        //let a = {...profile,name:'abcd'};
+
         return (
             <div>
                 名字:{profile.name}
@@ -34,7 +34,7 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(Header)
+export default connect(mapStateToProps,profileActions)(Header)
 
 
 

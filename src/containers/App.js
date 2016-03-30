@@ -8,6 +8,8 @@ import { Button,Form, Input, Select, Checkbox, Radio ,Row,Col} from 'antd';
 const FormItem = Form.Item;
 
 import Header from './Header';
+import * as profileActions from '../actions/Profile'
+
 import 'antd/lib/index.css';
 /**
  * 程序的实际入口
@@ -21,13 +23,18 @@ class App extends Component {
     }
 
     handleSubmit() {
+        const {editName,state} = this.props;
+        if (state.profile.name !== "刘老爷") {
+            editName('刘老爷');
+        }
+        else {
+            editName('刘大老爷');
+
+        }
         const data = this.props.form.getFieldsValue();
-        try {
-            browserHistory.push(data.url);
-        }
-        catch (e) {
-            alert(e);
-        }
+
+        browserHistory.push(data.url);
+
 
     }
 
@@ -66,7 +73,7 @@ class App extends Component {
 
         return (
             <div style={{margin:'15px'}}>
-<Header />
+                <Header />
                 <Form inline>
                     <FormItem label='输入网址：'>
                         <Input placeholder='/' {...getFieldProps('url')} />
@@ -104,4 +111,4 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, profileActions)(App)
