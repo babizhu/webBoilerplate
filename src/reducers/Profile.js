@@ -6,8 +6,10 @@ import { combineReducers } from 'redux'
 import {EDIT_NAME} from '../actions/Profile'
 
 const initState = {
-    name: '刘老爷',
-    icon:'/img/face11.jpg'
+    name: '刘呦呦',
+    iconUrl:'/img/face11.jpg',
+    address:'重庆市 南岸区'
+
 }
 function profile(state = initState, action) {
     switch (action.type) {

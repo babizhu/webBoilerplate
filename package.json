@@ -39,6 +39,7 @@
     "webpack": "latest",
     "webpack-dev-middleware": "latest",
     "webpack-hot-middleware": "latest",
-    "sass-loader": "latest"
+    "sass-loader": "latest",
+    "node-sass": "latest"
   }
 }

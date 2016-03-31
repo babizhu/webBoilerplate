@@ -112,7 +112,7 @@ class Header extends Component {
                         <Dropdown overlay={menu1}>
                             <li className='person'>
                             <span>
-                                <img src={profile.icon} alt=''/>
+                                <img src={profile.iconUrl} alt=''/>
                                 <span>{profile.name} <Icon type="down" className="downIcon"/></span>
                             </span>
                             </li>
@@ -131,7 +131,7 @@ Header.propTypes = {};
 Header.defaultProps = {};
 function mapStateToProps(state, ownProps) {
     return {
-        profile: state.profile,
+        profile: state.profile
 
     }
 }

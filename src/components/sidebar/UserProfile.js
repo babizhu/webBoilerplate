@@ -1,26 +1,69 @@
 /**
  * Created by liu_k on 2016/3/31.
-
-
- * 整个应用的header条中的下拉菜单
+ * 侧边栏的用户信息部分
  */
 import React, { Component,PropTypes } from 'react';
-import ReactDom from "react-dom"
+import ReactDom from "react-dom";
+import { Steps,Menu, Dropdown, Button, Icon } from 'antd';
 
-import '../../css/components/header/dropDownMenu.scss'
+
+
 
 export default class UserProfile extends Component {
 
 
     render() {
 
-        const {profile} = this.props
-        return (
+        let{ profile,showMode} = this.props;
+        //let user = this.props.userData;
+        //let iconMode = this.props.iconMode;//是否仅显示图标模式
+        let mediaStyle = {
+            padding: '20px'
+        };
 
+        let mediaLeftStyle = {
+            paddingRight: '10px'
+        };
+
+        let mediaShow={
+            display :'table-cell'
+        };
+
+        if (showMode) {
+            mediaStyle = {
+                padding: '23px 10px'
+            };
+            mediaLeftStyle = {
+                paddingRight: '0px'
+            };
+            mediaShow={
+                display :'none'
+            }
+        }
+        return (
             <div>
-                mingzi{profile.name}
+                <div className="category-content">
+                    <div className="media" style={mediaStyle}>
+                        <div className="media-left" style={mediaLeftStyle}>
+                            <img src={profile.iconUrl} className="img-circle img-sm" alt=""/>
+                        </div>
+
+                        <div className="media-body" ref='mediaBody' style={mediaShow}>
+                            <span>{profile.name}</span>
+
+                            <div className="text-size-mini">
+                                <Icon type="environment-o"/> &nbsp;{profile.address}
+                            </div>
+                        </div>
+
+                        <div className="media-right" ref='mediaRight' style={mediaShow}>
+                            <Icon type="setting"/>
+                        </div>
+                    </div>
+                </div>
             </div>
-        )
+        );
+
     }
 }
 
@@ -28,8 +71,9 @@ export default class UserProfile extends Component {
 UserProfile.propTypes = {
     profile: PropTypes.shape({
         name: PropTypes.string.isRequired,
-        icon:PropTypes.string
-    }).isRequired,
+        iconUrl: PropTypes.string,
+        address:PropTypes.string
+    }).isRequired
 };
 UserProfile.defaultProps = {};
 

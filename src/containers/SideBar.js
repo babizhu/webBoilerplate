@@ -53,14 +53,17 @@ class SideBar extends Component {
     //};
 
 
-
     render() {
-        const {profile} = this.props;
+        const {profile,showMode} = this.props;
 
+        const widthValue = '260px';
+        const showValue = 'block';
         return (
 
-            <div>
-                <UserProfile profile={profile}/>
+            <div className="sidebar" style={{width:widthValue, display:showValue}}>
+                <div className="sidebar-content">
+                    <UserProfile profile={profile}/>
+                </div>
             </div>
 
         );
