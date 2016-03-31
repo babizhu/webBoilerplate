@@ -6,7 +6,8 @@ import { combineReducers } from 'redux'
 import {EDIT_NAME} from '../actions/Profile'
 
 const initState = {
-    name: '刘老爷'
+    name: '刘老爷',
+    icon:'/img/face11.jpg'
 }
 function profile(state = initState, action) {
     switch (action.type) {

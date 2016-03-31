@@ -38,6 +38,7 @@
     "redux-devtools-log-monitor": "latest",
     "webpack": "latest",
     "webpack-dev-middleware": "latest",
-    "webpack-hot-middleware": "latest"
+    "webpack-hot-middleware": "latest",
+    "sass-loader": "latest"
   }
 }

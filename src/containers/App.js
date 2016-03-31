@@ -8,13 +8,13 @@ import { Button,Form, Input, Select, Checkbox, Radio ,Row,Col} from 'antd';
 const FormItem = Form.Item;
 
 import Header from './Header';
+import SideBar from './SideBar';
 import * as profileActions from '../actions/Profile'
 
 import 'antd/lib/index.css';
 /**
  * 程序的实际入口
  */
-
 
 class App extends Component {
     constructor(props) {
@@ -72,8 +72,9 @@ class App extends Component {
 
 
         return (
-            <div style={{margin:'15px'}}>
+            <div>
                 <Header />
+                <SideBar />
                 <Form inline>
                     <FormItem label='输入网址：'>
                         <Input placeholder='/' {...getFieldProps('url')} />
