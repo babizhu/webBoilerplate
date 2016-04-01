@@ -32,7 +32,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('*', function (req, res) {
-    console.log(req.params[0]);
+    //console.log(req.params[0]);
     if (req.params[0].indexOf('png') != -1 || req.params[0].indexOf('jpg') != -1) {
         res.sendFile(path.join(__dirname, req.params[0]));
     } else {

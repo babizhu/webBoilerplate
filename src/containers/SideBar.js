@@ -22,7 +22,6 @@ import React, { Component } from 'react';
 import ReactDom from "react-dom"
 import { connect } from 'react-redux'
 
-
 import UserProfile from '../components/sidebar/UserProfile'
 
 import  '../css/sidebar.scss'
@@ -54,7 +53,7 @@ class SideBar extends Component {
 
 
     render() {
-        const {profile,showMode} = this.props;
+        const {profile,screen,componentUrl} = this.props;
 
         const widthValue = '260px';
         const showValue = 'block';
@@ -62,8 +61,9 @@ class SideBar extends Component {
 
             <div className="sidebar" style={{width:widthValue, display:showValue}}>
                 <div className="sidebar-content">
-                    <UserProfile profile={profile}/>
+                    <UserProfile profile = {profile} screen={screen}/>
                 </div>
+                当前组件Url：{componentUrl}
             </div>
 
         );
@@ -73,9 +73,12 @@ class SideBar extends Component {
 SideBar.propTypes = {};
 SideBar.defaultProps = {};
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state,ow) {
+
     return {
         profile: state.profile,
+        screen: state.screen
+
     }
 }
 

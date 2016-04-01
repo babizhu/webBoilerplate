@@ -94,7 +94,7 @@ class Header extends Component {
 
                 <div className='header-right' ref="headerRight">
                     <ul>
-                        <li><DropDownMenu title="名字标题" menu="下拉菜单"/></li>
+
 
                         <Dropdown overlay={menu}>
                             <li className='lang'>
@@ -127,7 +127,9 @@ class Header extends Component {
 }
 
 
-Header.propTypes = {};
+Header.propTypes = {
+
+};
 Header.defaultProps = {};
 function mapStateToProps(state, ownProps) {
     return {

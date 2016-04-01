@@ -7,14 +7,13 @@ import ReactDom from "react-dom";
 import { Steps,Menu, Dropdown, Button, Icon } from 'antd';
 
 
-
-
 export default class UserProfile extends Component {
 
 
     render() {
+        //const {menuData, ...others} = this.props;
+        let { profile,screen} = this.props;
 
-        let{ profile,showMode} = this.props;
         //let user = this.props.userData;
         //let iconMode = this.props.iconMode;//是否仅显示图标模式
         let mediaStyle = {
@@ -25,19 +24,19 @@ export default class UserProfile extends Component {
             paddingRight: '10px'
         };
 
-        let mediaShow={
-            display :'table-cell'
+        let mediaShow = {
+            display: 'table-cell'
         };
 
-        if (showMode) {
+        if (screen.isBigScreen) {
             mediaStyle = {
                 padding: '23px 10px'
             };
             mediaLeftStyle = {
                 paddingRight: '0px'
             };
-            mediaShow={
-                display :'none'
+            mediaShow = {
+                display: 'none'
             }
         }
         return (
@@ -72,7 +71,7 @@ UserProfile.propTypes = {
     profile: PropTypes.shape({
         name: PropTypes.string.isRequired,
         iconUrl: PropTypes.string,
-        address:PropTypes.string
+        address: PropTypes.string
     }).isRequired
 };
 UserProfile.defaultProps = {};

@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import { Button,DatePicker } from 'antd';
 
 
-export default class C1 extends Component {
+export default class C extends Component {
     constructor(props) {
         super(props)
     }
@@ -49,3 +49,5 @@ export default class C1 extends Component {
         )
     }
 }
+
+
