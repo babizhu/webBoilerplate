@@ -48,7 +48,7 @@ class App extends Component {
                 <div style={{float:'left'}}>
                     <SideBar componentUrl={componentUrl}/>
                 </div>
-                {children}
+                <div style={{float:'left',padding:'10px'}}>{this.props.children}</div>
                 <h1>Hello World</h1>
 
             </div>

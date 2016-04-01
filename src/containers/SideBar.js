@@ -73,7 +73,7 @@ class SideBar extends Component {
 SideBar.propTypes = {};
 SideBar.defaultProps = {};
 
-function mapStateToProps(state,ow) {
+function mapStateToProps(state) {
 
     return {
         profile: state.profile,
