@@ -5,14 +5,15 @@
 import React, { Component,PropTypes } from 'react';
 import ReactDom from "react-dom";
 import { Steps,Menu, Dropdown, Button, Icon } from 'antd';
-
+import {ICON_ONLY,ICON_AND_TEXT} from '../../actions/SideBar'
+//changeShowMode
 
 export default class UserProfile extends Component {
 
 
     render() {
         //const {menuData, ...others} = this.props;
-        let { profile,screen} = this.props;
+        let { profile,scree,sideBar} = this.props;
 
         //let user = this.props.userData;
         //let iconMode = this.props.iconMode;//是否仅显示图标模式
@@ -28,7 +29,7 @@ export default class UserProfile extends Component {
             display: 'table-cell'
         };
 
-        if (screen.isBigScreen) {
+        if (sideBar.showMode === ICON_ONLY) {
             mediaStyle = {
                 padding: '23px 10px'
             };
