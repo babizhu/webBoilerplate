@@ -5,7 +5,7 @@
 import React, { Component,PropTypes } from 'react';
 import ReactDom from "react-dom";
 import { Steps,Menu, Dropdown, Button, Icon } from 'antd';
-import {ICON_ONLY,ICON_AND_TEXT} from '../../actions/SideBar'
+import {MINI,NORMAL} from '../../actions/SideBar'
 //changeShowMode
 
 export default class UserProfile extends Component {
@@ -29,7 +29,7 @@ export default class UserProfile extends Component {
             display: 'table-cell'
         };
 
-        if (sideBar.showMode === ICON_ONLY) {
+        if (sideBar.showMode === MINI) {
             mediaStyle = {
                 padding: '23px 10px'
             };

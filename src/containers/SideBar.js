@@ -3,16 +3,19 @@
  *
  * 可伸缩，自适应边栏
  *
- * 此边栏有两种显示模式
- *  ICON_ONLY = 只显示图标
- *  ICON_AND_TEXT = 显示图标和文字
- *
- * 根据state.screen.isBigScreen属性,当其为true时,强制显示模式为ICON_AND_TEXT,并100%屏幕宽度显示(此时可隐藏)
- *
- * 否则,则此sidebar的宽度定位260px(此时不可隐藏,也无必要隐藏)
+ * 自身带有两者显示模式
+ * NORMAL
+ * MINI
  *
  *
- * 当然上述数字都可以按照实际情况进行调整
+ * 当state.screen.isBigScreen属性为true时
+ * NORMAL:显示图标+文本
+ * MINI:仅显示图标
+ *
+ * 当state.screen.isBigScreen属性为false时
+ * NORMAL:显示图标+文本，并且充斥满整个屏幕宽度
+ * MINI:不显示（隐藏）
+ *
  *
  *  此边栏有两种选择模式
  *  one         每次只允许展开一个子菜单
@@ -27,6 +30,7 @@ import ReactDom from "react-dom"
 import { connect } from 'react-redux'
 
 import UserProfile from '../components/sidebar/UserProfile'
+import MenuGroup from '../components/sidebar/MenuGroup'
 import {initMenuData} from '../const/MenuData.js';
 
 import  '../css/sidebar.scss'
@@ -43,22 +47,8 @@ class SideBar extends Component {
 
     }
 
-    //state = {
-    //
-    //    /**
-    //     * 当前被选中的大项
-    //     */
-    //    currentIndex: [],
-    //    /**
-    //     * 当前大项下被选中的具体子菜单
-    //     */
-    //    currentSubMenuItemIndex: -1,
-    //    selectMode : 'one',//muti,one
-    //};
-
-
     render() {
-        const {profile,screen,sideBar,componentUrl} = this.props;
+        const {profile,screen,sideBar,componentUrl,menu} = this.props;
 
         const widthValue = '260px';
         //const showValue = 'block';
@@ -67,6 +57,19 @@ class SideBar extends Component {
             <div className="sidebar" style={{width:widthValue}}>
                 <div className="sidebar-content">
                     <UserProfile profile={profile} screen={screen} sideBar={sideBar}/>
+                    <div className="sidebar-category">
+                        <div className="category-content no-padding">
+                            <ul className="navigation-ul">
+                                {menu.map((x,index) => {
+
+                                    return <MenuGroup group={x} key={index} showMode={sideBar.showMode} componentUrl={componentUrl}/>
+                                })}
+
+
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
                 当前组件Url：{componentUrl}
             </div>
@@ -95,7 +98,7 @@ function buildMenu(profile) {
         }
     }
 
-    printMenu( resultMenu);
+    printMenu( resultMenu );
     return resultMenu;
 
 }

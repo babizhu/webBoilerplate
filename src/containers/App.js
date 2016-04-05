@@ -65,7 +65,7 @@ function mapStateToProps(state, ownProps) {
 
     return {
         screen: state.screen,
-        componentUrl: ownProps.location.pathname.substring(1)//当前所使用组件的url
+        componentUrl: ownProps.location.pathname//当前所使用组件的url,手工加上最前的/符号
     }
 }
 

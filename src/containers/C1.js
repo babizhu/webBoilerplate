@@ -15,6 +15,10 @@ export default class C1 extends Component {
         <Link to={`/`}>
           返回主页
         </Link>
+          <span>|</span>
+          <Link to={`/c`}>
+              返回c
+          </Link>
       </div>
     )
   }

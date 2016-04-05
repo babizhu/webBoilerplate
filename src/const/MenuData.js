@@ -4,7 +4,8 @@ export let initMenuData = [{
     menu: [
         {
             icon: 'home',
-            text: '个人门户'
+            text: '个人门户',
+            component:'home'
         }, {
             icon: 'desktop',
             text: '行政管理',
@@ -12,7 +13,7 @@ export let initMenuData = [{
                 {
                     icon: 'phone',
                     text: '会议管理',
-                    component: 'app'
+                    component: 'c'
                 },
                 {
                     icon: 'book',

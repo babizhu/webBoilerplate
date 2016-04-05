@@ -4,11 +4,11 @@
  */
 import { combineReducers } from 'redux'
 
-import {CHANGE_SHOW_MODE,ICON_ONLY,ICON_AND_TEXT} from '../actions/SideBar'
+import {CHANGE_SHOW_MODE,NORMAL,MINI} from '../actions/SideBar'
 
 
 const initState = {
-    showMode: ICON_AND_TEXT
+    showMode: NORMAL
 };
 
 function sideBar(state = initState, action) {
