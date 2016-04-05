@@ -9,7 +9,8 @@ import {MINI,NORMAL} from '../../actions/SideBar';
 class Menu extends Component {
 
     menuClick(menuItem){
-
+        menuItem.isOpen = !!!menuItem.isOpen;
+        console.log( menuItem.text +'.isOpen = ' + menuItem.isOpen);//要用state来处理
     }
     /**
      * 生成箭头图标
@@ -77,7 +78,7 @@ class Menu extends Component {
         }
         let hasSubMenu = menuItem.subMenu ? true : false;
         let subMenu;
-        if (hasSubMenu && isSelected) {
+        if (hasSubMenu && (isSelected || menuItem.isOpen)) {
             subMenu = <SubMenu subMenuData={menuItem.subMenu} showMode={showMode} componentUrl={componentUrl}/>
         }
         return <li className={liClassName} key={index} onClick = {this.menuClick.bind(this, menuItem)}>
