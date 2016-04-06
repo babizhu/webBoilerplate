@@ -16,17 +16,17 @@ class SubMenu extends Component {
         const {componentUrl,showMode} = this.props;
 
         let liClassName = "";
-        if( componentUrl.substring(1) == subMenuItem.component ){
+        if (componentUrl.substring(1) == subMenuItem.component) {
             liClassName += ' subItemActive';
         }
-        return <li key={index} className={liClassName}>
-            <Link to={subMenuItem.component? '/'+subMenuItem.component : '/'}>
+        return <Link to={subMenuItem.component? '/'+subMenuItem.component : '/'} key={index}>
+            <li key={index} className={liClassName}>
+
                 <span>
                     {subMenuItem.text}
                 </span>
-            </Link>
-
-        </li>
+            </li>
+        </Link>
     }
 
     render() {

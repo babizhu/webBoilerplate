@@ -15,14 +15,14 @@ class MenuGroup extends Component {
 
     render() {
 
-        const {group,showMode,componentUrl} = this.props;
+        const {group,showMode,componentUrl,changeOpenStatus} = this.props;
         return (
             <span>
                 <li className="navigation-header">
                     <span  style={{display:showMode == NORMAL ? '':'none'}}>{group.text}</span>
                     <Icon type={group.icon} className='navigation-header-icon' style={{display:showMode == MINI ? '':'none'}}/>
                 </li>
-                <Menu menuData={group.menu} showMode={showMode} componentUrl={componentUrl}/>
+                <Menu changeOpenStatus={changeOpenStatus} menuData={group.menu} showMode={showMode} componentUrl={componentUrl}/>
             </span>
         );
     }

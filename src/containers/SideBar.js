@@ -33,6 +33,7 @@ import UserProfile from '../components/sidebar/UserProfile'
 import MenuGroup from '../components/sidebar/MenuGroup'
 import {initMenuData} from '../const/MenuData.js';
 
+import * as sideBarActions from '../actions/SideBar';
 import  '../css/sidebar.scss'
 
 class SideBar extends Component {
@@ -48,7 +49,7 @@ class SideBar extends Component {
     }
 
     render() {
-        const {profile,screen,sideBar,componentUrl,menu} = this.props;
+        const {profile,screen,sideBar,componentUrl,menu,changeOpenStatus} = this.props;
 
         const widthValue = '260px';
         //const showValue = 'block';
@@ -62,7 +63,7 @@ class SideBar extends Component {
                             <ul className="navigation-ul">
                                 {menu.map((x,index) => {
 
-                                    return <MenuGroup group={x} key={index} showMode={sideBar.showMode} componentUrl={componentUrl}/>
+                                    return <MenuGroup group={x} key={index} showMode={sideBar.showMode} componentUrl={componentUrl} changeOpenStatus={changeOpenStatus}/>
                                 })}
 
 
@@ -98,7 +99,7 @@ function buildMenu(profile) {
         }
     }
 
-    printMenu( resultMenu );
+    //printMenu( resultMenu );
     return resultMenu;
 
 }
@@ -157,4 +158,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps,sideBarActions)(SideBar);

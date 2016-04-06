@@ -4,20 +4,23 @@ export let initMenuData = [{
     menu: [
         {
             icon: 'home',
-            text: '个人门户',
-            component:'home'
+            text: '集群系统',
+            index: 1,
+            component: 'home'
         }, {
             icon: 'desktop',
-            text: '行政管理',
+            text: '运行状态',
+            index: 2,
+
             subMenu: [
                 {
                     icon: 'phone',
-                    text: '会议管理',
+                    text: '性能指标',
                     component: 'c'
                 },
                 {
                     icon: 'book',
-                    text: '设备管理',
+                    text: '运行日志',
                     component: 'flex'
 
                 }
@@ -25,12 +28,14 @@ export let initMenuData = [{
         },
         {
             icon: 'folder',
-            text: '基础管理',
+            text: '应用系统',
+            index: 3,
+
             subMenu: [
                 {
                     icon: 'user',
-                    text: '用户管理',
-                    component: 'nav'
+                    text: '历史查询',
+                    component: 'JobHistory'
 
                 }
             ]
@@ -39,18 +44,25 @@ export let initMenuData = [{
 }, {
     text: '基础数据',
     icon: 'ellipsis',
+
+
     menu: [
         {
             icon: 'calendar',
-            text: '表单管理',
+            text: '分布存储',
+            index: 4,
+
             subMenu: [
                 {
                     icon: 'phone',
-                    text: '基础数据'
+                    text: 'Hadoop',
+                    component: 'abc'
                 },
                 {
                     icon: 'book',
-                    text: '我的表单'
+                    text: 'HBase',
+                    component: 'def'
+
                 }
             ]
         }
@@ -62,6 +74,8 @@ export let initMenuData = [{
         {
             icon: 'shrink',
             text: '测试模块',
+            index: 5,
+
             subMenu: [
                 {
                     icon: 'phone',
