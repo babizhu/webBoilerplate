@@ -100,10 +100,12 @@ class Menu extends Component {
     }
 
     render() {
-        const {menuData,componentUrl} = this.props;
+        const {menuData} = this.props;
 
         let menu = menuData.map((item, index) => {
-            return this.buildMenuItem(item, index);
+            if( item.show){
+                return this.buildMenuItem(item, index);
+            }
 
         });
         return (

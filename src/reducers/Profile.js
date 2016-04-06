@@ -10,7 +10,8 @@ const initState = {
     name: '刘呦呦',
     iconUrl:'/img/lyy.jpg',
     address:'重庆市 南岸区',
-    components:'c,c/c1,flex,test'//用户拥有的权限组件的路径
+    components:'c,c/c1,flex,abc,def,home,JobHistory,test'//用户拥有的权限组件的路径
+    //components:'all'//用户拥有的权限组件的路径
 
 };
 function profile(state = initState, action) {

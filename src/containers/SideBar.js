@@ -61,12 +61,15 @@ class SideBar extends Component {
                     <div className="sidebar-category">
                         <div className="category-content no-padding">
                             <ul className="navigation-ul">
-                                {menu.map((x,index) => {
+                                {menu.map((menuGroup,index) => {
 
-                                    return <MenuGroup group={x} key={index}
-                                                      componentUrl={componentUrl} changeOpenStatus={changeOpenStatus}
-                                                      sideBar={sideBar}
-                                    />
+                                    if( menuGroup.show) {
+                                        return <MenuGroup group={menuGroup} key={index}
+                                                          componentUrl={componentUrl}
+                                                          changeOpenStatus={changeOpenStatus}
+                                                          sideBar={sideBar}
+                                        />
+                                    }
                                 })}
 
 
@@ -85,19 +88,23 @@ class SideBar extends Component {
 SideBar.propTypes = {};
 SideBar.defaultProps = {};
 
+
 /**
  * 生成客户有权限访问的相关菜单
  * @param state
  */
 function buildMenu(profile) {
+    if( profile.components == 'all'){
+        return initMenuData;
+    }
     let resultMenu = initMenuData;
 
     const components = profile.components;
 
     for (const m of components.split(",")) {
-        for (const menuData of resultMenu) {
+        for (const menuGroup of resultMenu) {
 
-            buildOneMenuData(m, menuData);
+            buildMenuGroup(m, menuGroup);
 
         }
     }
@@ -125,25 +132,25 @@ function printMenu( menu ){
         }
     }
 }
-function buildOneMenuData(component, menuData) {
+function buildMenuGroup(component, menuGroup) {
     //console.log( menuData.text);
-    menuData.show = false;
-    for( const menu of menuData.menu ){
+    //menuGroup.show = false;
+    for( const menu of menuGroup.menu ){
         if( menu.component && menu.component === component ){
-            menu.show = menuData.show = true;
+            menu.show = menuGroup.show = true;
+
         }else{
-            menu.show = false;
+            //menu.show = false;
         }
-        //console.log('\tmy menu is ' + menu.text );
 
         if( menu.subMenu){
             for( const sub of menu.subMenu){
                 if( sub.component == component ){
-                    sub.show = menuData.show = menu.show = true;
+                    sub.show = menuGroup.show = menu.show = true;
+                    console.log(menuGroup.text + '->' + menu.text + '->' + sub.text + '.show =' + menu.show);
                 }else {
-                    sub.show = false;
+                    //sub.show = false;
                 }
-                //console.log( '\t\tsubmenu is' + sub.text );
             }
         }
     }
@@ -154,7 +161,7 @@ function mapStateToProps(state) {
 
     return {
         profile: state.profile,
-        screen: state.screen,
+        //screen: state.screen,
         sideBar: state.sideBar,
         menu: buildMenu(state.profile)
 
