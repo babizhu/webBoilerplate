@@ -7,10 +7,21 @@ import { Link } from 'react-router'
 
 class SubMenu extends Component {
 
+    click(item, e) {
+        if (e && e.stopPropagation) {
+            e.stopPropagation();
+            e.preventDefault();
+
+        } else {
+            // 否则，我们需要使用IE的方式来取消事件冒泡
+            window.event.cancelBubble = true;
+        }
+
+    }
 
     /**
      * 生成菜单的一个子项
-     * @param m 菜单数据
+     * @param subMenuItem 菜单数据
      */
     buildSubMenuItem(subMenuItem, index) {
         const {componentUrl,showMode} = this.props;
@@ -19,14 +30,17 @@ class SubMenu extends Component {
         if (componentUrl.substring(1) == subMenuItem.component) {
             liClassName += ' subItemActive';
         }
-        return <Link to={subMenuItem.component? '/'+subMenuItem.component : '/'} key={index}>
-            <li key={index} className={liClassName}>
-
-                <span>
+        return(
+        <li key={index} className={liClassName} onClick={this.click.bind(this,subMenuItem) }>
+            <Link to={subMenuItem.component? '/'+subMenuItem.component : '/'} key={index}>
+                <div>
                     {subMenuItem.text}
-                </span>
-            </li>
-        </Link>
+                </div>
+
+            </Link>
+        </li>
+        );
+
     }
 
     render() {

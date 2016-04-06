@@ -27,7 +27,6 @@ function openMenu( state=[], action ){
                 }
                 return resultState;
             }else{
-                console.log('没找到,' + state + ',' + action.index );
                 return [
                     ...state,
                     action.index

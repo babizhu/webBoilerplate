@@ -63,7 +63,10 @@ class SideBar extends Component {
                             <ul className="navigation-ul">
                                 {menu.map((x,index) => {
 
-                                    return <MenuGroup group={x} key={index} showMode={sideBar.showMode} componentUrl={componentUrl} changeOpenStatus={changeOpenStatus}/>
+                                    return <MenuGroup group={x} key={index}
+                                                      componentUrl={componentUrl} changeOpenStatus={changeOpenStatus}
+                                                      sideBar={sideBar}
+                                    />
                                 })}
 
 

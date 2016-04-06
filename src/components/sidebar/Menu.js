@@ -9,13 +9,8 @@ import {MINI,NORMAL} from '../../actions/SideBar';
 
 class Menu extends Component {
 
-    //state = {
-    //    currentOpen: -1,//当前处于打开状态的菜单
-    //};
     menuClick(menuItem) {
         const {changeOpenStatus} = this.props;
-        //menuItem.isOpen = !!!menuItem.isOpen;
-        //this.setState({currentOpen: 1})
         changeOpenStatus(menuItem.index);
     }
 
@@ -74,20 +69,22 @@ class Menu extends Component {
 
     /**
      * 生成菜单的一个子项
-     * @param m 菜单数据
+     * @param menuItem 菜单数据
      */
     buildMenuItem(menuItem, index) {
 
-        const {componentUrl,showMode} = this.props;
+        const {componentUrl,showMode,openMenu} = this.props;
         let liClassName = "navigation-item";
         const isSelected = this.isSelected(menuItem, componentUrl);
         if (isSelected) {
             liClassName += ' active';
+            //changeOpenStatus(menuItem.index);
 
         }
         let hasSubMenu = menuItem.subMenu ? true : false;
+        let isOpen = openMenu.indexOf(menuItem.index ) != -1;
         let subMenu;
-        if (hasSubMenu && (isSelected || menuItem.isOpen)) {
+        if (hasSubMenu && (isSelected || isOpen)) {
             subMenu = <SubMenu subMenuData={menuItem.subMenu} showMode={showMode} componentUrl={componentUrl}/>
         }
 
@@ -97,7 +94,7 @@ class Menu extends Component {
                     {menuItem.text}
                 </span>
 
-            {this.buildArrowIcon(showMode, hasSubMenu, isSelected, menuItem.isOpen)}
+            {this.buildArrowIcon(showMode, hasSubMenu, isSelected, isOpen)}
             {subMenu}
         </li>
     }
