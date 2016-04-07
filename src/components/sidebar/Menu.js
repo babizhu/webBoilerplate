@@ -24,7 +24,7 @@ class Menu extends Component {
     }
 
     // 鼠标移出
-    handlerMouseOut(menuItem) {
+    handlerMouseOut() {
         const {showMode} = this.props.sideBar;
         if (showMode == MINI) {
             this.setState({showSubMenuIndex: -1})
@@ -34,15 +34,15 @@ class Menu extends Component {
     menuClick(menuItem) {
         const {changeOpenStatus} = this.props;
         changeOpenStatus(menuItem.index);
+
     }
 
-    buildArrowIcon(showSubMenu) {
+
+    static buildArrowIcon(showSubMenu) {
         let arrowIcon = showSubMenu ? 'down' : 'right';
-        let arrow =
-            <div className="arrow">
-                <Icon type={arrowIcon}/>
-            </div>;
-        return arrow;
+        return <div className="arrow">
+            <Icon type={arrowIcon}/>
+        </div>;
     }
 
     componentDidMount() {
@@ -100,7 +100,7 @@ class Menu extends Component {
         if (showMode == MINI) {
             textClassName = 'miniMenu';
             textShow = 'none';
-            if (hasSubMenu && this.state.showSubMenuIndex == menuItem.index) {
+            if (this.state.showSubMenuIndex == menuItem.index) {
                 showSubMenu = true;
                 textShow = 'block';
                 subMenuClassName = 'miniSubMenu';
@@ -108,24 +108,26 @@ class Menu extends Component {
             }
         } else {
 
-            if (hasSubMenu && sideBar.openMenu.indexOf(menuItem.index) != -1) {
+            if ( sideBar.openMenu.indexOf(menuItem.index) != -1) {
                 showSubMenu = true;
             }
-            arrow = this.buildArrowIcon(showSubMenu);
+            if( hasSubMenu ){
+                arrow = Menu.buildArrowIcon(showSubMenu);
+            }
         }
 
         let subMenu;
-        if (showSubMenu) {
-            liClassName += ' open';
+        if( hasSubMenu ){
             subMenu =
-                <ul className={subMenuClassName}>
+                <ul className={subMenuClassName } style={{display:showSubMenu?'':'none'}}>
                     <SubMenu subMenuData={menuItem.subMenu} sideBar={sideBar} componentUrl={componentUrl}/>
                 </ul>
         }
+
         return (
             <li className={liClassName} key={index} onClick={this.menuClick.bind(this, menuItem)}
                 onMouseOver={this.handlerMouseOver.bind(this,menuItem)}
-                onMouseOut={this.handlerMouseOut.bind(this,menuItem)}
+                onMouseOut={this.handlerMouseOut.bind(this)}
             >
                 <Icon type={menuItem.icon}/>
                 <span className={textClassName} style={{display:textShow}}>
