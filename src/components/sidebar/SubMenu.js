@@ -1,5 +1,6 @@
 /**
  * Created by liu_k on 2016/4/5.
+ * 显示最底层的子菜单
  */
 import React, { Component } from 'react';
 import { Icon } from 'antd';
@@ -7,7 +8,7 @@ import { Link } from 'react-router'
 
 class SubMenu extends Component {
 
-    click(item, e) {
+    static click( e) {
         if (e && e.stopPropagation) {
             e.stopPropagation();
             e.preventDefault();
@@ -22,16 +23,17 @@ class SubMenu extends Component {
     /**
      * 生成菜单的一个子项
      * @param subMenuItem 菜单数据
+     * @param index
      */
     buildSubMenuItem(subMenuItem, index) {
-        const {componentUrl,showMode} = this.props;
+        const {componentUrl} = this.props;
 
         let liClassName = "";
         if (componentUrl.substring(1) == subMenuItem.component) {
             liClassName += ' subItemActive';
         }
         return(
-        <li key={index} className={liClassName} onClick={this.click.bind(this,subMenuItem) }>
+        <li key={index} className={liClassName} onClick={SubMenu.click.bind(this) }>
             <Link to={subMenuItem.component? '/'+subMenuItem.component : '/'} key={index}>
                 <div>
                     {subMenuItem.text}
@@ -44,7 +46,7 @@ class SubMenu extends Component {
     }
 
     render() {
-        const {subMenuData,componentUrl,showMode} = this.props;
+        const {subMenuData} = this.props;
 
         let subMenu = subMenuData.map((item, index) => {
             if( item.show ){

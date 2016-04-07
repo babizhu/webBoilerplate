@@ -113,19 +113,19 @@ function buildMenu(profile) {
     return resultMenu;
 }
 
-function dosome(menuData, func) {
-    for (const menuData of menu) {
-        func(menuData);
-        for (const menu of menuData.menu) {
-            func(menu);
-            if (menu.subMenu) {
-                for (const sub of menu.subMenu) {
-                    func(sub);
-                }
-            }
-        }
-    }
-}
+//function dosome(menuData, func) {
+//    for (const menuData of menu) {
+//        func(menuData);
+//        for (const menu of menuData.menu) {
+//            func(menu);
+//            if (menu.subMenu) {
+//                for (const sub of menu.subMenu) {
+//                    func(sub);
+//                }
+//            }
+//        }
+//    }
+//}
 /**
  * 打印菜单,调试用
  * @param menu
