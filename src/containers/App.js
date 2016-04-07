@@ -48,7 +48,7 @@ class App extends Component {
                 <div style={{float:'left'}}>
                     <SideBar componentUrl={componentUrl}/>
                 </div>
-                <div style={{float:'left',padding:'10px'}}>{this.props.children}</div>
+                <div style={{float:'left',padding:'10px'}}>{children}</div>
                 <h1>Hello World</h1>
 
             </div>
@@ -62,10 +62,9 @@ App.propTypes = {
 
 function mapStateToProps(state, ownProps) {
 
-
     return {
         screen: state.screen,
-        componentUrl: ownProps.location.pathname//当前所使用组件的url,手工加上最前的/符号
+        componentUrl: ownProps.location.pathname//当前所使用组件的url,
     }
 }
 

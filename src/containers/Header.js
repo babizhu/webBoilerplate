@@ -67,7 +67,7 @@ class Header extends Component {
                 <div className='brand'>
                     <ul>
                         <li className='left-icon'>
-                            <a href='./'>
+                            <a href='/'>
                                 <img src='/img/logo_light.png' alt=''/>
                             </a>
                         </li>

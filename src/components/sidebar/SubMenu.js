@@ -47,7 +47,7 @@ class SubMenu extends Component {
         const {subMenuData,componentUrl,showMode} = this.props;
 
         let subMenu = subMenuData.map((item, index) => {
-            if( item.show){
+            if( item.show ){
                 return this.buildSubMenuItem(item, index);
             }
 

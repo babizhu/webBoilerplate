@@ -2,7 +2,7 @@
  * Created by liu_k on 2016/4/5.
  * 最外层的菜单组
  * NORMAL:显示文字
- * MINI:显示一个。。。的图标
+ * MINI:显示一个'...'的图标
  *
  */
 
@@ -23,7 +23,7 @@ class MenuGroup extends Component {
                     <span  style={{display:showMode == NORMAL ? '':'none'}}>{group.text}</span>
                     <Icon type={group.icon} className='navigation-header-icon' style={{display:showMode == MINI ? '':'none'}}/>
                 </li>
-                <Menu changeOpenStatus={changeOpenStatus} menuData={group.menu} showMode={showMode} componentUrl={componentUrl} openMenu={sideBar.openMenu}/>
+                <Menu changeOpenStatus={changeOpenStatus} menuData={group.menu} componentUrl={componentUrl} sideBar={sideBar}/>
             </span>
         );
     }

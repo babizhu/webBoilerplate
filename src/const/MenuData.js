@@ -34,7 +34,7 @@ export let initMenuData = [{
             subMenu: [
                 {
                     icon: 'user',
-                    text: '历史查询',
+                    text: '历史作业',
                     component: 'JobHistory'
 
                 }

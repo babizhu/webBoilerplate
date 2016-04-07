@@ -6,7 +6,7 @@ import { combineReducers } from 'redux'
 
 import {CHANGE_OPEN_STATUS,CHANGE_SHOW_MODE,NORMAL,MINI} from '../actions/SideBar'
 
-function showMode( state=NORMAL, action ){
+function showMode( state=MINI, action ){
     switch (action.type) {
         case CHANGE_SHOW_MODE:
             return action.showMode;
