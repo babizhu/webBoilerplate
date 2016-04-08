@@ -25,7 +25,7 @@
  *  当显示模式为ICON_ONLY的时候，如果采用muti的选择模式，会感觉有点奇怪（可模拟自行测试），目前未处理
  *
  */
-import React, { Component } from 'react';
+import React, { Component,PropTypes } from 'react';
 import ReactDom from "react-dom"
 import { connect } from 'react-redux'
 
@@ -72,7 +72,7 @@ class SideBar extends Component {
                                 {menu.map((menuGroup, index) => {
 
                                     if (menuGroup.show) {
-                                        return <MenuGroup group={menuGroup} key={index}
+                                        return <MenuGroup menuGroup={menuGroup} key={index}
                                                           componentUrl={componentUrl}
                                                           changeOpenStatus={changeOpenStatus}
                                                           sideBar={sideBar}
@@ -89,7 +89,9 @@ class SideBar extends Component {
     }
 }
 
-SideBar.propTypes = {};
+SideBar.propTypes = {
+    componentUrl:PropTypes.string.isRequired
+};
 SideBar.defaultProps = {};
 
 
@@ -113,19 +115,6 @@ function buildMenu(profile) {
     return resultMenu;
 }
 
-//function dosome(menuData, func) {
-//    for (const menuData of menu) {
-//        func(menuData);
-//        for (const menu of menuData.menu) {
-//            func(menu);
-//            if (menu.subMenu) {
-//                for (const sub of menu.subMenu) {
-//                    func(sub);
-//                }
-//            }
-//        }
-//    }
-//}
 /**
  * 打印菜单,调试用
  * @param menu
@@ -133,6 +122,7 @@ function buildMenu(profile) {
 function printMenu( menu ){
     for (const menuData of menu) {
         console.log(menuData.text + ' show = ' + menuData.show);
+        //noinspection JSDuplicatedDeclaration
         for( const menu of menuData.menu ){
             console.log( '\t' + menu.text + ' component = '+ menu.component +' show = ' + menu.show);
             if( menu.subMenu) {
@@ -151,6 +141,7 @@ function printMenu( menu ){
 function setAllMenuShow(menu) {
     for (const menuGroup of menu) {
         menuGroup.show = true;
+        //noinspection JSDuplicatedDeclaration
         for (const menu of menuGroup.menu) {
             menu.show = true;
             if (menu.subMenu) {

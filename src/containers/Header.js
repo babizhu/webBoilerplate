@@ -6,18 +6,22 @@ import React, { Component } from 'react';
 import ReactDom from "react-dom"
 import { Steps,Menu, Dropdown, Button, Icon } from 'antd';
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
 
 import DropDownMenu from '../components/header/DropDownMenu'
 import '../css/header.scss'
 
 import * as profileActions from '../actions/Profile'
+import * as sideBarActions from '../actions/SideBar'
 class Header extends Component {
 
     subMenuClick() {
 
-        let a = {display: 'none'};
+
         //ReactDom.findDOMNode(this.refs.deleteBtn).style.display
+        //noinspection JSUnresolvedVariable
         const el1 = ReactDom.findDOMNode(this.refs.headerMiddle);
+        //noinspection JSUnresolvedVariable
         const el2 = ReactDom.findDOMNode(this.refs.headerRight);
         const els = [el1, el2];
 
@@ -60,6 +64,8 @@ class Header extends Component {
 
         </Menu></div>;
         const {profile} = this.props;
+        const {changeShowMode} = this.props.sideBarActions;
+
         return (
 
 
@@ -74,7 +80,7 @@ class Header extends Component {
                         <li className='mobile-icon' onClick={this.subMenuClick.bind(this)}>
                             <Icon type="appstore" className='icon'/>
                         </li>
-                        <li className='mobile-icon' onClick={this.props.showSideBarInMiniMode}>
+                        <li className='mobile-icon' onClick={changeShowMode}>
                             <Icon type="bars" className='icon'/>
                         </li>
                     </ul>
@@ -82,7 +88,7 @@ class Header extends Component {
 
                 <div className='header-middle' ref="headerMiddle">
                     <ul>
-                        <li onClick={this.props.changeSideBarMode}><Icon type="bars" className='icon'/></li>
+                        <li onClick={changeShowMode}><Icon type="bars" className='icon'/></li>
                         <li>
                             <Icon type="github" className='icon'/>
                             <span className="visible-xs-inline-block">Git updates</span>
@@ -131,14 +137,20 @@ Header.propTypes = {
 
 };
 Header.defaultProps = {};
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
     return {
         profile: state.profile
-
     }
 }
 
-export default connect(mapStateToProps, profileActions)(Header)
+function mapDispatchToProps() {
+    return dispatch => ({
+        profileActions: bindActionCreators(profileActions, dispatch),
+        sideBarActions: bindActionCreators(sideBarActions, dispatch)
+    });
+
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
 
 
 

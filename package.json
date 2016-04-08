@@ -14,8 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "latest",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
     "react-redux": "latest",
     "react-router": "latest",
     "react-router-redux": "latest",
@@ -24,7 +24,8 @@
     "redux-thunk": "latest",
     "antd": "latest",
     "css-loader": "latest",
-    "style-loader": "latest"
+    "style-loader": "latest",
+    "rc-animate":"latest"
   },
   "devDependencies": {
     "express": "latest",

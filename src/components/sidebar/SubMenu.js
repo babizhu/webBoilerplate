@@ -8,7 +8,7 @@ import { Link } from 'react-router'
 
 class SubMenu extends Component {
 
-    static click( e) {
+    static click(e) {
         if (e && e.stopPropagation) {
             e.stopPropagation();
             e.preventDefault();
@@ -32,34 +32,34 @@ class SubMenu extends Component {
         if (componentUrl.substring(1) == subMenuItem.component) {
             liClassName += ' subItemActive';
         }
-        return(
-        <li key={index} className={liClassName} onClick={SubMenu.click.bind(this) }>
-            <Link to={subMenuItem.component? '/'+subMenuItem.component : '/'} key={index}>
-                <div>
-                    {subMenuItem.text}
-                </div>
+        return (
+            <li key={index} className={liClassName} onClick={SubMenu.click.bind(this) }>
+                <Link to={subMenuItem.component? '/'+subMenuItem.component : '/'} key={index}>
+                    <div>
+                        {subMenuItem.text}
+                    </div>
 
-            </Link>
-        </li>
+                </Link>
+            </li>
         );
 
     }
 
     render() {
-        const {subMenuData} = this.props;
+        const {subMenuData,subMenuClassName,visible} = this.props;
 
         let subMenu = subMenuData.map((item, index) => {
-            if( item.show ){
+            if (item.show) {
                 return this.buildSubMenuItem(item, index);
             }
 
         });
         return (
-            <span>
-                <ul>
-                    {subMenu}
-                </ul>
-            </span>
+
+            <ul className={subMenuClassName } style={{display:visible?'':'none'}}>
+                {subMenu}
+            </ul>
+
         )
     }
 }

@@ -79,7 +79,7 @@ export let initMenuData = [{
             subMenu: [
                 {
                     icon: 'phone',
-                    text: 'assign 测试',
+                    text: '测试程序',
                     component: 'test'
                 }
             ]

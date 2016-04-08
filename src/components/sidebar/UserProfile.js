@@ -13,7 +13,7 @@ export default class UserProfile extends Component {
 
     render() {
         //const {menuData, ...others} = this.props;
-        let { profile,scree,sideBar} = this.props;
+        let { profile,sideBar} = this.props;
 
         //let user = this.props.userData;
         //let iconMode = this.props.iconMode;//是否仅显示图标模式

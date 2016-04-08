@@ -49,7 +49,7 @@ class App extends Component {
                     <SideBar componentUrl={componentUrl}/>
                 </div>
                 <div style={{float:'left',padding:'10px'}}>{children}</div>
-                <h1>Hello World</h1>
+
 
             </div>
         )
@@ -57,7 +57,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    componentUrl:PropTypes.string.isRequired
 };
 
 function mapStateToProps(state, ownProps) {

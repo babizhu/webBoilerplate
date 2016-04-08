@@ -6,27 +6,26 @@ import { combineReducers } from 'redux'
 
 import {CHANGE_OPEN_STATUS,CHANGE_SHOW_MODE,NORMAL,MINI} from '../actions/SideBar'
 
-function showMode( state=MINI, action ){
+function showMode(state = NORMAL, action) {
     switch (action.type) {
         case CHANGE_SHOW_MODE:
-            return action.showMode;
+            return state == MINI ? NORMAL : MINI;
     }
     return state;
 }
 
-function openMenu( state=[], action ){
+function openMenu(state = [], action) {
     switch (action.type) {
         case CHANGE_OPEN_STATUS:
-            if( state.indexOf(action.index) != -1 ){
+            if (state.indexOf(action.index) != -1) {
                 let resultState = [];
-                for( const i of state){
-                    if( i !== action.index ){
+                for (const i of state) {
+                    if (i !== action.index) {
                         resultState.push(i);
-
                     }
                 }
                 return resultState;
-            }else{
+            } else {
                 return [
                     ...state,
                     action.index

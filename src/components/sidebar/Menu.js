@@ -4,6 +4,8 @@
  */
 import React, { Component } from 'react';
 import { Icon } from 'antd';
+import Animate from 'rc-animate';
+
 import SubMenu from './SubMenu';
 import {MINI,NORMAL} from '../../actions/SideBar';
 
@@ -18,7 +20,7 @@ class Menu extends Component {
         const {showMode} = this.props.sideBar;
 
         if (showMode == MINI) {
-            console.log(menuItem.text + '.' + menuItem.index  );
+            console.log(menuItem.text + '.' + menuItem.index);
             this.setState({showSubMenuIndex: menuItem.index})
         }
     }
@@ -108,20 +110,38 @@ class Menu extends Component {
             }
         } else {
 
-            if ( sideBar.openMenu.indexOf(menuItem.index) != -1) {
+            if (sideBar.openMenu.indexOf(menuItem.index) != -1) {
                 showSubMenu = true;
             }
-            if( hasSubMenu ){
+            if (hasSubMenu) {
                 arrow = Menu.buildArrowIcon(showSubMenu);
             }
         }
 
         let subMenu;
-        if( hasSubMenu ){
-            subMenu =
-                <ul className={subMenuClassName } style={{display:showSubMenu?'':'none'}}>
-                    <SubMenu subMenuData={menuItem.subMenu} sideBar={sideBar} componentUrl={componentUrl}/>
-                </ul>
+        if (hasSubMenu) {
+            if (showMode == MINI) {
+                subMenu = <SubMenu subMenuClassName={subMenuClassName}
+                                   visible={showSubMenu}
+                                   subMenuData={menuItem.subMenu}
+                                   sideBar={sideBar}
+                                   componentUrl={componentUrl}
+                />
+            } else {
+                subMenu =
+                    <Animate
+                        component=""
+                        showProp="visible"
+                        transitionAppear
+                        transitionName="fade">
+                        <SubMenu subMenuClassName={subMenuClassName}
+                                 visible={showSubMenu}
+                                 subMenuData={menuItem.subMenu}
+                                 sideBar={sideBar}
+                                 componentUrl={componentUrl}
+                        />
+                    </Animate>
+            }
         }
 
         return (
@@ -134,6 +154,7 @@ class Menu extends Component {
                     {menuItem.text}
                 </span>
                 {arrow}
+
                 {subMenu}
             </li>
         )

@@ -40,7 +40,7 @@ app.get('*', function (req, res) {
     }
 });
 
-app.listen(3000, 'localhost', function (err) {
+app.listen(3000, '0.0.0.0', function (err) {
     if (err) {
         console.log(err);
         return;

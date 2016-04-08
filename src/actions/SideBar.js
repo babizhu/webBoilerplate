@@ -8,11 +8,17 @@ export const NORMAL = 'NORMAL';
 export const MINI = 'MINI';
 
 
-export function changeShowMode( showMode ){
+/**
+ * 改变sideBar的显示模式，只有两个选项
+ * NORMAL
+ * MINI
+ * @returns {{type: string, showMode: *}}
+ */
+export function changeShowMode( ){
 
     return{
-        type:CHANGE_SHOW_MODE,
-        showMode
+        type:CHANGE_SHOW_MODE
+
     }
 }
 export function changeOpenStatus( index ){
