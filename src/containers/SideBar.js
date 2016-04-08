@@ -17,12 +17,9 @@
  * MINI:不显示（隐藏）
  *
  *
- *  此边栏有两种选择模式
+ *  此边栏有两种选择模式（todo）
  *  one         每次只允许展开一个子菜单
  *  muti        允许展开多个子菜单
- *
- *  问题：
- *  当显示模式为ICON_ONLY的时候，如果采用muti的选择模式，会感觉有点奇怪（可模拟自行测试），目前未处理
  *
  */
 import React, { Component,PropTypes } from 'react';
@@ -90,7 +87,7 @@ class SideBar extends Component {
 }
 
 SideBar.propTypes = {
-    componentUrl:PropTypes.string.isRequired
+    componentUrl: PropTypes.string.isRequired
 };
 SideBar.defaultProps = {};
 
@@ -119,15 +116,15 @@ function buildMenu(profile) {
  * 打印菜单,调试用
  * @param menu
  */
-function printMenu( menu ){
+function printMenu(menu) {
     for (const menuData of menu) {
         console.log(menuData.text + ' show = ' + menuData.show);
         //noinspection JSDuplicatedDeclaration
-        for( const menu of menuData.menu ){
-            console.log( '\t' + menu.text + ' component = '+ menu.component +' show = ' + menu.show);
-            if( menu.subMenu) {
+        for (const menu of menuData.menu) {
+            console.log('\t' + menu.text + ' component = ' + menu.component + ' show = ' + menu.show);
+            if (menu.subMenu) {
                 for (const sub of menu.subMenu) {
-                    console.log('\t\t' + sub.text + ' component = '+ sub.component +' show = ' + sub.show);
+                    console.log('\t\t' + sub.text + ' component = ' + sub.component + ' show = ' + sub.show);
 
                 }
             }
