@@ -13,13 +13,13 @@
  * MINI:仅显示图标
  *
  * 当state.screen.isBigScreen属性为false时
- * NORMAL:显示图标+文本，并且充斥满整个屏幕宽度
+ * NORMAL:显示图标+文本，并且宽度充满整个屏幕宽度
  * MINI:不显示（隐藏）
  *
  *
- *  此边栏有两种选择模式（todo）
- *  one         每次只允许展开一个子菜单
- *  muti        允许展开多个子菜单
+ *  此边栏有两种选择模式
+ *  OPEN_ONE         每次只允许展开一个子菜单
+ *  OPEN_MANY        允许展开多个子菜单
  *
  */
 import React, { Component,PropTypes } from 'react';
@@ -43,16 +43,17 @@ class SideBar extends Component {
     }
 
     render() {
-        const {profile,screen,sideBar,componentUrl,menu,changeOpenStatus} = this.props;
+        const {profile,screen,sideBar,menu} = this.props;
         let widthValue, isShow;
         if (screen.isBigScreen) {
-            widthValue = '260px';
             if (sideBar.showMode == MINI) {//大屏幕下的mini模式，也就是仅显示菜单图标
                 widthValue = 'auto';
+            } else {
+                widthValue = '260px';
             }
         } else {
             widthValue = '100%';
-            if (sideBar.showMode == MINI) {
+            if (sideBar.showMode == MINI) {//小屏幕下的mini模式，隐藏sideBar
                 isShow = 'none';
             } else {
                 isShow = 'block';
@@ -69,18 +70,16 @@ class SideBar extends Component {
                                 {menu.map((menuGroup, index) => {
 
                                     if (menuGroup.show) {
-                                        return <MenuGroup menuGroup={menuGroup} key={index}
-                                                          componentUrl={componentUrl}
-                                                          changeOpenStatus={changeOpenStatus}
-                                                          sideBar={sideBar}
-                                        />
+                                        return (
+                                            <MenuGroup key={index}  {...this.props} menuGroup={menuGroup}/>
+                                        )
+
                                     }
                                 })}
                             </ul>
                         </div>
                     </div>
                 </div>
-
             </div>
         );
     }
@@ -108,7 +107,7 @@ function buildMenu(profile) {
             buildMenuGroup(m, menuGroup);
         }
     }
-    printMenu(resultMenu);
+    //printMenu(resultMenu);
     return resultMenu;
 }
 
@@ -125,7 +124,6 @@ function printMenu(menu) {
             if (menu.subMenu) {
                 for (const sub of menu.subMenu) {
                     console.log('\t\t' + sub.text + ' component = ' + sub.component + ' show = ' + sub.show);
-
                 }
             }
         }

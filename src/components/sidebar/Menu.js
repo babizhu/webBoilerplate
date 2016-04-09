@@ -20,7 +20,7 @@ class Menu extends Component {
         const {showMode} = this.props.sideBar;
 
         if (showMode == MINI) {
-            console.log(menuItem.text + '.' + menuItem.index);
+            //console.log(menuItem.text + '.' + menuItem.index);
             this.setState({showSubMenuIndex: menuItem.index})
         }
     }
@@ -34,23 +34,25 @@ class Menu extends Component {
     }
 
     menuClick(menuItem) {
-        const {changeOpenStatus} = this.props;
-        changeOpenStatus(menuItem.index);
+        const {changeMenuOpenStatus} = this.props;
+        changeMenuOpenStatus(menuItem.index);
 
     }
 
 
     static buildArrowIcon(showSubMenu) {
         let arrowIcon = showSubMenu ? 'down' : 'right';
-        return <div className="arrow">
-            <Icon type={arrowIcon}/>
-        </div>;
+        return(
+            <div className="arrow">
+                <Icon type={arrowIcon}/>
+            </div>
+        )
     }
 
     componentDidMount() {
-        const {changeOpenStatus} = this.props;
+        const {changeMenuOpenStatus} = this.props;
         if (this.currentSelectIndex != -1) {
-            changeOpenStatus(this.currentSelectIndex);
+            changeMenuOpenStatus(this.currentSelectIndex);
         }
     }
 
@@ -106,11 +108,9 @@ class Menu extends Component {
                 showSubMenu = true;
                 textShow = 'block';
                 subMenuClassName = 'miniSubMenu';
-
             }
         } else {
-
-            if (sideBar.openMenu.indexOf(menuItem.index) != -1) {
+            if (sideBar.openMenu.items.indexOf(menuItem.index) != -1) {
                 showSubMenu = true;
             }
             if (hasSubMenu) {
