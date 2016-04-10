@@ -48,7 +48,7 @@ function changeMenuOpenStatus(index, items, openMode) {
  * @param action
  * @returns {*}
  */
-function openMenu(state = {items: [], openMode: OPEN_ONE}, action) {
+function openMenu(state = {items: [], openMode: OPEN_MANY}, action) {
     switch (action.type) {
         case CHANGE_MENU_OPEN_STATUS:
             return Object.assign({}, state, {

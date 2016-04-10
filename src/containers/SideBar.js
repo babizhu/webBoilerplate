@@ -61,7 +61,7 @@ class SideBar extends Component {
         }
         return (
 
-            <div className="sidebar" style={{width:widthValue,display:isShow}}>
+            <div className="sidebar" style={{width:widthValue,display:isShow,height: screen.isBigScreen?'100%':'auto'}}>
                 <div className="sidebar-content">
                     <UserProfile profile={profile} screen={screen} sideBar={sideBar}/>
                     <div className="sidebar-category">
