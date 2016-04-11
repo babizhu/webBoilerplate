@@ -73,7 +73,6 @@ App.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-
     return {
         screen: state.screen,
         sideBar: state.sideBar,

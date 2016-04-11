@@ -67,11 +67,11 @@ export default class Cluster extends Component {
             key: 'address'
         }];
         return (
-            <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 200], scale: [1, 0.5] }}>
-                <div><h1>这是一个测试</h1></div>
+            <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 500], scale: [1, 1] }}>
                 <div key='c'>
 
-                    <QueueAnim component="div" animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }}>
+                    <QueueAnim component="div">
+                        <div><h1>这是一个测试</h1></div>
                         <Table dataSource={dataSource} columns={columns} size="middle"/>
                     </QueueAnim>
                 </div>
