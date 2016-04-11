@@ -50,7 +50,7 @@ class App extends Component {
         if (screen.isBigScreen) {
             sideBarHeight = screen.height - 44;//44 for height of Header
             let marginLeft = 260;
-            if( sideBar&&sideBar.showMode==MINI ){
+            if( sideBar&&sideBar.showMode == MINI ){
                 marginLeft = 59;
             }
             contentStyle = { marginLeft : marginLeft,paddingTop:'10px',paddingLeft:'10px',paddingRight:'10px'}
