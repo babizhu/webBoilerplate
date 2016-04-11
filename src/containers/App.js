@@ -43,7 +43,6 @@ class App extends Component {
             changeScreenSize(width, height);
         }
     }
-
     render() {
         const { children,componentUrl,screen,sideBar } = this.props;
         let contentStyle = {};
