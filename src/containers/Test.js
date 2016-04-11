@@ -6,7 +6,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
-import { Button,DatePicker } from 'antd';
+import { Button,QueueAnim } from 'antd';
 import Animate from 'rc-animate';
 
 class Box extends Component {
@@ -51,19 +51,43 @@ export default class Test extends Component {
     render() {
 
         return (
-            <div>
-                <button onClick={this.toggleAnimate.bind(this)}>toggle</button>
-                <Animate
-                    component=""
-                    showProp="visible"
-                    onAppear={Test.onAppear}
-                    onEnter={Test.onEnter}
-                    onLeave={Test.onLeave}
-                    transitionAppear
-                    transitionName="fade">
-                    <Box visible={this.state.visible}/>
-                </Animate>
-            </div>
+
+        <div>
+            <QueueAnim>
+                <div key="b">
+                    <QueueAnim component="ul">
+                        <li key="0">11111111</li>
+                        <li key="1">2222222222</li>
+                        <li key="2">3333333333</li>
+                    </QueueAnim>
+                </div>
+                <div>
+                    <QueueAnim delay={200}>
+                        <div key="title3"></div>
+                        <QueueAnim component="ul" animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }} key="ul">
+                            <li key="0">444444444444</li>
+                            <li key="1">55555555555555</li>
+                            <li key="2">66666666666</li>
+                        </QueueAnim>
+                    </QueueAnim>
+                </div>
+                <div>
+                    <button onClick={this.toggleAnimate.bind(this)}>toggle</button>
+                    <Animate
+                        component=""
+                        showProp="visible"
+                        onAppear={this.onAppear}
+                        onEnter={this.onEnter}
+                        onLeave={this.onLeave}
+                        transitionAppear
+                        transitionName="fade">
+                        <Box visible={this.state.visible}/>
+                    </Animate>
+                </div>
+            </QueueAnim>
+        </div>
+
+
         )
     }
 }

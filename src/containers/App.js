@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 import Header from './Header';
 import SideBar from './SideBar';
-
+import {MINI,NORMAL} from '../actions/SideBar';
 import * as screenActions from '../actions/Screen';
 
 import 'antd/lib/index.css';
@@ -32,7 +32,7 @@ class App extends Component {
      * @private
      */
     _resize_mixin_callback() {
-        const {screen,changeScreenSize} = this.props;
+        const {changeScreenSize} = this.props;
         let width = document.documentElement.clientWidth;
         let height = document.documentElement.clientHeight;
 
@@ -44,16 +44,26 @@ class App extends Component {
     }
 
     render() {
-        const { children,componentUrl,screen } = this.props;
+        const { children,componentUrl,screen,sideBar } = this.props;
+        let sideBarHeight ='auto';
+        let contentStyle = {};
+        if (screen.isBigScreen) {
+            sideBarHeight = screen.height - 44;//44 for height of Header
+            let marginLeft = 260;
+            if( sideBar&&sideBar.showMode==MINI ){
+                marginLeft = 59;
+            }
+            contentStyle = { marginLeft : marginLeft,paddingTop:'10px',paddingLeft:'10px',paddingRight:'10px'}
+        }else{
+            contentStyle = {float:'left',width:'100%',paddingTop:'10px',paddingLeft:'10px',paddingRight:'10px'}
+        }
         return (
             <div>
                 <Header />
-                <div style={{float:'left',height:screen.height }}>
+                <div style={{float:'left',height:sideBarHeight }}>
                     <SideBar componentUrl={componentUrl}/>
                 </div>
-                <div style={{float:'left',padding:'10px'}}>{children}</div>
-
-
+                <div id='content' style={contentStyle}>{children}</div>
             </div>
         )
     }
@@ -68,6 +78,7 @@ function mapStateToProps(state, ownProps) {
 
     return {
         screen: state.screen,
+        sideBar: state.sideBar,
         componentUrl: ownProps.location.pathname//当前所使用组件的url,
     }
 }
