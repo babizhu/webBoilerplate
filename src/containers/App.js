@@ -62,7 +62,7 @@ class App extends Component {
             <div>
                 <Header />
                 <div style={{float:'left',display:'table', tableLayout: 'fixed',minHeight:sideBarHeight}}>
-                    <SideBar componentUrl={componentUrl}  style={{float:'left'}}/>
+                    <SideBar componentUrl={componentUrl}/>
                 </div>
 
                 <div id='content' style={contentStyle}>

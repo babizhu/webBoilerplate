@@ -6,6 +6,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { Icon } from 'antd';
 
 import '../css/breadcrumb.scss'
 
@@ -67,7 +68,7 @@ export default class Breadcrumb extends Component {
             });
         }
         return (
-            <span>{crumbs}</span>
+            <span><Icon type='home' style={{fontSize:'10px'}}/> {crumbs}</span>
         )
     }
 }
