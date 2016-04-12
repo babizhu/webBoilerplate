@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import Header from './Header';
 import SideBar from './SideBar';
 import  Breadcrumb from './Breadcrumb';
-
 import {MINI,NORMAL} from '../actions/SideBar';
 import * as screenActions from '../actions/Screen';
 
@@ -29,64 +28,61 @@ class App extends Component {
 
     /**
      * 实时告知各组件，当前屏幕的宽度
-     * 出于性能考虑,只有当前的状态和之前的状态不一样,才重新设置模式,但是这样一来,高度就有可能并不是准确的了
-     *
-     * 先考虑性能吧,高度等有需要的时候再处理
-     *
+     * 出于性能考虑,只有当前的状态和之前的状态不一样,才重新设置模式
+     * 高度让上面的优化似乎无法实现了,再想想
      * @private
      */
     _resize_mixin_callback() {
+        const {changeScreenSize} = this.props;
         let width = document.documentElement.clientWidth;
         let height = document.documentElement.clientHeight;
-        const isBigScreen = width > 768;
 
-        const {changeScreenSize,screen} = this.props;
-        if (isBigScreen != screen.isBigScreen) {
-            changeScreenSize(width, height);
-        }
+
+        //if (isBigScreen != screen.isBigScreen) {
+        changeScreenSize(width, height);
+
+        //}
     }
 
     render() {
         const { children,componentUrl,screen,sideBar } = this.props;
+        let sideBarHeight ='auto';
         let contentStyle = {};
         if (screen.isBigScreen) {
+            sideBarHeight = screen.height - 44;//44 for height of Header
             let marginLeft = 260;
-            if (sideBar && sideBar.showMode == MINI) {
+            if( sideBar&&sideBar.showMode==MINI ){
                 marginLeft = 59;
             }
-            contentStyle = {marginLeft: marginLeft}
-        } else {
-            contentStyle = {float: 'left'}
+            contentStyle = { marginLeft : marginLeft,paddingTop:'10px',paddingLeft:'10px',paddingRight:'10px'}
+        }else{
+            contentStyle = {float:'left',width:'100%',paddingTop:'10px',paddingLeft:'10px',paddingRight:'10px'}
         }
         return (
             <div>
                 <Header />
-                <div style={{float:'left' }}>
-                    <SideBar componentUrl={componentUrl}/>
+                <div style={{float:'left',display:'table', tableLayout: 'fixed',minHeight:sideBarHeight}}>
+                    <SideBar componentUrl={componentUrl}  style={{float:'left'}}/>
                 </div>
-                <div style={{background:''}}>
-                    <div style={contentStyle}>
 
-                        <div style={{borderBottom: '1px dashed #ccc',padding:'10px'}}>
-                            <Breadcrumb {...this.props} separator="/"/>
-                        </div>
-
-
-                        <div id='content' style={{marginTop:'10px',marginLeft:'10px',marginRight:'10px'}}> {children}</div>
+                <div id='content' style={contentStyle}>
+                    <div style={{borderBottom: '1px dashed #ccc',paddingBottom:'8px' }}>
+                        <Breadcrumb {...this.props} separator="/"/>
                     </div>
+                    {children}
                 </div>
             </div>
         )
     }
 }
 
-//
 App.propTypes = {
     children: PropTypes.node,
     componentUrl: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
+
     return {
         screen: state.screen,
         sideBar: state.sideBar,

@@ -44,24 +44,25 @@ class SideBar extends Component {
 
     render() {
         const {profile,screen,sideBar,menu} = this.props;
-        let widthValue, isShow;
+        let widthValue, displayMode;
         if (screen.isBigScreen) {
             if (sideBar.showMode == MINI) {//大屏幕下的mini模式，也就是仅显示菜单图标
                 widthValue = 'auto';
             } else {
                 widthValue = '260px';
             }
+            displayMode = 'table-cell';
         } else {
             widthValue = '100%';
             if (sideBar.showMode == MINI) {//小屏幕下的mini模式，隐藏sideBar
-                isShow = 'none';
+                displayMode = 'none';
             } else {
-                isShow = 'block';
+                displayMode = 'block';
             }
         }
         return (
 
-            <div className="sidebar" style={{width:widthValue,display:isShow,height: screen.isBigScreen?'100%':'auto'}}>
+            <div className="sidebar" style={{width:widthValue,display:displayMode}}>
                 <div className="sidebar-content">
                     <UserProfile profile={profile} screen={screen} sideBar={sideBar}/>
                     <div className="sidebar-category">

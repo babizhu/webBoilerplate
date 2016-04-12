@@ -79,5 +79,3 @@ export default class Cluster extends Component {
         )
     }
 }
-
-
