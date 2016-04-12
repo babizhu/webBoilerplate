@@ -69,7 +69,7 @@ class App extends Component {
                     <div style={{borderBottom: '1px dashed #ccc',paddingBottom:'8px' }}>
                         <Breadcrumb {...this.props} separator="/"/>
                     </div>
-                    {children}
+                    <span style={{margin:'4px'}}>{children}</span>
                 </div>
             </div>
         )
