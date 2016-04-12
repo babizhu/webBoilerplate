@@ -1,0 +1,11 @@
+$header-bgcolor: #37474f;
+$header-height: 44px;
+$header-middle-height: 132px;
+
+
+  a {
+    color:#999;
+    &:hover {
+      //background-color: darken($header-bgcolor, 10%);
+    }
+  }

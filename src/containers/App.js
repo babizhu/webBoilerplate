@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 
 import Header from './Header';
 import SideBar from './SideBar';
+import  Breadcrumb from './Breadcrumb';
+
 import {MINI,NORMAL} from '../actions/SideBar';
 import * as screenActions from '../actions/Screen';
 
@@ -43,6 +45,12 @@ class App extends Component {
             changeScreenSize(width, height);
         }
     }
+
+    linkRender(href, name) {
+        alert(11111111);
+        console.log(href);
+    }
+
     render() {
         const { children,componentUrl,screen,sideBar } = this.props;
         let contentStyle = {};
@@ -51,9 +59,9 @@ class App extends Component {
             if (sideBar && sideBar.showMode == MINI) {
                 marginLeft = 59;
             }
-            contentStyle = {marginLeft: marginLeft, paddingTop: '10px', paddingLeft: '10px', paddingRight: '10px'}
+            contentStyle = {marginLeft: marginLeft}
         } else {
-            contentStyle = {float: 'left', width: '100%', paddingTop: '10px', paddingLeft: '10px', paddingRight: '10px'}
+            contentStyle = {float: 'left'}
         }
         return (
             <div style={{height:'100%'}}>
@@ -61,12 +69,23 @@ class App extends Component {
                 <div style={{float:'left',height:'100%' }}>
                     <SideBar componentUrl={componentUrl}/>
                 </div>
-                <div id='content' style={contentStyle}>{children}</div>
+                <div style={{background:''}}>
+                    <div style={contentStyle}>
+
+                        <div style={{borderBottom: '1px dashed #ccc',background:'white', padding: '10px'}}>
+                            <Breadcrumb {...this.props} separator="/"/>
+                        </div>
+
+
+                        <div id='content' style={{paddingTop:'10px'}}> {children}</div>
+                    </div>
+                </div>
             </div>
         )
     }
 }
 
+//
 App.propTypes = {
     children: PropTypes.node,
     componentUrl: PropTypes.string.isRequired

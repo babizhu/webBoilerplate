@@ -7,18 +7,20 @@ import C2 from './containers/C2'
 import C from './containers/C'
 import Test from './containers/Test'
 import Cluster from './containers/Cluster'
+import DashBoard from './containers/DashBoard'
 
 
 export default (
-    <Route path="/" component={App}>
+    <Route path="/" component={App} breadcrumbName="首页">
 
 
-        <Route path="/test" component={Test}/>
-        <Route path="/cluster" component={Cluster}/>
-        <Route path="/c" component={C}>
-            <Route path="/c/c1" component={C1}/>
-            <Route path="/c/c2" component={C2}/>
+        <Route path="/test" component={Test} breadcrumbName="测试模块"/>
+        <Route path="/cluster" breadcrumbName="集群列表" component={Cluster}/>
+        <Route path="/dashBoard" breadcrumbName="中控台" component={DashBoard}/>
+        <Route path="/c" component={C} breadcrumbName="性能指标">
+            <Route path="/c/c1" component={C1}  breadcrumbName="C1"/>
+            <Route path="/c/c2" component={C2}  breadcrumbName="C2"/>
         </Route>
-        <Route path="*" component={NotFound} />
+        <Route path="*" component={NotFound} breadcrumbName="404 Error"/>
     </Route>
 )
