@@ -9,6 +9,7 @@ import SideBar from './SideBar';
 import  Breadcrumb from './Breadcrumb';
 import {MINI,NORMAL} from '../actions/SideBar';
 import * as screenActions from '../actions/Screen';
+import {BIG_SCREEN_WIDTH} from '../const/Const';
 
 import 'antd/lib/index.css';
 
@@ -33,15 +34,15 @@ class App extends Component {
      * @private
      */
     _resize_mixin_callback() {
-        const {changeScreenSize} = this.props;
+        const {screen,changeScreenSize} = this.props;
         let width = document.documentElement.clientWidth;
         let height = document.documentElement.clientHeight;
 
-
-        //if (isBigScreen != screen.isBigScreen) {
+        let isBigScreen = width > BIG_SCREEN_WIDTH;
+        if (isBigScreen != screen.isBigScreen || height != screen.height ) {
         changeScreenSize(width, height);
 
-        //}
+        }
     }
 
     render() {
@@ -69,7 +70,7 @@ class App extends Component {
                     <div style={{borderBottom: '1px dashed #ccc',paddingBottom:'8px' }}>
                         <Breadcrumb {...this.props} separator="/"/>
                     </div>
-                    <span style={{paddingTop:'8px',paddingBottom:'0px'}}>{children}</span>
+                    <div style={{paddingTop:'8px',paddingBottom:'0px'}}>{children}</div>
                 </div>
             </div>
         )

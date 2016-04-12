@@ -13,7 +13,10 @@
   "author": "liulaoye",
   "license": "ISC",
   "dependencies": {
+    "antd": "latest",
     "babel-polyfill": "latest",
+    "css-loader": "latest",
+    "rc-animate": "latest",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "latest",
@@ -22,10 +25,8 @@
     "redux": "latest",
     "redux-logger": "latest",
     "redux-thunk": "latest",
-    "antd": "latest",
-    "css-loader": "latest",
-    "style-loader": "latest",
-    "rc-animate":"latest"
+    "reselect": "^2.3.0",
+    "style-loader": "latest"
   },
   "devDependencies": {
     "express": "latest",

@@ -25,6 +25,7 @@
 import React, { Component,PropTypes } from 'react';
 import ReactDom from "react-dom"
 import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 
 import UserProfile from '../components/sidebar/UserProfile'
 import MenuGroup from '../components/sidebar/MenuGroup'
@@ -97,6 +98,8 @@ SideBar.defaultProps = {};
  * @param profile   用户的权限信息
  */
 function buildMenu(profile) {
+    console.log('开始构建用户菜单');
+
     let resultMenu = initMenuData;
     if (profile.components == 'all') {
         setAllMenuShow(resultMenu);
@@ -164,12 +167,21 @@ function buildMenuGroup(component, menuGroup) {
     }
 }
 
+const getProfile = (state) => state.profile;
+//const getAllMenus = () => initMenuData;
+const getVisibleMenus = createSelector(
+    [getProfile],
+    (getProfile) => {
+        return buildMenu(getProfile);
+    }
+);
 function mapStateToProps(state) {
     return {
         profile: state.profile,
         screen: state.screen,
         sideBar: state.sideBar,
-        menu: buildMenu(state.profile)
+        //menu: buildMenu(state.profile)
+        menu: getVisibleMenus(state)
     }
 }
 

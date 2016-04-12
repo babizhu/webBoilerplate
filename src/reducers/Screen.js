@@ -5,7 +5,7 @@
 import { combineReducers } from 'redux'
 
 import {CHANGE_SCREEN_SIZE} from '../actions/Screen'
-
+import {BIG_SCREEN_WIDTH} from '../const/Const';
 const initState = {
     isBigScreen: true,
     width:0,
@@ -18,7 +18,7 @@ function screen(state = initState, action) {
             return {
                 width:action.width,
                 height:action.height,
-                isBigScreen:action.width > 768
+                isBigScreen:action.width > BIG_SCREEN_WIDTH
             };
     }
     return state;

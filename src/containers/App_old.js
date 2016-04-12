@@ -27,10 +27,6 @@ import 'antd/lib/index.css';
 class App extends Component {
     constructor(props) {
         super(props);
-        /**
-         * 当前的屏幕分辨率宽度是否大于768，这个值后期可以根据实际情况调整
-         * @type {boolean}
-         */
 
     }
 
