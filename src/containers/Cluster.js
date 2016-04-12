@@ -67,7 +67,7 @@ export default class Cluster extends Component {
             key: 'address'
         }];
         return (
-            <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 500], scale: [1, 1] }}>
+            <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 200], scale: [1, 0.5] }}>
                 <div key='c'>
 
                     <QueueAnim component="div">

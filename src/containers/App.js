@@ -46,11 +46,6 @@ class App extends Component {
         }
     }
 
-    linkRender(href, name) {
-        alert(11111111);
-        console.log(href);
-    }
-
     render() {
         const { children,componentUrl,screen,sideBar } = this.props;
         let contentStyle = {};
@@ -64,20 +59,20 @@ class App extends Component {
             contentStyle = {float: 'left'}
         }
         return (
-            <div style={{height:'100%'}}>
+            <div>
                 <Header />
-                <div style={{float:'left',height:'100%' }}>
+                <div style={{float:'left' }}>
                     <SideBar componentUrl={componentUrl}/>
                 </div>
                 <div style={{background:''}}>
                     <div style={contentStyle}>
 
-                        <div style={{borderBottom: '1px dashed #ccc',background:'white', padding: '10px'}}>
+                        <div style={{borderBottom: '1px dashed #ccc',padding:'10px'}}>
                             <Breadcrumb {...this.props} separator="/"/>
                         </div>
 
 
-                        <div id='content' style={{paddingTop:'10px'}}> {children}</div>
+                        <div id='content' style={{marginTop:'10px',marginLeft:'10px',marginRight:'10px'}}> {children}</div>
                     </div>
                 </div>
             </div>
