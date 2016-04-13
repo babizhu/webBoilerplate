@@ -64,7 +64,7 @@ export let initMenuData = [{
                         {
                             icon: 'phone',
                             text: 'Hadoop',
-                            component: 'abc'
+                            component: 'fileExplorer'
                         },
                         {
                             icon: 'book',

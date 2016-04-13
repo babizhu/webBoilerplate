@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import { QueueAnim,Button,DatePicker,Table } from 'antd';
 
 
-export default class Cluster extends Component {
+export default class FileExplorer extends Component {
     constructor(props) {
         super(props)
     }

@@ -15,7 +15,7 @@ class MenuGroup extends Component {
 
     render() {
 
-        const {menuGroup,sideBar} = this.props;
+        const {menuGroup,sideBar,...others} = this.props;
         const showMode = sideBar.showMode;
         return (
             <span>
