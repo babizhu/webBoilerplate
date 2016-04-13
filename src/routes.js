@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router'
+import { Route,IndexRoute } from 'react-router'
 import App from './containers/App'
 import NotFound from './containers/NotFound'
 import C1 from './containers/C1'
@@ -14,6 +14,7 @@ import FileExplorer from './containers/FileExplorer'
 
 export default (
     <Route path="/" component={App} breadcrumbName="首页">
+        <IndexRoute component={DashBoard} breadcrumbName="中控台"/>
         <Route path="/test" component={Test} breadcrumbName="测试模块"/>
         <Route path="/cluster" breadcrumbName="集群列表" component={Cluster}/>
         <Route path="/fileExplorer" breadcrumbName="文件管理" component={FileExplorer}/>
