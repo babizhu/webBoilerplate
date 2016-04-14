@@ -82,7 +82,7 @@ export default class FileExplorer extends Component {
                 <div key='c'>
 
                     <QueueAnim component="div" animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }}>
-                        <Table loading={fileList.pending}dataSource={dataSource} columns={columns} size="middle"/>
+                        <Table loading={fileList.pending} dataSource={dataSource} columns={columns} size="middle"/>
                     </QueueAnim>
                 </div>
             </QueueAnim>
