@@ -26,7 +26,8 @@
     "redux-logger": "latest",
     "redux-thunk": "latest",
     "reselect": "^2.3.0",
-    "style-loader": "latest"
+    "style-loader": "latest",
+    "superagent": "^1.8.0-beta.2"
   },
   "devDependencies": {
     "express": "latest",

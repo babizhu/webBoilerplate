@@ -4,13 +4,20 @@ import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 import { QueueAnim,Button,DatePicker,Table } from 'antd';
 
+import * as fileExplorerActions from '../actions/FileExplorer';
 
 export default class FileExplorer extends Component {
     constructor(props) {
         super(props)
     }
-
+    componentDidMount() {
+        const{showFileList} = this.props;
+        //showFileList('http://master:50070/webhdfs/v1/input/badage?op=LISTSTATUS');
+        showFileList('t.json');
+    }
     render() {
+        const{fileList} = this.props;
+
         const dataSource = [{
             key: '1',
             name: '北京机房',
@@ -66,17 +73,26 @@ export default class FileExplorer extends Component {
             dataIndex: 'address',
             key: 'address'
         }];
+
         return (
             <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 200], scale: [1, 0.5] }}>
 
 
+                isPending：<h1>{!!fileList.pending?'true':'false'}</h1>
                 <div key='c'>
 
                     <QueueAnim component="div" animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }}>
-                        <Table dataSource={dataSource} columns={columns} size="middle"/>
+                        <Table loading={fileList.pending}dataSource={dataSource} columns={columns} size="middle"/>
                     </QueueAnim>
                 </div>
             </QueueAnim>
         )
     }
 }
+function mapStateToProps(state) {
+    return {
+        fileList: state.fileList
+    }
+}
+
+export default connect(mapStateToProps, fileExplorerActions)(FileExplorer);
