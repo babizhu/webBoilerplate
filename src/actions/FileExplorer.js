@@ -11,7 +11,9 @@ export const SHOW_FILE_LIST_SUCCESS = 'SHOW_FILE_LIST_SUCCESS';
 export const SHOW_FILE_LIST_ERROR = 'SHOW_FILE_LIST_ERROR';
 /**
  * 显示path下的文件信息
- * @param path
+ * @param path) {
+    return {
+        type
  * @returns {{type: string, payload: {promise: *}}}
  */
 
@@ -20,9 +22,10 @@ export function showFileList(path) {
     return {
         type: SHOW_FILE_LIST,
         payload: {
-            promise: api.get(path, {
-                data: {
+            promise: api.get('hadoop/fileList', {
+                params: {
                     path
+
                 }
             })
         }

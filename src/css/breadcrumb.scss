@@ -1,11 +1,19 @@
-$header-bgcolor: #37474f;
-$header-height: 44px;
-$header-middle-height: 132px;
 
-
+.breadcrumb {
   a {
-    color:#999;
+    color: #999;
     &:hover {
       //background-color: darken($header-bgcolor, 10%);
     }
   }
+
+  .separator {
+    margin: 0 8px;
+    color: #d9d9d9
+  }
+
+}
+
+.nameOnly {
+  font-weight: bold
+}

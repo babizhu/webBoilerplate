@@ -42,7 +42,6 @@ class SubMenu extends Component {
                 </Link>
             </li>
         );
-
     }
 
     render() {
@@ -52,7 +51,6 @@ class SubMenu extends Component {
             if (item.show) {
                 return this.buildSubMenuItem(item, index);
             }
-
         });
         return (
 

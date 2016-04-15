@@ -19,18 +19,18 @@ export default class Breadcrumb extends Component {
     linkRender(href, name, separator) {
 
         return (
-            <span key={name}>
+            <span key={name} className='breadcrumb'>
                 <Link to={href}>
-                    <span>{name}</span>
+                    <span className="name">{name}</span>
                 </Link>
-                <span style={{margin: '0 8px', color: 'd9d9d9'}}>{separator}</span>
+                <span className='separator'>{separator}</span>
             </span>
         );
         //return <span><a href={`${href}`}>{name}</a> {separator}</span> ;
     }
 
     nameRender(name) {
-        return <span style={{fontWeight: 'bold'}} key={name}> {name}</span>;
+        return <span className='nameOnly' key={name}> {name}</span>;
     }
 
     render() {
