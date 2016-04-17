@@ -31,17 +31,18 @@ class _Api {
                     request.query(params);
                 }
 
-                if (this.opts.headers) {
-                    request.set(this.opts.headers);
-                }
+                //if (this.opts.headers) {
+                //    request.set(this.opts.headers);
+                //}
 
                 if (data) {
                     request.send(data);
                 }
 
                 request.end((err, { body } = {}) =>{
-                    console.log( 'body=' + body + ',error=' + err );
-                    return err ? reject(body || err) : resolve(body)
+                    //console.log( 'body=' + body1 + ',error=' + err );
+
+                    return err ? reject(body && err) : resolve(body)
                 });
             })
         );

@@ -1,5 +1,6 @@
 import { isPromise } from '../utils';
 
+import {showErrMsg} from '../actions/App';
 const defaultTypes = ['PENDING', 'FULFILLED', 'REJECTED'];
 
 /**
@@ -52,10 +53,10 @@ export default function promiseMiddleware(config = {}) {
              */
             action.payload.promise = promise.then(
                 (resolved = {}) => {
-                    console.log( 'resolved=' + resolved );
-                    for( let x in resolved ){
-                        console.log(x)
-                    }
+                    //console.log( 'resolved=' + resolved );
+                    //for( let x in resolved ){
+                    //    console.log(x)
+                    //}
                     const resolveAction = getResolveAction();
                     return dispatch(isThunk(resolved) ? resolved.bind(null, resolveAction) : {
                         ...resolveAction,
@@ -68,10 +69,21 @@ export default function promiseMiddleware(config = {}) {
                     //console.log( 'rejected =' + rejected );
                     //console.log( JSON.stringify(rejected));//可以查看更加详细的错误信息
                     const resolveAction = getResolveAction(true);
+
+                    console.log(JSON.stringify(rejected));
+                    console.log(rejected.response.text);
+
+                    console.log(typeof(rejected.response.text));
+                    const e = JSON.parse(rejected.response.text);
+                    dispatch(showErrMsg(e.errId, e.args));
+                    //console.log( resolveAction );
+                    //if( rejected.status !== 200 ){
+                    //    dispatch({type})
+                    //}
                     return dispatch(isThunk(rejected) ? rejected.bind(null, resolveAction) : {
                         ...resolveAction,
                         ...isAction(rejected) ? rejected : {
-                            ...!!rejected && { payload: rejected }
+                            ...!!rejected && { payload: {...rejected} }
                         }
                     });
                 }

@@ -3,13 +3,17 @@
  */
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import {notification} from 'antd'
+import { bindActionCreators } from 'redux';
 
 import Header from './Header';
 import SideBar from './SideBar';
 import  Breadcrumb from './Breadcrumb';
 import {MINI,NORMAL} from '../actions/SideBar';
 import * as screenActions from '../actions/Screen';
+import * as appActions from '../actions/App';
 import {BIG_SCREEN_WIDTH} from '../const/Const';
+
 
 import 'antd/lib/index.css';
 
@@ -27,6 +31,7 @@ class App extends Component {
         window.removeEventListener('resize', this._resize_mixin_callback.bind(this));
     }
 
+
     /**
      * 实时告知各组件，当前屏幕的宽度
      * 出于性能考虑,只有当前的状态和之前的状态不一样,才重新设置模式
@@ -34,33 +39,50 @@ class App extends Component {
      * @private
      */
     _resize_mixin_callback() {
-        const {screen,changeScreenSize} = this.props;
+        const {screen} = this.props;
+        const {changeScreenSize} = this.props.screenActions;
         let width = document.documentElement.clientWidth;
         let height = document.documentElement.clientHeight;
 
         let isBigScreen = width > BIG_SCREEN_WIDTH;
-        if (isBigScreen != screen.isBigScreen || height != screen.height ) {
-        changeScreenSize(width, height);
+        if (isBigScreen != screen.isBigScreen || height != screen.height) {
+            changeScreenSize(width, height);
 
         }
     }
+    componentDidUpdate( prevProps,  prevState){
+        const { app } = this.props;
 
+        if (app.errMsg !== '') {
+            notification.error({
+                message: "出故障啦",
+                description: app.errMsg
+            });
+
+            const {resetErrMsg} = this.props.appActions;
+            resetErrMsg();
+
+        }
+
+    }
     render() {
-        const { children,componentUrl,screen,sideBar } = this.props;
-        let sideBarHeight ='auto';
+        const { children,componentUrl,screen,sideBar,app } = this.props;
+        let sideBarHeight = 'auto';
         let contentStyle = {};
         if (screen.isBigScreen) {
             sideBarHeight = screen.height - 44;//44 for height of Header
             let marginLeft = 260;
-            if( sideBar&&sideBar.showMode==MINI ){
+            if (sideBar && sideBar.showMode == MINI) {
                 marginLeft = 59;
             }
-            contentStyle = { marginLeft : marginLeft,paddingTop:'10px',paddingLeft:'10px',paddingRight:'10px'}
-        }else{
-            contentStyle = {float:'left',width:'100%',paddingTop:'10px',paddingLeft:'10px',paddingRight:'10px'}
+            contentStyle = {marginLeft: marginLeft, paddingTop: '10px', paddingLeft: '10px', paddingRight: '10px'}
+        } else {
+            contentStyle = {float: 'left', width: '100%', paddingTop: '10px', paddingLeft: '10px', paddingRight: '10px'}
         }
+
         return (
             <div>
+
                 <Header />
                 <div style={{float:'left',display:'table', tableLayout: 'fixed',minHeight:sideBarHeight}}>
                     <SideBar componentUrl={componentUrl}/>
@@ -87,8 +109,18 @@ function mapStateToProps(state, ownProps) {
     return {
         screen: state.screen,
         sideBar: state.sideBar,
+        app: state.app,
         componentUrl: ownProps.location.pathname//当前所使用组件的url,
     }
 }
 
-export default connect(mapStateToProps, screenActions)(App)
+
+function mapDispatchToProps() {
+    return dispatch => ({
+        appActions: bindActionCreators(appActions, dispatch),
+        screenActions: bindActionCreators(screenActions, dispatch)
+    });
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -28,7 +28,7 @@ export default function fileList(state = {}, action = {}) {
         case SHOW_FILE_LIST_PENDING:
             return Object.assign({}, state, {pending: true});
         case SHOW_FILE_LIST_SUCCESS:
-            return Object.assign({}, state, {data: action.payload, pending: false, error: null});
+            return Object.assign({}, state, {data: action.payload, pending: false});
         case SHOW_FILE_LIST_ERROR:
             return {
                 ...state,
