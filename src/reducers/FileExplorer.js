@@ -23,20 +23,30 @@ import { combineReducers } from 'redux'
 //]}}'
 //};
 
-export default function fileList(state = {}, action = {}) {
+export default function fileList(state = {currentPath:''}, action = {}) {
     switch (action.type) {
         case SHOW_FILE_LIST_PENDING:
-            return Object.assign({}, state, {pending: true});
+            return {
+                ...state,
+                //currentPath: action.meta.path,
+
+                pending: true
+            };
         case SHOW_FILE_LIST_SUCCESS:
-            return Object.assign({}, state, {data: action.payload, pending: false});
+            return {
+                ...state,
+                currentPath: action.meta.path,
+                data: action.payload,
+                pending: false
+            };
         case SHOW_FILE_LIST_ERROR:
             return {
                 ...state,
                 pending: false,
                 data: null,
-                error: action
+                currentPath: action.meta.path,
+                error: action.payload
             };
-
         default:
             return state;
     }

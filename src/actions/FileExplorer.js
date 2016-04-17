@@ -19,8 +19,12 @@ export const SHOW_FILE_LIST_ERROR = 'SHOW_FILE_LIST_ERROR';
 
 
 export function showFileList(path) {
+    console.log('path=' + path);
     return {
         type: SHOW_FILE_LIST,
+        meta:{
+            path
+        },
         payload: {
             promise: api.get('hadoop/fileList', {
                 params: {

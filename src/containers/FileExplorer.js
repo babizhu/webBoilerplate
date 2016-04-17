@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 import { QueueAnim,Button,Icon,Table } from 'antd';
 
+import Navigate from '../components/FileExplorer/Navigate'
 import * as fileExplorerActions from '../actions/FileExplorer';
 import '../css/fileExplorer.scss'
 
@@ -13,73 +14,49 @@ export default class FileExplorer extends Component {
         this.state = {openIndex: -1};//暂时不好用，表格的row好像没有MouseOver事件相应，再看看
         //this.state.openIndex = -1;
     }
-    componentDidMount() {
-        const{showFileList} = this.props;
-        //showFileList('http://master:50070/webhdfs/v1/input/badage?op=LISTSTATUS');
-        showFileList('/');
-    }
-    onRowClick(record, index){
-        console.log( record );
-    }
-    render() {
-        const{fileList} = this.props;
 
-        //const dataSource = [{
-        //    key: '1',
-        //    name: '北京机房',
-        //    ip: '192.168.1.81',
-        //    address: '西湖区湖底公园1号'
-        //}, {
-        //    key: '2',
-        //    name: '两路机房',
-        //    ip: '192.168.1.31',
-        //    address: '西湖区湖底公园1号'
-        //},{
-        //    key: '3',
-        //    name: '龙湖机房',
-        //    ip: '192.168.1.31',
-        //    address: '西湖区湖底公园1号'
-        //}, {
-        //    key: '4',
-        //    name: '两路机房',
-        //    ip: '192.168.1.31',
-        //    address: '西湖区湖底公园1号'
-        //},{
-        //    key: '5',
-        //    name: '龙湖机房',
-        //    ip: '192.168.1.31',
-        //    address: '西湖区湖底公园1号'
-        //}, {
-        //    key: '6',
-        //    name: '两路机房',
-        //    ip: '192.168.1.31',
-        //    address: '西湖区湖底公园1号'
-        //},{
-        //    key: '7',
-        //    name: '龙湖机房',
-        //    ip: '192.168.1.31',
-        //    address: '西湖区湖底公园1号'
-        //}, {
-        //    key: '8',
-        //    name: '两路机房',
-        //    ip: '192.168.1.31',
-        //    address: '西湖区湖底公园1号'
-        //}];
-//名称	大小	用户	组	权限	创建时间
+    componentDidMount() {
+
+        const {showFileList} = this.props;
+        //showFileList('http://master:50070/webhdfs/v1/input/badage?op=LISTSTATUS');
+
+        showFileList('/input/badage/log');
+    }
+
+    onRowClick(record, index) {
+        //console.log(record);
+        const {currentPath,showFileList} = this.props;
+        let tempPath = '';
+        if(!currentPath ){
+            tempPath = '/'
+        }else{
+            tempPath = currentPath;
+        }
+
+        //console.log( tempPath );
+        showFileList( tempPath + record.pathSuffix);
+
+    }
+
+    render() {
+
+        const {fileList,showFileList} = this.props;
+
+
         const columns = [{
             title: '类型',
             dataIndex: 'type',
             key: 'type',
-            render:(text, row, index)=>{
-                const style = {paddingLeft:'6px'};
+            render: (text, row, index)=> {
+                const style = {paddingLeft: '6px'};
                 let folderIcon = 'folder';
-                if( index === this.state.openIndex ){
+                if (index === this.state.openIndex) {
                     folderIcon += '-open';
                 }
-                if( text === 'DIRECTORY' ){
+                if (text === 'DIRECTORY') {
                     return <Icon type={folderIcon} style={style}/>
-                }else {
-                    return <Icon type='file'  style={style}/>
+                } else {
+                    return <Icon type='file' style={style}/>
                 }
             }
         }, {
@@ -111,10 +88,8 @@ export default class FileExplorer extends Component {
         let key = 0;
         return (
             <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 200], scale: [1, 0.5] }}>
+                <Navigate fileList = {fileList} showFileList={showFileList}/>
 
-
-
-                <div style={{background:'yellow', padding:'10px'}}><Icon type='home'/> / </div><br />
                 <div key='c' className="fileExplorer">
 
                     <QueueAnim component="div" animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }}>

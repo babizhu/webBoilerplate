@@ -1,6 +1,6 @@
 $header-bgcolor: #263238;
 $select-bgcolor: #26a69a;
-//$open-bgcolor:  lighten(#26a69a,30%);
+//$open-bgcolor:  lighten($select-bgcolor,30%);
 $open-bgcolor:  $select-bgcolor;//菜单展开的状态
 $font-color: #fff;
 
