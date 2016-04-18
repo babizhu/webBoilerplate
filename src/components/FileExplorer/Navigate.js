@@ -10,7 +10,8 @@ class Navigate extends Component {
         this.state = {isEdit: false};
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate() {
+        //noinspection JSUnresolvedVariable
         const input = this.refs.pathInput;
         if (input) {
             //const dom = findDOMNode(input);
