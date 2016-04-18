@@ -17,32 +17,43 @@ export default class FileExplorer extends Component {
 
     componentDidMount() {
 
-        const {showFileList} = this.props;
+        const {currentPath} = this.props.fileList;
+
+
         //showFileList('http://master:50070/webhdfs/v1/input/badage?op=LISTSTATUS');
 
-        showFileList('/input/badage/log');
+        if(!currentPath){
+            const {showFileList} = this.props;
+            showFileList('/');
+        }
+
     }
+
 
     onRowClick(record, index) {
         //console.log(record);
-        const {currentPath,showFileList} = this.props;
+        const {currentPath} = this.props.fileList;
+        const {showFileList} = this.props;
+
+
         let tempPath = '';
-        if(!currentPath ){
+        if (!currentPath) {
             tempPath = '/'
-        }else{
+        } else {
             tempPath = currentPath;
         }
 
         //console.log( tempPath );
-        showFileList( tempPath + record.pathSuffix);
+        if (tempPath !== '/') {
+            tempPath += '/';
+        }
+        showFileList(tempPath + record.pathSuffix);
 
     }
 
     render() {
 
         const {fileList,showFileList} = this.props;
-
-
         const columns = [{
             title: '类型',
             dataIndex: 'type',
@@ -85,23 +96,29 @@ export default class FileExplorer extends Component {
             key: 'modificationTime'
         }];
 
-        let key = 0;
+
         return (
-            <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 200], scale: [1, 0.5] }}>
-                <Navigate fileList = {fileList} showFileList={showFileList}/>
+            <div>
 
-                <div key='c' className="fileExplorer">
 
-                    <QueueAnim component="div" animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }}>
-                        <Table loading={fileList.pending}
-                               dataSource={fileList.data && fileList.data.FileStatuses.FileStatus}
-                               rowKey={record=>record.fileId}
-                               columns={columns} size="middle"
+                <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 200], scale: [1, 0.5] }}>
+                    <div key='c' className="fileExplorer">
+                        <QueueAnim component="div"
+                                   animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }}>
 
-                               onRowClick={this.onRowClick.bind(this)}/>
-                    </QueueAnim>
-                </div>
-            </QueueAnim>
+                            <Navigate fileList={fileList} showFileList={showFileList}/>
+
+                            <Table loading={fileList.pending}
+                                   dataSource={fileList.data && fileList.data.FileStatuses.FileStatus}
+                                   rowKey={record=>record.fileId}
+                                   columns={columns} size="middle"
+                                   onRowClick={this.onRowClick.bind(this)}/>
+
+                        </QueueAnim>
+                    </div>
+
+                </QueueAnim>
+            </div>
         )
     }
 }

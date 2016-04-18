@@ -20,7 +20,7 @@ class Box extends Component {
             height: '200px',
             backgroundColor: 'red'
         };
-        return (<div style={style} ></div>);
+        return (<div style={style}></div>);
     }
 
 }
@@ -48,44 +48,55 @@ export default class Test extends Component {
         console.log('leave', key);
     }
 
+    click() {
+        alert('test');
+    }
+
     render() {
 
         return (
 
-        <div>
-            <QueueAnim>
-                <div key="b">
-                    <QueueAnim component="ul">
-                        <li key="0">11111111</li>
-                        <li key="1">2222222222</li>
-                        <li key="2">3333333333</li>
-                    </QueueAnim>
-                </div>
-                <div>
-                    <QueueAnim delay={200}>
-                        <div key="title3"></div>
-                        <QueueAnim component="ul" animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }} key="ul">
-                            <li key="0">444444444444</li>
-                            <li key="1">55555555555555</li>
-                            <li key="2">66666666666</li>
+            <div>
+                <QueueAnim>
+                    <div key="b">
+                        <QueueAnim component="ul">
+                            <li key="0">11111111</li>
+                            <li key="1">2222222222</li>
+                            <li key="2">3333333333</li>
                         </QueueAnim>
-                    </QueueAnim>
-                </div>
-                <div>
-                    <button onClick={this.toggleAnimate.bind(this)}>toggle</button>
-                    <Animate
-                        component=""
-                        showProp="visible"
-                        onAppear={this.onAppear}
-                        onEnter={this.onEnter}
-                        onLeave={this.onLeave}
-                        transitionAppear
-                        transitionName="fade">
-                        <Box visible={this.state.visible}/>
-                    </Animate>
-                </div>
-            </QueueAnim>
-        </div>
+                    </div>
+                    <div>
+                        <QueueAnim delay={200}>
+                            <div key="title3"></div>
+                            <QueueAnim component="ul"
+                                       animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }} key="ul">
+                                <li key="0">444444444444</li>
+                                <li key="1">55555555555555</li>
+                                <li key="2">66666666666</li>
+                            </QueueAnim>
+                            <div style={{background:'lightblue'}}>
+                                <div style={{background:'lightgreen',width:'80%'}}>left</div>
+                                <div style={{background:'lightpink', float:'right' ,position:''}}><span onClick={this.click.bind(this)}>right</span></div>
+                            </div>
+                        </QueueAnim>
+                    </div>
+                    <div>
+                        <button onClick={this.toggleAnimate.bind(this)}>toggle</button>
+                        <Animate
+                            component=""
+                            showProp="visible"
+                            onAppear={this.onAppear}
+                            onEnter={this.onEnter}
+                            onLeave={this.onLeave}
+                            transitionAppear
+                            transitionName="fade">
+                            <Box visible={this.state.visible}/>
+                        </Animate>
+                    </div>
+
+
+                </QueueAnim>
+            </div>
 
 
         )

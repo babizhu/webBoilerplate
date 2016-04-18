@@ -1,16 +1,27 @@
 
 .fileExplorer {
 
-
-    .row {
-        cursor: pointer;
-    }
-    .ant-table-tbody{
-        cursor: pointer;
-    }
+  .row {
+    cursor: pointer;
+  }
+  .ant-table-tbody {
+    cursor: pointer;
+  }
 
 }
 
-.navigate{
-    cursor: pointer;
+.canClick {
+  cursor: pointer;
+  .root{
+    margin: 3px;
+  }
+  //margin: 2px;
+}
+
+.navigate-header{
+  margin-bottom: 10px;
+  background:#f6a69a;
+  padding:10px;
+  color:white;
+  fontSize:'12px'
 }

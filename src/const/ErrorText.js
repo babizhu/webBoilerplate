@@ -5,7 +5,7 @@
 const errors = {
 
     500: {
-        text: 'hadoop文件 %s 没找到'
+        text: 'hadoop文件 %s 没找到，错误代码 %s。'
     },
     501: {
         text: 'hadoop文件%s没找到,this is a test for%s'

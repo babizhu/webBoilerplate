@@ -1,9 +1,5 @@
 import superagent from 'superagent';
-console.log(Promise);
-for( let x in Promise ){
-    console.log(x);
 
-}
 const methods = [
     'get',
     'head',
@@ -40,7 +36,7 @@ class _Api {
                 }
 
                 request.end((err, { body } = {}) =>{
-                    //console.log( 'body=' + body1 + ',error=' + err );
+                    //console.log( 'body=' + body + ',error=' + err );
 
                     return err ? reject(body && err) : resolve(body)
                 });

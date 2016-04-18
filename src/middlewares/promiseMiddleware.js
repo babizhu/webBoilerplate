@@ -70,10 +70,10 @@ export default function promiseMiddleware(config = {}) {
                     //console.log( JSON.stringify(rejected));//可以查看更加详细的错误信息
                     const resolveAction = getResolveAction(true);
 
-                    console.log(JSON.stringify(rejected));
-                    console.log(rejected.response.text);
-
-                    console.log(typeof(rejected.response.text));
+                    //console.log('rejected=' + JSON.stringify(rejected));
+                    //console.log(rejected.response.text);
+                    //
+                    //console.log(typeof(rejected.response.text));
                     const e = JSON.parse(rejected.response.text);
                     dispatch(showErrMsg(e.errId, e.args));
                     //console.log( resolveAction );
