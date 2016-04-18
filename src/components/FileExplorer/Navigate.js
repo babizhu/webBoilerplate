@@ -30,7 +30,7 @@ class Navigate extends Component {
                     const pathName = item.length === 0 ? '/' : item;
                     tempPath += item + '/';
                     return <span onClick={this.changePathClick.bind(this,tempPath.substring(0,tempPath.length-1))}
-                                 className='navigate' key={index}>{pathName} / </span>
+                                 className='canClick' key={index}>{pathName} / </span>
                 }
             }
         );
