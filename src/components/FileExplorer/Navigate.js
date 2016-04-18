@@ -35,7 +35,9 @@ class Navigate extends Component {
     }
 
     /**
-     *
+     * 完成路径输入框的编辑
+     * 1 如果按esc或输入框失去焦点,直接退出输入框
+     * 2 回车则提交用户输入的内容
      * @param event
      */
     endEditPath(event) {
@@ -48,14 +50,11 @@ class Navigate extends Component {
                 this.setState({isEdit: false});
             } else if (event.keyCode == 27) {
                 this.setState({isEdit: false});
-
             }
 
         } else {
             this.setState({isEdit: false})
-
         }
-
     }
 
     buildPath(currentPath) {
