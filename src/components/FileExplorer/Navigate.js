@@ -12,22 +12,28 @@ class Navigate extends Component {
 
     componentDidUpdate() {
         //noinspection JSUnresolvedVariable
-        const input = this.refs.pathInput;
-        if (input) {
-            //const dom = findDOMNode(input);
-            const dom = input.getDOMNode();
-            dom.focus();
-            dom.select();
-            //var rtextRange =findDOMNode(input).createTextRange();
-            //rtextRange.moveStart('character',findDOMNode(input).value.length);
-            //rtextRange.collapse(true);
-            //rtextRange.select();
+        const inputDom = this.refs.pathInput;
+        if (inputDom) {
+            inputDom.focus();
+            inputDom.select();
         }
     }
 
-    pathClick(path) {
+    ignoreClick(e) {
+        if (e && e.stopPropagation) {
+            e.stopPropagation();
+            e.preventDefault();
+
+        } else {
+            // 否则，我们需要使用IE的方式来取消事件冒泡
+            window.event.cancelBubble = true;
+        }
+    }
+
+    pathClick(path, e) {
         const {showFileList} = this.props;
         showFileList(path);
+        this.ignoreClick(e);
     }
 
     beginEditPath() {
@@ -43,7 +49,6 @@ class Navigate extends Component {
     endEditPath(event) {
         if (event.keyCode) {
             if (event.keyCode === 13) {
-
                 let value = event.target.value;
                 const {showFileList} = this.props;
                 showFileList(value);
@@ -58,55 +63,99 @@ class Navigate extends Component {
     }
 
     buildPath(currentPath) {
-        let result;
-        let tempPath = '/';
+        //  /
+        //  /input/badage
+        //  /input/badage/log
+        let isFile = !currentPath.endsWith('/');//路径如果以/结尾说明当前路径是目录
+        if (currentPath === '/') {
+            return;
+        }
+
         const pathArr = currentPath.substring(1).split('/');
-        result = pathArr.map((item, index)=> {
-                if (item.length !== 0) {
-                    const pathName = item.length === 0 ? '/' : item;
-                    tempPath += item + '/';
-                    return ( <span onClick={this.pathClick.bind(this,tempPath.substring(0,tempPath.length-1))}
-                                   className='canClick' key={index}>
-                                {pathName} /
+
+        let tempPath = '/';
+        return pathArr.map((item, index)=> {
+                if (index === pathArr.length - 1 && isFile) {
+                    return (
+                        <span className='fileName' onclick={this.ignoreClick.bind(this)}>
+                            {item}
+                        </span>);
+                } else {
+                    if (item.length !== 0) {
+                        tempPath += item + '/';
+                        return (
+                            <span onClick={this.pathClick.bind(this,tempPath)} className='canClick' key={index}>
+                                <span style={{width:'15px'}}> </span>
+                                {item}
+                                <span style={{width:'15px'}}> / </span>
                             </span>
-                    );
+                        );
+                    }
                 }
             }
         );
-        return (
-            <span>
-                {result}
-            </span>);
+
+        //return (
+        //    <span onClick={this.pathClick.bind(this,tempPath.substring(0,tempPath.length-1))}
+        //          className='canClick' key={index}>
+        //                         <span style={{width:'15px'}}> </span>{pathName}<span style={{width:'15px'}}> </span>/
+        //                    </span>
+        //);
+
+
+        //let result;
+        //let tempPath = '/';
+        //const pathArr = currentPath.substring(1).split('/');
+        //result = pathArr.map((item, index)=> {
+        //        if (item.length !== 0) {
+        //            const pathName = item.length === 0 ? '/' : item;
+        //            tempPath += item + '/';
+        //            return ( <span onClick={this.pathClick.bind(this,tempPath.substring(0,tempPath.length-1))}
+        //                           className='canClick' key={index}>
+        //                         <span style={{width:'15px'}} > </span>{pathName}<span style={{width:'15px'}} > </span>/
+        //                    </span>
+        //            );
+        //        }
+        //    }
+        //);
+        //return (
+        //    <span>
+        //        {result}
+        //    </span>);
     }
 
+    /**
+     * 构造路径编辑框
+     * @returns {XML}
+     */
     buildPathInput() {
         const {currentPath} = this.props.fileList;
         return (
             <input
                 defaultValue={currentPath}
-                style={{color:'black',width:'60%'}}
+                style={{color:'black',width:'100%'}}
                 onBlur={this.endEditPath.bind(this) }
                 onKeyUp={this.endEditPath.bind(this) }
+                onClick={this.ignoreClick.bind(this)}
                 ref='pathInput'
             />
         )
     }
 
     render() {
-
         const {currentPath} = this.props.fileList;
-        return (
-            <div className='navigate-header'>
-                <span className='canClick' onClick={this.beginEditPath.bind(this)} style={{float:'right'}}>
-                    编辑 <Icon type='edit'/>
-                </span>
-
+        let content = this.state.isEdit ? this.buildPathInput() :
+            <div onClick={this.beginEditPath.bind(this)}>
                 <span onClick={this.pathClick.bind(this,'/')} className='canClick' key='/'>
                      <span><Icon type='hdd' className='root'/>hadoop: / </span>
                 </span>
-                {this.state.isEdit ? this.buildPathInput() : this.buildPath(currentPath)}
-            </div>
-        );
+                {this.buildPath(currentPath)}
+            </div>;
+        return (
+            <div className='navigate-header'>{content}</div>
+        )
+
+
     }
 }
 
@@ -115,9 +164,6 @@ Navigate.propTypes = {
     fileList: PropTypes.object.isRequired
 
 };
-Navigate
-    .defaultProps = {};
+Navigate.defaultProps = {};
 
-export
-default
-Navigate;
+export default Navigate;

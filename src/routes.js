@@ -8,7 +8,11 @@ import C from './containers/C'
 import Test from './containers/Test'
 import Cluster from './containers/Cluster'
 import DashBoard from './containers/DashBoard'
+
 import FileExplorer from './containers/FileExplorer'
+import FileList from './components/FileExplorer/FileList'
+import FileDetail from './components/FileExplorer/FileDetail'
+
 
 
 
@@ -17,11 +21,16 @@ export default (
         <IndexRoute component={DashBoard} breadcrumbName="中控台"/>
         <Route path="/test" component={Test} breadcrumbName="测试模块"/>
         <Route path="/cluster" breadcrumbName="集群列表" component={Cluster}/>
-        <Route path="/fileExplorer" breadcrumbName="文件管理" component={FileExplorer}/>
+
         <Route path="/dashBoard" breadcrumbName="中控台" component={DashBoard}/>
         <Route path="/c" component={C} breadcrumbName="性能指标">
             <Route path="/c/c1" component={C1}  breadcrumbName="C1"/>
             <Route path="/c/c2" component={C2}  breadcrumbName="C2"/>
+        </Route>
+        <Route path="/fileExplorer" breadcrumbName="文件管理" component={FileExplorer}>
+            <IndexRoute component={FileList} breadcrumbName="文件浏览"/>
+            <Route path="fileList" component={FileList}  breadcrumbName="文件浏览"/>
+            <Route path="fileDetail" component={FileDetail}  breadcrumbName="文件详情"/>
         </Route>
         <Route path="*" component={NotFound} breadcrumbName="404 Error"/>
     </Route>
