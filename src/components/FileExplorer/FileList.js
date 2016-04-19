@@ -28,11 +28,10 @@ class FileList extends Component {
             //tempPath += '/';
         }
         //noinspection JSUnresolvedVariable
-        if( record.type === 'DIRECTORY' ){
-            showFileList(tempPath + record.pathSuffix + '/');
-        }else {
+        if( record.isFile ){
             showFileList(tempPath + record.pathSuffix);
-
+        }else {
+            showFileList(tempPath + record.pathSuffix + '/');
         }
     }
 
@@ -40,15 +39,15 @@ class FileList extends Component {
     render() {
         const columns = [{
             title: '类型',
-            dataIndex: 'type',
-            key: 'type',
+            dataIndex: 'isFile',
+            key: 'isFile',
             render: (text, row, index)=> {
                 const style = {paddingLeft: '6px'};
                 let folderIcon = 'folder';
                 if (index === this.state.openIndex) {
                     folderIcon += '-open';
                 }
-                if (text === 'DIRECTORY') {
+                if (text) {
                     return <Icon type={folderIcon} style={style}/>
                 } else {
                     return <Icon type='file' style={style}/>
@@ -63,7 +62,7 @@ class FileList extends Component {
             dataIndex: 'length',
             key: 'length',
             render: (text, row)=> {
-                if( row.type  === 'DIRECTORY' ){
+                if( !row.isFile ){
                     return '~';
                 }
                 const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'ZB'];
@@ -91,31 +90,13 @@ class FileList extends Component {
         }, {
             title: '权限',
             dataIndex: 'permission',
-            key: 'permission',
-            render: (text)=> {
-                const symbols = ['---', '--x', '-w-', '-wx', 'r--', 'r-x', 'rw-', 'rwx'];
-                const vInt = parseInt(text, 8);
-                const sticky = (vInt & (1 << 9)) != 0;
-
-                let res = "";
-                for (let i = 0; i < 3; ++i) {
-                    res = symbols[(text % 10)] + res;
-                    text = Math.floor(text / 10);
-                }
-
-                if (sticky) {
-                    const otherExec = (vInt & 1) == 1;
-                    res = res.substr(0, res.length - 1) + (otherExec ? 't' : 'T');
-                }
-
-                return res;
-            }
+            key: 'permission'
         }, {
             title: '备份数',
             dataIndex: 'replication',
             key: 'replication',
             render: (text, row)=> {
-                return row.type === 'DIRECTORY' ? '~' : text;
+                return row.isFile === 'DIRECTORY' ? text :  '~';
             }
         }, {
             title: '创建时间',

@@ -77,7 +77,7 @@ class Navigate extends Component {
         return pathArr.map((item, index)=> {
                 if (index === pathArr.length - 1 && isFile) {
                     return (
-                        <span className='fileName' onclick={this.ignoreClick.bind(this)}>
+                        <span className='fileName' onClick={this.ignoreClick.bind(this)} key="file">
                             {item}
                         </span>);
                 } else {
@@ -94,34 +94,6 @@ class Navigate extends Component {
                 }
             }
         );
-
-        //return (
-        //    <span onClick={this.pathClick.bind(this,tempPath.substring(0,tempPath.length-1))}
-        //          className='canClick' key={index}>
-        //                         <span style={{width:'15px'}}> </span>{pathName}<span style={{width:'15px'}}> </span>/
-        //                    </span>
-        //);
-
-
-        //let result;
-        //let tempPath = '/';
-        //const pathArr = currentPath.substring(1).split('/');
-        //result = pathArr.map((item, index)=> {
-        //        if (item.length !== 0) {
-        //            const pathName = item.length === 0 ? '/' : item;
-        //            tempPath += item + '/';
-        //            return ( <span onClick={this.pathClick.bind(this,tempPath.substring(0,tempPath.length-1))}
-        //                           className='canClick' key={index}>
-        //                         <span style={{width:'15px'}} > </span>{pathName}<span style={{width:'15px'}} > </span>/
-        //                    </span>
-        //            );
-        //        }
-        //    }
-        //);
-        //return (
-        //    <span>
-        //        {result}
-        //    </span>);
     }
 
     /**
