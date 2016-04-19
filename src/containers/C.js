@@ -107,7 +107,6 @@ export default class C extends Component {
                         <div style={content}> {children}</div>
                     </QueueAnim>
                 </div>
-
                 <div key='c'>
 
                     <QueueAnim component="div" animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }}>

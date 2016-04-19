@@ -8,6 +8,7 @@ export default class C1 extends Component {
     super(props)
   }
 
+
   render() {
     return (
       <div>
