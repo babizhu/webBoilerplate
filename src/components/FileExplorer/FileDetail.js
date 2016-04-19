@@ -9,7 +9,10 @@ class FileDetail extends Component {
 
     render() {
         return (
-            <h1>文件详情</h1>
+            <div>
+                <div>status</div>
+                <div style={{width:'80%'}}>content</div>
+            </div>
         )
     }
 }

@@ -24,9 +24,7 @@ class FileList extends Component {
             tempPath = currentPath;
         }
 
-        if (tempPath !== '/') {
-            //tempPath += '/';
-        }
+
         //noinspection JSUnresolvedVariable
         if( record.isFile ){
             showFileList(tempPath + record.pathSuffix);
@@ -34,8 +32,6 @@ class FileList extends Component {
             showFileList(tempPath + record.pathSuffix + '/');
         }
     }
-
-
     render() {
         const columns = [{
             title: '类型',
