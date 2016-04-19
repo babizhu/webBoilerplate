@@ -10,7 +10,7 @@ import FileDetail from './FileDetail'
 class FileList extends Component {
     constructor(props) {
         super(props);
-        this.state = {openIndex: -1, showDetail: false};//暂时不好用，表格的row好像没有MouseOver事件相应，再看看
+        this.state = {openIndex: -1};//暂时不好用，表格的row好像没有MouseOver事件相应，再看看
 
     }
 
@@ -30,10 +30,8 @@ class FileList extends Component {
         //noinspection JSUnresolvedVariable
         if( record.type === 'DIRECTORY' ){
             showFileList(tempPath + record.pathSuffix + '/');
-            this.setState({showDetail:false});
         }else {
             showFileList(tempPath + record.pathSuffix);
-            this.setState({showDetail:false});//没想好怎么处理，再看看
 
         }
     }
@@ -142,18 +140,19 @@ class FileList extends Component {
         }];
 
         const {fileList} = this.props;
+        const isFile = !fileList.currentPath.endsWith('/');//路径如果以/结尾说明当前路径是目录
 
         //noinspection JSUnresolvedVariable
         return (
             <div>
-                <div  style={{display: this.state.showDetail ? 'none':''}}>
+                <div  style={{display: isFile ? 'none':''}}>
                     <Table loading={fileList.pending}
                            dataSource={fileList.data && fileList.data.FileStatuses.FileStatus}
                            rowKey={record=>record.fileId}
                            columns={columns} size="middle"
                            onRowClick={this.onRowClick.bind(this)}/>
                 </div>
-                <div style={{display: this.state.showDetail ? '':'none'}}>
+                <div style={{display: isFile ? '':'none'}}>
                     <FileDetail />
                 </div>
             </div>

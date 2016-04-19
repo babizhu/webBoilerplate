@@ -66,7 +66,7 @@ class Navigate extends Component {
         //  /
         //  /input/badage
         //  /input/badage/log
-        let isFile = !currentPath.endsWith('/');//路径如果以/结尾说明当前路径是目录
+        const isFile = !currentPath.endsWith('/');//路径如果以/结尾说明当前路径是目录
         if (currentPath === '/') {
             return;
         }
