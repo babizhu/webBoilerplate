@@ -3,6 +3,9 @@
  */
 
 const errors = {
+    200:{
+      text:'访问远程地址 %s 超时。'
+    },
 
     500: {
         text: 'hadoop文件 %s 没找到，错误代码 %s。'

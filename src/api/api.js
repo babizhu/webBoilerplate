@@ -34,11 +34,11 @@ class _Api {
                 if (data) {
                     request.send(data);
                 }
-
+                request.timeout(5000);
                 request.end((err, { body } = {}) =>{
                     //console.log( 'body=' + body + ',error=' + err );
 
-                    return err ? reject(body && err) : resolve(body)
+                    return err ? reject({body,err}) : resolve(body)
                 });
             })
         );

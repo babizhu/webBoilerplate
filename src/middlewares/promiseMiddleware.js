@@ -67,19 +67,22 @@ export default function promiseMiddleware(config = {}) {
                 },
                 (rejected = {}) => {
                     //console.log( 'rejected =' + rejected );
-                    //console.log( JSON.stringify(rejected));//可以查看更加详细的错误信息
+                    console.log( JSON.stringify(rejected));//可以查看更加详细的错误信息
                     const resolveAction = getResolveAction(true);
 
-                    //console.log('rejected=' + JSON.stringify(rejected));
-                    //console.log(rejected.response.text);
-                    //
-                    //console.log(typeof(rejected.response.text));
-                    const e = JSON.parse(rejected.response.text);
-                    dispatch(showErrMsg(e.errId, e.args));
-                    //console.log( resolveAction );
-                    //if( rejected.status !== 200 ){
-                    //    dispatch({type})
-                    //}
+                    if( rejected.err && rejected.err.timeout ){
+                        dispatch(showErrMsg(200, ''));
+                        //return;
+                    }
+                    else {//后端发来的程序执行错误
+                        //console.log(rejected.response.text);
+                        //
+                        //console.log(typeof(rejected.response.text));
+                        //const e = JSON.parse(rejected.body.text);
+                        const e = rejected.body;
+                        dispatch(showErrMsg(e.errId, e.args));
+                    }
+
                     return dispatch(isThunk(rejected) ? rejected.bind(null, resolveAction) : {
                         ...resolveAction,
                         ...isAction(rejected) ? rejected : {

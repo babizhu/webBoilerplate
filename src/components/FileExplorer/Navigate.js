@@ -50,8 +50,8 @@ class Navigate extends Component {
         if (event.keyCode) {
             if (event.keyCode === 13) {
                 let value = event.target.value;
-                const {showFileList} = this.props;
-                showFileList(value);
+                const {getFilesData} = this.props;
+                getFilesData(value);
                 this.setState({isEdit: false});
             } else if (event.keyCode == 27) {
                 this.setState({isEdit: false});
@@ -101,7 +101,7 @@ class Navigate extends Component {
      * @returns {XML}
      */
     buildPathInput() {
-        const {currentPath} = this.props.fileList;
+        const {currentPath} = this.props.filesData;
         return (
             <input
                 defaultValue={currentPath}

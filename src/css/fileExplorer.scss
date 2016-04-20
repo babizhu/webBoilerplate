@@ -6,6 +6,17 @@
   .ant-table-tbody {
     cursor: pointer;
   }
+  .actions {
+    .button {
+      padding: 2px 10px;
+      margin-right: 10px;
+      //color:darken(lightcoral,20%);
+      //font-weight: bold;
+    }
+    .buttonDisabled {
+      margin: 10px;
+    }
+  }
 
 }
 

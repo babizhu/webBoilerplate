@@ -51,6 +51,7 @@ export default function filesData(state = initState, action = {}) {
                 pending: false,
                 data: null,
                 currentPath: action.meta.path,
+
                 error: action.payload
             };
         default:

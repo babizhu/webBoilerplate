@@ -15,9 +15,10 @@ class DirectoryView extends Component {
 
     /**
      * 响应单击表格的row的事件
-     * @param record
+     * @param record    当前记录
+     * @param index     当前index
      */
-    onRowClick(record) {
+    onRowClick( record) {
         const {currentPath} = this.props.filesData;
         const {getFilesData} = this.props;
         let tempPath = '';
@@ -70,7 +71,7 @@ class DirectoryView extends Component {
             dataIndex: 'owner',
             key: 'owner'
         }, {
-            title: '组',
+            title: '用户组',
             dataIndex: 'group',
             key: 'group'
         }, {
