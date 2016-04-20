@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import { QueueAnim,Button,Icon,Table } from 'antd';
 
 import Navigate from '../components/FileExplorer/Navigate'
-import FileList from '../components/FileExplorer/FileList'
+import ViewContainer from '../components/FileExplorer/ViewContainer'
 import * as fileExplorerActions from '../actions/FileExplorer';
 import '../css/fileExplorer.scss'
 
@@ -15,16 +15,16 @@ export default class FileExplorer extends Component {
     }
 
     componentDidMount() {
-        const {currentPath} = this.props.fileList;
-        if (!currentPath) {
-            this.props.showFileList('/');
+        const {currentPath} = this.props.filesData;
+        if ( currentPath === '' ) {
+            this.props.getFilesData('/');
         }
     }
 
 
     render() {
 
-        const {fileList,showFileList} = this.props;
+        const {filesData,getFilesData} = this.props;
         return (
             <div>
                 <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 200], scale: [1, 0.5] }}>
@@ -32,8 +32,9 @@ export default class FileExplorer extends Component {
                         <QueueAnim component="div"
                                    animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }}>
 
-                            <Navigate fileList={fileList} showFileList={showFileList}/>
-                            <FileList fileList={fileList} showFileList={showFileList}/>
+
+                            <Navigate filesData={filesData} getFilesData={getFilesData}/>
+                            <ViewContainer filesData={filesData} getFilesData={getFilesData}/>
                         </QueueAnim>
                     </div>
 
@@ -44,7 +45,7 @@ export default class FileExplorer extends Component {
 }
 function mapStateToProps(state) {
     return {
-        fileList: state.fileList
+        filesData: state.filesData
     }
 }
 

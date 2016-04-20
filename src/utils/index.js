@@ -1,34 +1,43 @@
 export function isPromise(value) {
-  if (value !== null && typeof value === 'object') {
-    return value.promise && typeof value.promise.then === 'function';
-  }
+    if (value !== null && typeof value === 'object') {
+        return value.promise && typeof value.promise.then === 'function';
+    }
 }
 export function getCookie(name) {
-  var value = "; " + document.cookie;
-  var parts = value.split("; " + name + "=");
-  if (parts.length == 2) return parts.pop().split(";").shift();
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
 /**
- * 把数字表示的权限转换为字符型，例如477=>r--rwxrwx
- * @param text
+ * 把数字表示的文件大小转换为人类方便阅读的模式
+ * @param size
  * @returns {*}
  */
-function formatPermission(text) {
-  if( !row.isFile ){
-    return '~';
-  }
-  const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'ZB'];
-  let prev = 0, i = 0;
-  while (Math.floor(text) > 0 && i < UNITS.length) {
-    prev = text;
-    text /= 1024;
-    i += 1;
-  }
+export function formatFileSize(size) {
 
-  if (i > 0 && i < UNITS.length) {
-    text = prev;
-    i -= 1;
-  }
-  return Math.round(text * 100) / 100 + ' ' + UNITS[i];
+    const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'ZB'];
+    let prev = 0, i = 0;
+    while (Math.floor(size) > 0 && i < UNITS.length) {
+        prev = size;
+        size /= 1024;
+        i += 1;
+    }
+
+    if (i > 0 && i < UNITS.length) {
+        size = prev;
+        i -= 1;
+    }
+    return Math.round(size * 100) / 100 + ' ' + UNITS[i];
+}
+
+export function ignoreClick(e) {
+    if (e && e.stopPropagation) {
+        e.stopPropagation();
+        e.preventDefault();
+
+    } else {
+        // 否则，我们需要使用IE的方式来取消事件冒泡
+        window.event.cancelBubble = true;
+    }
 }

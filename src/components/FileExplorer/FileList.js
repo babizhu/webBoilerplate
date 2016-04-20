@@ -13,7 +13,16 @@ class FileList extends Component {
         this.state = {openIndex: -1};//暂时不好用，表格的row好像没有MouseOver事件相应，再看看
 
     }
+    ignoreClick(e) {
+        if (e && e.stopPropagation) {
+            e.stopPropagation();
+            e.preventDefault();
 
+        } else {
+            // 否则，我们需要使用IE的方式来取消事件冒泡
+            window.event.cancelBubble = true;
+        }
+    }
     onRowClick(record) {
         const {currentPath} = this.props.fileList;
         const {showFileList} = this.props;
@@ -26,12 +35,13 @@ class FileList extends Component {
 
 
         //noinspection JSUnresolvedVariable
-        if( record.isFile ){
+        if (record.isFile) {
             showFileList(tempPath + record.pathSuffix);
-        }else {
+        } else {
             showFileList(tempPath + record.pathSuffix + '/');
         }
     }
+
     render() {
         const columns = [{
             title: '类型',
@@ -58,7 +68,7 @@ class FileList extends Component {
             dataIndex: 'length',
             key: 'length',
             render: (text, row)=> {
-                if( !row.isFile ){
+                if (!row.isFile) {
                     return '~';
                 }
                 const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'ZB'];
@@ -92,7 +102,7 @@ class FileList extends Component {
             dataIndex: 'replication',
             key: 'replication',
             render: (text, row)=> {
-                return row.isFile === 'DIRECTORY' ? text :  '~';
+                return row.isFile === 'DIRECTORY' ? text : '~';
             }
         }, {
             title: '创建时间',
@@ -114,6 +124,22 @@ class FileList extends Component {
 
                 //new Date(text).toLocaleString();标准做法，存档
             }
+        }, {
+            title: '操作',
+            key: 'operation',
+            render(text, record) {
+                return (
+                    <span>
+        <span onClick={this.ignoreClick}>操作一{record.modificationTime}</span>
+        <span className="ant-divider"></span>
+        <a href="#">操作二</a>
+        <span className="ant-divider"></span>
+        <a href="#" className="ant-dropdown-link">
+            更多 <Icon type="down"/>
+        </a>
+      </span>
+                );
+            }
         }];
 
         const {fileList} = this.props;
@@ -122,7 +148,7 @@ class FileList extends Component {
         //noinspection JSUnresolvedVariable
         return (
             <div>
-                <div  style={{display: isFile ? 'none':''}}>
+                <div style={{display: isFile ? 'none':''}}>
                     <Table loading={fileList.pending}
                            dataSource={fileList.data && fileList.data.FileStatuses.FileStatus}
                            rowKey={record=>record.fileId}

@@ -10,7 +10,7 @@ export const SHOW_FILE_LIST_PENDING = 'SHOW_FILE_LIST_PENDING';
 export const SHOW_FILE_LIST_SUCCESS = 'SHOW_FILE_LIST_SUCCESS';
 export const SHOW_FILE_LIST_ERROR = 'SHOW_FILE_LIST_ERROR';
 /**
- * 显示path下的文件信息
+ * 获取path下的文件或者文件夹信息，如果path是一个文件则获取文件的具体内容
  * @param path) {
     return {
         type
@@ -18,7 +18,7 @@ export const SHOW_FILE_LIST_ERROR = 'SHOW_FILE_LIST_ERROR';
  */
 
 
-export function showFileList(path) {
+export function getFilesData(path) {
     //console.log('path=' + path);
     return {
         type: SHOW_FILE_LIST,
@@ -26,10 +26,9 @@ export function showFileList(path) {
             path
         },
         payload: {
-            promise: api.get('hadoop/fileList', {
+            promise: api.get('hadoop/getFilesData', {
                 params: {
                     path
-
                 }
             })
         }

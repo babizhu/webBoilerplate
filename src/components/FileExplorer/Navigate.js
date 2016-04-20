@@ -31,8 +31,8 @@ class Navigate extends Component {
     }
 
     pathClick(path, e) {
-        const {showFileList} = this.props;
-        showFileList(path);
+        const {getFilesData} = this.props;
+        getFilesData(path);
         this.ignoreClick(e);
     }
 
@@ -115,7 +115,7 @@ class Navigate extends Component {
     }
 
     render() {
-        const {currentPath} = this.props.fileList;
+        const {currentPath} = this.props.filesData;
         let content = this.state.isEdit ? this.buildPathInput() :
             <div onClick={this.beginEditPath.bind(this)}>
                 <span onClick={this.pathClick.bind(this,'/')} className='canClick' key='/'>
@@ -133,7 +133,17 @@ class Navigate extends Component {
 
 
 Navigate.propTypes = {
-    fileList: PropTypes.object.isRequired
+    filesData: PropTypes.shape({
+        pending:PropTypes.bool.isRequired,
+        currentPath:PropTypes.string.isRequired,//当前路径
+        currentPathIsFile: PropTypes.bool.isRequired,//当前路径是否文件
+        data: PropTypes.object//当前路径下的内容，有可能是文件夹的数据，也有可能是具体某个文件的数据
+    }).isRequired,
+
+    /**
+     * 根据当前路径从服务器端获取数据，有可能获取的是文件夹的数据，也有可能是具体某个文件的数据
+     */
+    getFilesData: PropTypes.func.isRequired
 
 };
 Navigate.defaultProps = {};

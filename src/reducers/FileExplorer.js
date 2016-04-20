@@ -23,20 +23,26 @@ import { combineReducers } from 'redux'
 //]}}'
 //};
 
-export default function fileList(state = {currentPath:''}, action = {}) {
+const initState={
+    currentPath:'',
+    currentPathIsFile:false,
+    pending:false,
+    data:{}
+
+};
+export default function filesData(state = initState, action = {}) {
     switch (action.type) {
         case SHOW_FILE_LIST_PENDING:
             return {
                 ...state,
-                //currentPath: action.meta.path,
-
                 pending: true
             };
         case SHOW_FILE_LIST_SUCCESS:
             return {
                 ...state,
-                currentPath: action.meta.path,
-                data: action.payload,
+                currentPath: formatCurrentPath(action.meta.path,action.payload.currentPathIsFile),
+                currentPathIsFile:action.payload.currentPathIsFile,
+                data: action.payload.data,
                 pending: false
             };
         case SHOW_FILE_LIST_ERROR:
@@ -50,4 +56,14 @@ export default function fileList(state = {currentPath:''}, action = {}) {
         default:
             return state;
     }
+}
+
+function formatCurrentPath( path, isFile ){
+    if( path.endsWith( '/' ) && isFile ){//是文件，但是路径以/结尾，去掉/
+        return path.substring( 0, path.length - 1 );
+    }else if( !isFile && !path.endsWith('/')){//不是文件，但是路径没有以/结尾，增加/
+        return path + '/'
+    }
+    return path;
+
 }
