@@ -16,7 +16,7 @@ import {
 function errMsg(state = '', action = {}) {
     switch (action.type) {
         case SHOW_ERROR_MSG:
-            return getErrMsg(action.errId,action.args);
+            return getErrMsg(action.errId,action.args,action.url);
         case RESET_ERROR_MSG:
             return '';
         default:

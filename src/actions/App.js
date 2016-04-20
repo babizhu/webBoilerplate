@@ -4,11 +4,12 @@
 
 export const SHOW_ERROR_MSG = 'SHOW_ERROR_MSG';
 export const RESET_ERROR_MSG = 'RESET_ERROR_MSG';
-export function showErrMsg(errId,args) {
+export function showErrMsg(errId,args,url) {
     return {
         type: SHOW_ERROR_MSG,
         errId,
-        args
+        args,
+        url
     }
 }
 

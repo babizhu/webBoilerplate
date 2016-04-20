@@ -74,13 +74,13 @@ export default function promiseMiddleware(config = {}) {
                     if( rejected.body ){
                         if( !action.meta.noSysErrMsg ) {//设置此标志则不弹出系统错误提示框
                             const e = rejected.body;
-                            dispatch(showErrMsg(e.errId, e.args));
+                            dispatch(showErrMsg(e.errId, e.args, rejected.err.response.req.url));//处理服务器返回的404以及500错误
                         }
                     }else if( rejected.err ){
                         if( rejected.err.timeout ){
-                            dispatch(showErrMsg(200, ''));
+                            dispatch(showErrMsg(200, '',''));//超时错误
                         }else {
-                            dispatch(showErrMsg(201, rejected.err.url));
+                            dispatch(showErrMsg(201, rejected.err.url,rejected.err.url));////连接本地为开启的url则报此错误
                         }
 
 

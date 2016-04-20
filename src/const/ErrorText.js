@@ -30,11 +30,11 @@ const errors = {
  * @param args  错误的相关参数
  * @returns {*}
  */
-export function getErrMsg(errId, args) {
+export function getErrMsg(errId, args,url) {
 
     let msg = errors[errId].text;
     for( const arg of args.split(',')){
         msg = msg.replace( '%s', arg);
     }
-    return msg;
+    return 'url: ' + url + '<br/>' + msg;
 }
