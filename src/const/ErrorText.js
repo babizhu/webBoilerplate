@@ -1,14 +1,23 @@
 /**
  * Created by liukun on 16/4/17.
+ * 错误提示文本
+ * 序号1000以下请保留系统使用
  */
 
 const errors = {
     200:{
-      text:'访问远程地址 %s 超时。'
+      text:'远程网络无法连接,超时退出。'
+    },
+    201:{
+        text:'访问的远程地址 %s 拒绝连接。'
+    },
+
+    404:{
+        text: '访问的远程地址 %s 没找到。'
     },
 
     500: {
-        text: 'hadoop文件 %s 没找到，错误代码 %s。'
+        text: '服务器异常:%s。'
     },
     501: {
         text: 'hadoop文件%s没找到,this is a test for%s'

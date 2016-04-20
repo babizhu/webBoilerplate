@@ -70,18 +70,29 @@ export default function promiseMiddleware(config = {}) {
                     console.log( JSON.stringify(rejected));//可以查看更加详细的错误信息
                     const resolveAction = getResolveAction(true);
 
-                    if( rejected.err && rejected.err.timeout ){
-                        dispatch(showErrMsg(200, ''));
-                        //return;
+
+                    if( rejected.body ){
+                        if( !action.meta.noSysErrMsg ) {//设置此标志则不弹出系统错误提示框
+                            const e = rejected.body;
+                            dispatch(showErrMsg(e.errId, e.args));
+                        }
+                    }else if( rejected.err ){
+                        if( rejected.err.timeout ){
+                            dispatch(showErrMsg(200, ''));
+                        }else {
+                            dispatch(showErrMsg(201, rejected.err.url));
+                        }
+
+
                     }
-                    else {//后端发来的程序执行错误
-                        //console.log(rejected.response.text);
-                        //
-                        //console.log(typeof(rejected.response.text));
-                        //const e = JSON.parse(rejected.body.text);
-                        const e = rejected.body;
-                        dispatch(showErrMsg(e.errId, e.args));
-                    }
+                    //else {//后端发来的程序执行错误
+                    //    //console.log(rejected.response.text);
+                    //    //
+                    //    //console.log(typeof(rejected.response.text));
+                    //    //const e = JSON.parse(rejected.body.text);
+                    //    const e = rejected.body;
+                    //    dispatch(showErrMsg(e.errId, e.args));
+                    //}
 
                     return dispatch(isThunk(rejected) ? rejected.bind(null, resolveAction) : {
                         ...resolveAction,

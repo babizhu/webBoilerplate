@@ -23,7 +23,8 @@ export function getFilesData(path) {
     return {
         type: SHOW_FILE_LIST,
         meta:{
-            path
+            path,
+            noSysErrMsg:false//设置此标志不弹出系统错误对话框,网络错误不包含在内,如果有需要也可根据情况调整promiseMiddleware.js
         },
         payload: {
             promise: api.get('hadoop/getFilesData', {
