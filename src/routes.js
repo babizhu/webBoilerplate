@@ -10,8 +10,7 @@ import Cluster from './containers/Cluster'
 import DashBoard from './containers/DashBoard'
 
 import FileExplorer from './containers/FileExplorer'
-import FileList from './components/FileExplorer/FileList'
-import FileDetail from './components/FileExplorer/FileDetail'
+
 
 
 
@@ -27,11 +26,7 @@ export default (
             <Route path="/c/c1" component={C1}  breadcrumbName="C1"/>
             <Route path="/c/c2" component={C2}  breadcrumbName="C2"/>
         </Route>
-        <Route path="/fileExplorer" breadcrumbName="文件管理" component={FileExplorer}>
-            <IndexRoute component={FileList} breadcrumbName="文件浏览"/>
-            <Route path="fileList" component={FileList}  breadcrumbName="文件浏览"/>
-            <Route path="fileDetail" component={FileDetail}  breadcrumbName="文件详情"/>
-        </Route>
+        <Route path="/fileExplorer" breadcrumbName="文件管理" component={FileExplorer} />
         <Route path="*" component={NotFound} breadcrumbName="404 Error"/>
     </Route>
 )

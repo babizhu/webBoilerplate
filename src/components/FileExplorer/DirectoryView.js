@@ -6,8 +6,10 @@
 import React, { Component,PropTypes } from 'react';
 import { Icon,Table } from 'antd';
 
+import TableToolButtons from './TableToolButtons';
 import {formatTime} from '../../utils/time';
 import {formatFileSize} from '../../utils/index';
+
 
 class DirectoryView extends Component {
 
@@ -29,6 +31,7 @@ class DirectoryView extends Component {
 
 
     render() {
+        const {filesData} = this.props;
         const columns = [{
             title: '类型',
             dataIndex: 'isFile',
@@ -94,20 +97,12 @@ class DirectoryView extends Component {
             key: 'operation',
             render(text, record) {
                 return (
-                    <span>
-                        <span >操作一{record.modificationTime}</span>
-                        <span className="ant-divider"></span>
-                        <a href="#">操作二</a>
-                        <span className="ant-divider"></span>
-                        <a href="#" className="ant-dropdown-link">
-                            更多 <Icon type="down"/>
-                        </a>
-                    </span>
+                    <TableToolButtons record={record} filesData={filesData}/>
                 );
             }
         }];
 
-        const {filesData} = this.props;
+
         //noinspection JSUnresolvedVariable
         return (
             <Table loading={filesData.pending}
