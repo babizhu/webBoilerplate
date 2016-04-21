@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-
+import {NET_TIMEOUT_MS} from '../const/Const'
 const methods = [
     'get',
     'head',
@@ -34,7 +34,7 @@ class _Api {
                 if (data) {
                     request.send(data);
                 }
-                request.timeout(5000);
+                request.timeout(NET_TIMEOUT_MS);
                 request.end((err, { body } = {}) =>{
                     //console.log( 'body=' + body + ',error=' + err );
 

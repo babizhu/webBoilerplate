@@ -51,12 +51,13 @@ class App extends Component {
         }
     }
     componentDidUpdate( prevProps,  prevState){
-        const { app } = this.props;
+        const { errMsg } = this.props.app;
 
-        if (app.errMsg !== '') {
+        if (errMsg) {
             notification.error({
                 message: "出故障啦",
-                description: app.errMsg
+                description: <span><span style={{fontWeight:'bold'}}>url:</span> {errMsg.url}<br /><br />{errMsg.msg}</span>,
+                duration: 10
             });
 
             const {resetErrMsg} = this.props.appActions;

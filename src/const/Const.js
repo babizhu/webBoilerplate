@@ -8,3 +8,8 @@
  * @type {number}
  */
 export const BIG_SCREEN_WIDTH = 768;
+/**
+ * 网络请求的超时时间（毫秒）
+ * @type {number}
+ */
+export const NET_TIMEOUT_MS = 8000;

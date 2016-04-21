@@ -18,7 +18,7 @@ export const SHOW_FILE_LIST_ERROR = 'SHOW_FILE_LIST_ERROR';
  */
 
 
-export function getFilesData(path) {
+export function getFilesData(path,readAsText=true,block=0) {
     //console.log('path=' + path);
     return {
         type: SHOW_FILE_LIST,
@@ -29,7 +29,9 @@ export function getFilesData(path) {
         payload: {
             promise: api.get('hadoop/getFilesData', {
                 params: {
-                    path
+                    path,
+                    readAsText,
+                    block
                 }
             })
         }

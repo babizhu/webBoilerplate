@@ -40,21 +40,9 @@ class TableToolButtons extends Component {
 
     onUploadClick(record, e) {
         ignoreClick(e);
-        //alert('12345678')
         if (!record.isFile) {
             this.setState({showUpload: true});
-
         }
-
-        //if (e && e.stopPropagation) {
-        //    e.stopPropagation();
-        //    e.preventDefault();
-        //
-        //} else {
-        //    // 否则，我们需要使用IE的方式来取消事件冒泡
-        //    window.event.cancelBubble = true;
-        //}
-
     }
 
     uploadOk() {
@@ -73,7 +61,7 @@ class TableToolButtons extends Component {
         //</a>
         const {record} = this.props;
         return (
-            <div>
+            <div onClick={(e)=>ignoreClick(e)}>
                 <Modal title="上传新文件"
                        visible={this.state.showUpload}
                        onOk={this.uploadOk.bind(this)}
@@ -90,7 +78,7 @@ class TableToolButtons extends Component {
                                 <Icon type="inbox"/>
                             </p>
                             <p className="ant-upload-text">点击或将文件拖拽到此区域上传</p>
-                            <p className="ant-upload-hint">支持单个或批量上传，严禁上传公司内部资料及其他违禁文件</p>
+                            <p className="ant-upload-hint">支持单个或批量上传，请注意信息安全</p>
                         </Dragger>
                     </div>
 

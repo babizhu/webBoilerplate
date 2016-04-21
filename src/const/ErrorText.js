@@ -17,7 +17,7 @@ const errors = {
     },
 
     500: {
-        text: '服务器异常:%s。'
+        text: '后端逻辑错误：%s。'
     },
     501: {
         text: 'hadoop文件%s没找到,this is a test for%s'
@@ -36,5 +36,9 @@ export function getErrMsg(errId, args,url) {
     for( const arg of args.split(',')){
         msg = msg.replace( '%s', arg);
     }
-    return 'url: ' + url + '<br/>' + msg;
+    return{
+        url,
+        msg
+    }
+    //return 'url: ' + url + '\n' + msg;
 }
