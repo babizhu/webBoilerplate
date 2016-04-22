@@ -53,7 +53,7 @@ class TableToolButtons extends Component {
         const props = {
             name: 'file',
             showUploadList: false,
-            action: '/upload.do',
+            action: 'http://localhost:8080/hadoop/upload'
         };
 
         //<a href="#" className="ant-dropdown-link">

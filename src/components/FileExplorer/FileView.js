@@ -4,39 +4,40 @@
  */
 
 import React, { Component,PropTypes } from 'react';
-import { Icon,Table } from 'antd';
+import { Icon,Table,Spin,Popconfirm,Pagination } from 'antd';
 
 import {formatFileSize} from '../../utils/index';
 import {formatTime} from '../../utils/time';
 
 class FileView extends Component {
 
-    constructor(){
+    constructor() {
         super();
         //this.state={readAsText:true};
-        this.readAsText = true;
+        //this.readAsText = true;
     }
 
-    changeFileViewMode(){
+    changeFileViewMode() {
         const {getFilesData} = this.props;
-        const {currentPath} = this.props.filesData;
+        const {filesData} = this.props;
         //this.setState({readAsText:!this.state.readAsText});
-        this.readAsText = !this.readAsText;
-        getFilesData(currentPath ,this.readAsText);
+        //this.readAsText = !this.readAsText;
+        getFilesData(filesData.currentPath, !filesData.readAsText);
     }
 
 
-    displayFileContent(res){
-        if( res && res.fileContent.content){
-            if( this.readAsText ){
+    displayFileContent(res) {
+        const {readAsText} = this.props.filesData;
+        if (res && res.fileContent.content) {
+            if (readAsText) {
                 return <pre>{res.fileContent.content}</pre>
-            }else{
+            } else {
                 let str = res.fileContent.content;
                 let index = 1;
                 let result = '';
-                for( let c of [...str]){
+                for (let c of [...str]) {
                     result += c;
-                    if( index != 0 && index % 2 == 0){
+                    if (index != 0 && index % 2 == 0) {
                         result += ' ';
                     }
 
@@ -46,49 +47,68 @@ class FileView extends Component {
             }
         }
     }
-    /**
-     * 让16进制文件更加方便阅读
-     * @param str
-     */
-    formatHexString(str){
 
+    /**
+     * 下载文件
+     */
+    download() {
+        const {currentPath} = this.props.filesData;
+        const url = 'http://master:50070/webhdfs/v1' + currentPath + '?op=OPEN';
+        //alert(url);
+        window.open(url)
     }
-    //{this.state.readAsText?'以二进制格式查看':'以文本方式查看'}
+
     render() {
         const {filesData} = this.props;
         const {fileStatus} = this.props.filesData.data;
         return (
-            <div  className='fileView'>
+            <div className='fileView'>
                 <div className='fileStatus'>
-                    <div className='infoHeader'>查看方式</div>
+                    <div className='infoHeader'>操作</div>
                     <div className='content'>
-                        <div className='value' onClick={this.changeFileViewMode.bind(this)}>
+                        <div className='value canClick' onClick={this.changeFileViewMode.bind(this)}>
                             <Icon type="edit"/>
-                            {this.readAsText?'以二进制格式查看':'以文本方式查看'}
+                            {filesData.readAsText ? ' 以二进制格式查看' : ' 以文本方式查看'}
+                        </div>
+                        <div className='value  canClick'>
+                            { fileStatus.length < 1024 * 1024 * 10 ?
+                                <Popconfirm title="确定要下载这个文件吗，文件太大有可能导致服务器死机？"
+                                            onConfirm={this.download.bind(this)}
+                                >
+                                    <a href="#"><Icon type="file"/> 下载此文件（小于10M）</a>
+                                </Popconfirm>
+                                :
+                                <Popconfirm title="文件大小超过10M，不提供下载服务" >
+                                    <a href="#"><Icon type="file"/> 下载此文件（小于10M）</a>
+                                </Popconfirm>}
                         </div>
                     </div>
                     <div className='infoHeader'>信息</div>
                     <div className='content'>
                         <div className='name'>文件名</div>
-                        <div  className='value'>{fileStatus.pathSuffix}</div>
+                        <div className='value'>{fileStatus && fileStatus.pathSuffix}</div>
                         <div className='name'>大小</div>
-                        <div  className='value'>{formatFileSize(fileStatus.length)}</div>
+                        <div className='value'>{fileStatus && formatFileSize( fileStatus.length)}</div>
                         <div className='name'>创建时间</div>
-                        <div  className='value'>{formatTime(formatTime(fileStatus.modificationTime))}</div>
+                        <div className='value'>{ fileStatus && formatTime(fileStatus.modificationTime)}</div>
                         <div className='name'>用户</div>
-                        <div  className='value'>{fileStatus.owner}</div>
-                        <div className='name'>组</div>
-                        <div  className='value'>{fileStatus.group}</div>
-                        <div className='name'>复制块</div>
-                        <div  className='value'>{fileStatus.replication}</div>
+                        <div className='value'>{fileStatus && fileStatus.owner}</div>
+                        <div className='name'>用户组</div>
+                        <div className='value'>{fileStatus && fileStatus.group}</div>
+                        <div className='name'>权限</div>
+                        <div className='value'>{fileStatus && fileStatus.permission}</div>
+                        <div className='name'>备份块</div>
+                        <div className='value'>{fileStatus && fileStatus.replication}</div>
+                        <div className='name'>块数量</div>
+                        <div
+                            className='value'>{fileStatus && Math.floor(fileStatus.length / fileStatus.blockSize) + 1}</div>
                         <div className='name'>块大小</div>
-                        <div  className='value'>{formatFileSize(fileStatus.blockSize)}</div>
+                        <div className='value'>{fileStatus  && formatFileSize(fileStatus.blockSize)}</div>
                     </div>
                 </div>
-                <div className='fileContent' style={{wordBreak:'keep-all'}}>
+                <div className='fileContent'>
 
-                        {this.displayFileContent(filesData.data) }
-
+                    <Spin spining={filesData.pending}>{this.displayFileContent(filesData.data)}</Spin>
                 </div>
             </div>
         )

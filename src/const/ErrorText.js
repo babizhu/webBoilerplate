@@ -20,7 +20,8 @@ const errors = {
         text: '后端逻辑错误：%s。'
     },
     501: {
-        text: 'hadoop文件%s没找到,this is a test for%s'
+        //text: 'hadoop文件%s没找到,this is a test for%s'
+        text: '您无权访问 %s 文件（夹）'
     }
 };
 

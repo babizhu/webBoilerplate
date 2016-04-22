@@ -3,7 +3,10 @@
  * hadoop文件浏览器的导航条
  */
 import React, { Component,PropTypes } from 'react';
-import { Form,Icon,Input } from 'antd';
+import { Form,Icon,Input,Tooltip } from 'antd';
+
+import {ignoreClick} from '../../utils/index'
+
 class Navigate extends Component {
     constructor() {
         super();
@@ -19,21 +22,11 @@ class Navigate extends Component {
         }
     }
 
-    ignoreClick(e) {
-        if (e && e.stopPropagation) {
-            e.stopPropagation();
-            e.preventDefault();
-
-        } else {
-            // 否则，我们需要使用IE的方式来取消事件冒泡
-            window.event.cancelBubble = true;
-        }
-    }
 
     pathClick(path, e) {
         const {getFilesData} = this.props;
         getFilesData(path);
-        this.ignoreClick(e);
+        ignoreClick(e);
     }
 
     beginEditPath() {
@@ -77,23 +70,49 @@ class Navigate extends Component {
         return pathArr.map((item, index)=> {
                 if (index === pathArr.length - 1 && isFile) {
                     return (
-                        <span className='fileName' onClick={this.ignoreClick.bind(this)} key="file">
+                        <span className='fileName' onClick={(e)=>ignoreClick(e)} key="file">
                             {item}
                         </span>);
                 } else {
                     if (item.length !== 0) {
                         tempPath += item + '/';
                         return (
+                            <span>
                             <span onClick={this.pathClick.bind(this,tempPath)} className='canClick' key={index}>
                                 <span style={{width:'15px'}}> </span>
                                 {item}
+                                </span>
                                 <span style={{width:'15px'}}> / </span>
-                            </span>
+                                </span>
+
                         );
                     }
                 }
             }
         );
+    }
+
+    /**
+     * 返回上一层目录
+     * @param currentPath   当前目录
+     * @param e             e
+     */
+    back(currentPath, e) {
+        ignoreClick(e);
+        if( currentPath === '/' ){
+            //alert( '根目录了');
+            return;
+        }
+        const {getFilesData} = this.props;
+        let path = currentPath;
+
+        if( currentPath.endsWith('/')){
+            path = currentPath.substring(0,currentPath.length - 1);
+        }
+        path = path.substring( 0,path.lastIndexOf('/') + 1 );
+        //alert('path = ' + path);
+        getFilesData(path);
+
     }
 
     /**
@@ -108,7 +127,7 @@ class Navigate extends Component {
                 style={{color:'black',width:'100%'}}
                 onBlur={this.endEditPath.bind(this) }
                 onKeyUp={this.endEditPath.bind(this) }
-                onClick={this.ignoreClick.bind(this)}
+                onClick={(e)=>ignoreClick(e)}
                 ref='pathInput'
             />
         )
@@ -119,9 +138,14 @@ class Navigate extends Component {
         let content = this.state.isEdit ? this.buildPathInput() :
             <div onClick={this.beginEditPath.bind(this)}>
                 <span onClick={this.pathClick.bind(this,'/')} className='canClick' key='/'>
-                     <span><Icon type='hdd' className='root'/>hadoop: / </span>
+                     <span><Icon type='hdd' className='root'/>hadoop</span>: /
                 </span>
                 {this.buildPath(currentPath)}
+                <Tooltip title="返回上层目录">
+                    <div className='canClick' style={{float:'right',paddingLeft:'20px'}} onClick={this.back.bind(this,currentPath)}>
+                        <Icon type='rollback'/>
+                    </div>
+                </Tooltip>
             </div>;
         return (
             <div className='navigate-header'>{content}</div>
@@ -134,8 +158,8 @@ class Navigate extends Component {
 
 Navigate.propTypes = {
     filesData: PropTypes.shape({
-        pending:PropTypes.bool.isRequired,
-        currentPath:PropTypes.string.isRequired,//当前路径
+        pending: PropTypes.bool.isRequired,
+        currentPath: PropTypes.string.isRequired,//当前路径
         currentPathIsFile: PropTypes.bool.isRequired,//当前路径是否文件
         data: PropTypes.object//当前路径下的内容，有可能是文件夹的数据，也有可能是具体某个文件的数据
     }).isRequired,

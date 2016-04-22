@@ -62,6 +62,9 @@
 
 .canClick {
   cursor: pointer;
+  :hover{
+    text-decoration:underline;
+  }
   .root {
     margin: 3px;
   }

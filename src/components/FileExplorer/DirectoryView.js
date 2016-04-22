@@ -18,7 +18,7 @@ class DirectoryView extends Component {
      * @param record    当前记录
      * @param index     当前index
      */
-    onRowClick( record) {
+    onRowClick(record) {
         const {currentPath} = this.props.filesData;
         const {getFilesData} = this.props;
         let tempPath = '';
@@ -118,7 +118,7 @@ class DirectoryView extends Component {
 
 DirectoryView.propTypes = {
     filesData: PropTypes.shape({
-        pending:PropTypes.bool.isRequired,
+        pending: PropTypes.bool.isRequired,
         currentPath: PropTypes.string.isRequired,//当前路径
         data: PropTypes.object//当前文件夹的数据
     }).isRequired,

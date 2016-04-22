@@ -43,14 +43,15 @@ export default function filesData(state = initState, action = {}) {
                 currentPath: formatCurrentPath(action.meta.path,action.payload.currentPathIsFile),
                 currentPathIsFile:action.payload.currentPathIsFile,
                 data: action.payload.data,
-                pending: false
+                pending: false,
+                readAsText:action.meta.readAsText,//尽在查看文件内容处起作用，表示当前文件的查看方式（文本/二进制）
+                error:null
             };
         case SHOW_FILE_LIST_ERROR:
             return {
                 ...state,
                 pending: false,
-                data: null,
-                currentPath: action.meta.path,
+                //currentPath: action.meta.path,
 
                 error: action.payload
             };
