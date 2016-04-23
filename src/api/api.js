@@ -36,7 +36,7 @@ class _Api {
                 }
                 request.timeout(NET_TIMEOUT_MS);
                 request.end((err, { body } = {}) =>{
-                    //console.log( 'body=' + body + ',error=' + err );
+                    console.log( 'body=' + body + ',error=' + err );
 
                     return err ? reject({body,err}) : resolve(body)
                 });

@@ -53,7 +53,7 @@ class TableToolButtons extends Component {
         const props = {
             name: 'file',
             showUploadList: false,
-            action: 'http://localhost:8080/hadoop/upload'
+            action: 'http://localhost:8080/api/hadoop/upload'
         };
 
         //<a href="#" className="ant-dropdown-link">
@@ -97,12 +97,16 @@ class TableToolButtons extends Component {
                 </Tooltip>
 
                 <Tooltip title="上传新文件">
-                    <Button className='button' onClick={this.onUploadClick.bind(this,record)}>
+                    <Button type="ghost" className='button' onClick={this.onUploadClick.bind(this,record)}>
                         <Icon type="upload" />
                     </Button>
                 </Tooltip>
+
+
             </span>
+
             </div>
+
         );
     }
 }

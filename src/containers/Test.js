@@ -6,7 +6,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
-import { Button,QueueAnim } from 'antd';
+import { Button,QueueAnim,Upload,Icon } from 'antd';
 import Animate from 'rc-animate';
 
 class Box extends Component {
@@ -54,6 +54,12 @@ export default class Test extends Component {
 
     render() {
 
+        const props = {
+            name: 'file',
+            showUploadList: false,
+            action: 'http://localhost:8080/api/hadoop/upload'
+        };
+
         return (
 
             <div>
@@ -96,6 +102,13 @@ export default class Test extends Component {
 
 
                 </QueueAnim>
+
+
+                <Upload {...props}>
+                    <Button type="ghost">
+                        <Icon type="upload" /> 点击上传
+                    </Button>
+                </Upload>
             </div>
 
 

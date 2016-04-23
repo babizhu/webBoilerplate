@@ -7,16 +7,27 @@ import React, { Component,PropTypes } from 'react';
 
 import DirectoryView from './DirectoryView'
 import FileView from './FileView'
+import { Icon,Tooltip,Button,Upload,Modal  } from 'antd';
 
 class ViewContainer extends Component {
 
 
     render() {
+        const props = {
+            name: 'file',
+            showUploadList: false,
+            action: 'http://localhost:8080/api/hadoop/upload'
+        };
         const {filesData} = this.props;
         if( filesData.currentPathIsFile ){
             return <FileView {...this.props} />
         }else{
-            return <DirectoryView {...this.props} />
+            return <span><DirectoryView {...this.props} />
+                <Upload {...props}>
+        <Button type="ghost">
+                <Icon type="upload" /> 点击上传
+                </Button>
+                </Upload></span>
         }
     }
 }
