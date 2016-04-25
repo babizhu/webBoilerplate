@@ -77,8 +77,8 @@ class Navigate extends Component {
                     if (item.length !== 0) {
                         tempPath += item + '/';
                         return (
-                            <span>
-                            <span onClick={this.pathClick.bind(this,tempPath)} className='canClick' key={index}>
+                            <span  key={index}>
+                            <span onClick={this.pathClick.bind(this,tempPath)} className='canClick'>
                                 <span style={{width:'15px'}}> </span>
                                 {item}
                                 </span>

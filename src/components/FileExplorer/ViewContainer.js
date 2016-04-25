@@ -22,12 +22,8 @@ class ViewContainer extends Component {
         if( filesData.currentPathIsFile ){
             return <FileView {...this.props} />
         }else{
-            return <span><DirectoryView {...this.props} />
-                <Upload {...props}>
-        <Button type="ghost">
-                <Icon type="upload" /> 点击上传
-                </Button>
-                </Upload></span>
+            return <DirectoryView {...this.props} />
+
         }
     }
 }
