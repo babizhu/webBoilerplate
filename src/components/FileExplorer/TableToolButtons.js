@@ -7,6 +7,9 @@ const Dragger = Upload.Dragger;
 
 
 import {ignoreClick} from '../../utils/index'
+import {BASE_URI} from '../../conf/config'
+
+
 class TableToolButtons extends Component {
     constructor() {
         super();
@@ -112,7 +115,7 @@ class TableToolButtons extends Component {
             name: 'file',
             //showUploadList: false,
             multiple: true,
-            action: 'http://192.168.31.133:8080/api/hadoop/upload'
+            action: BASE_URI+'upload'
         };
         return (
             <div onClick={(e)=>ignoreClick(e)}>
@@ -173,10 +176,6 @@ TableToolButtons.propTypes = {
         data: PropTypes.object//当前路径下的内容，有可能是文件夹的数据，也有可能是具体某个文件的数据
     }).isRequired
 
-    /**
-     * 根据当前路径从服务器端获取数据，有可能获取的是文件夹的数据，也有可能是具体某个文件的数据
-     */
-    //getFilesData: PropTypes.func.isRequired
 };
 TableToolButtons.defaultProps = {};
 

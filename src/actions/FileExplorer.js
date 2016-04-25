@@ -27,7 +27,7 @@ export function getFilesData(path,readAsText=true,block=0) {
             readAsText//显示文件内容专用
         },
         payload: {
-            promise: api.get('hadoop/getFilesData', {
+            promise: api.get('getFilesData', {
                 params: {
                     path,
                     readAsText,
@@ -53,7 +53,7 @@ export function operation(op,path,readAsText=true,block=0) {
             //path,
         },
         payload: {
-            promise: api.get('hadoop/operation', {
+            promise: api.get('operation', {
                 params: {
                     op,
                     path,

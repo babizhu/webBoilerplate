@@ -5,12 +5,18 @@
 import React, { Component,PropTypes } from 'react';
 import { Form,Icon,Input,Tooltip } from 'antd';
 
+import UploadModal from './UploadModal'
 import {ignoreClick} from '../../utils/index'
+import {BASE_URI} from '../../conf/config'
+
 
 class Navigate extends Component {
     constructor() {
         super();
-        this.state = {isEdit: false};
+        this.state = {
+            isEdit: false,
+            showUpload: false
+        };
     }
 
     componentDidUpdate() {
@@ -77,7 +83,7 @@ class Navigate extends Component {
                     if (item.length !== 0) {
                         tempPath += item + '/';
                         return (
-                            <span  key={index}>
+                            <span key={index}>
                             <span onClick={this.pathClick.bind(this,tempPath)} className='canClick'>
                                 <span style={{width:'15px'}}> </span>
                                 {item}
@@ -99,17 +105,17 @@ class Navigate extends Component {
      */
     back(currentPath, e) {
         ignoreClick(e);
-        if( currentPath === '/' ){
+        if (currentPath === '/') {
             //alert( '根目录了');
             return;
         }
         const {getFilesData} = this.props;
         let path = currentPath;
 
-        if( currentPath.endsWith('/')){
-            path = currentPath.substring(0,currentPath.length - 1);
+        if (currentPath.endsWith('/')) {
+            path = currentPath.substring(0, currentPath.length - 1);
         }
-        path = path.substring( 0,path.lastIndexOf('/') + 1 );
+        path = path.substring(0, path.lastIndexOf('/') + 1);
         //alert('path = ' + path);
         getFilesData(path);
 
@@ -133,8 +139,25 @@ class Navigate extends Component {
         )
     }
 
+    onUploadClick(currentPath, e) {
+        ignoreClick(e);
+        this.setState({showUpload: !this.state.showUpload});
+
+    }
+
     render() {
+
         const {currentPath} = this.props.filesData;
+        const uploadPorps = {
+
+            //onChange: this.handleChange,
+            data: {path: currentPath},
+            name: 'file',
+            //showUploadList: false,
+            multiple: true,
+            action: BASE_URI+'upload'
+        };
+
         let content = this.state.isEdit ? this.buildPathInput() :
             <div onClick={this.beginEditPath.bind(this)}>
                 <span onClick={this.pathClick.bind(this,'/')} className='canClick' key='/'>
@@ -142,16 +165,24 @@ class Navigate extends Component {
                 </span>
                 {this.buildPath(currentPath)}
                 <Tooltip title="返回上层目录">
-                    <div className='canClick' style={{float:'right',paddingLeft:'20px'}} onClick={this.back.bind(this,currentPath)}>
+                    <div className='canClick' style={{float:'right',paddingLeft:'30px'}}
+                         onClick={this.back.bind(this,currentPath)}>
                         <Icon type='rollback'/>
+                    </div>
+                </Tooltip>
+                <Tooltip title="上传新文件">
+                    <div className='canClick' style={{float:'right',paddingLeft:'30px'}}
+                         onClick={this.onUploadClick.bind(this,currentPath)}>
+                        <Icon type='upload'/>
                     </div>
                 </Tooltip>
             </div>;
         return (
-            <div className='navigate-header'>{content}</div>
+            <div>
+                <UploadModal {...uploadPorps} uploadOk={this.onUploadClick.bind(this)} visible={this.state.showUpload}/>
+                <div className='navigate-header'>{content}</div>
+            </div>
         )
-
-
     }
 }
 
