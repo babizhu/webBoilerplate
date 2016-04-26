@@ -9,7 +9,6 @@ const Dragger = Upload.Dragger;
 import {ignoreClick} from '../../utils/index'
 import {BASE_URI} from '../../conf/config'
 
-
 class TableToolButtons extends Component {
     constructor() {
         super();
