@@ -155,8 +155,9 @@ class Navigate extends Component {
             name: 'file',
             //showUploadList: false,
             multiple: true,
-            action: BASE_URI+'upload'
+            action: BASE_URI + 'upload'
         };
+
 
         let content = this.state.isEdit ? this.buildPathInput() :
             <div onClick={this.beginEditPath.bind(this)}>
@@ -179,7 +180,7 @@ class Navigate extends Component {
             </div>;
         return (
             <div>
-                <UploadModal {...uploadPorps} uploadOk={this.onUploadClick.bind(this)} visible={this.state.showUpload}/>
+                <UploadModal uploadPorps = {uploadPorps} uploadOk={this.onUploadClick.bind(this)} visible={this.state.showUpload}/>
                 <div className='navigate-header'>{content}</div>
             </div>
         )

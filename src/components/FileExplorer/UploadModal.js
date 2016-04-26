@@ -13,8 +13,8 @@ const Dragger = Upload.Dragger;
 class UploadModal extends Component {
 
     render(){
-        const {visible,uploadOk,uploadProps} = this.props;
-
+        const {visible,uploadOk,uploadPorps} = this.props;
+        //alert(uploadPorps.action);
         return(
 
             <Modal title="上传文件"
@@ -26,7 +26,7 @@ class UploadModal extends Component {
                        ]}>
 
                 <div style={{ marginTop: 16 }}>
-                    <Dragger {...uploadProps} >
+                    <Dragger {...uploadPorps} >
                         <p className="ant-upload-drag-icon" style={{ marginTop: 16 }}>
                             <Icon type="inbox"/>
                         </p>
@@ -44,7 +44,7 @@ class UploadModal extends Component {
 UploadModal.propTypes = {
     visible: PropTypes.bool.isRequired,//是否显示对话框
     uploadOk:PropTypes.func.isRequired,//点击关闭将调用此函数
-    uploadProps: PropTypes.object.isRequired//上传组件的相关属性
+    uploadPorps: PropTypes.object.isRequired//上传组件的相关属性
 
 };
 UploadModal.defaultProps = {};
