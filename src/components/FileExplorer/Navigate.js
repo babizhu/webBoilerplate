@@ -3,19 +3,21 @@
  * hadoop文件浏览器的导航条
  */
 import React, { Component,PropTypes } from 'react';
-import { Form,Icon,Input,Tooltip } from 'antd';
+import { Form,Icon,Input,Tooltip,message } from 'antd';
 
 import UploadModal from './UploadModal'
 import {ignoreClick} from '../../utils/index'
-import {BASE_URI} from '../../conf/config'
+import {BASE_URI,UPLOAD_URI} from '../../conf/config'
 
+import {showErrMsg} from '../../actions/App';
 
 class Navigate extends Component {
     constructor() {
         super();
         this.state = {
             isEdit: false,
-            showUpload: false
+            showUpload: false,
+            fileList: []
         };
     }
 
@@ -139,23 +141,70 @@ class Navigate extends Component {
         )
     }
 
-    onUploadClick(currentPath, e) {
+    onUploadClick(filesData, e) {
         ignoreClick(e);
         this.setState({showUpload: !this.state.showUpload});
+        if( !filesData.currentPathIsFile ){
+            const {getFilesData} = this.props;
+            getFilesData(filesData.currentPath);
+        }
 
     }
 
-    render() {
+    handleChange(info) {
+        let fileList = info.fileList;
 
+        let errMsg = [];
+
+        // 3. 按照服务器返回信息筛选成功上传的文件
+        fileList = fileList.filter((file) => {
+            if (file.status === 'done') {
+                if (!file.changeDisplayName) {//显示的文件名只修改一次
+                    if (file.response.error) {
+                        file.name = <span>{file.name} <Icon style={{color:'red',marginTop:'5px'}}
+                                                            type="cross-circle-o"/></span>;
+                        //return false;不显示文件名
+                    } else {
+                        file.name = <span>{file.name} <Icon style={{color:'red',marginTop:'5px'}}
+                                                            type="check-circle-o"/></span>;
+                    }
+                    file.changeDisplayName = true;
+                }
+            }
+            return true;
+        });
+
+        //const {showErrMsg} = this.props;
+        //for( let e in errMsg ){
+        //    console.log( e )
+        //    showErrMsg(e.errorId, e.args, UPLOAD_URI);//
+        //}
+        this.setState({fileList});
+
+        const {showErrMsg} = this.props;
+        if (info.file.status === 'done') {
+            if (info.file.response.error) {
+                const e = info.file.response.error;
+                showErrMsg(e.errorId, e.args, UPLOAD_URI);//
+                //message.error(`${e.args} 上传失败:目录下存在同名文件`);
+            }
+            else {
+
+                //message.success(`${info.file.name} 上传成功。`);
+            }
+        }
+    }
+
+    render() {
         const {currentPath} = this.props.filesData;
         const uploadPorps = {
 
-            //onChange: this.handleChange,
+            onChange: this.handleChange.bind(this),
             data: {path: currentPath},
             name: 'file',
             //showUploadList: false,
             multiple: true,
-            action: BASE_URI + 'upload'
+            action: UPLOAD_URI
         };
 
 
@@ -166,21 +215,24 @@ class Navigate extends Component {
                 </span>
                 {this.buildPath(currentPath)}
                 <Tooltip title="返回上层目录">
-                    <div className='canClick' style={{float:'right',paddingLeft:'30px'}}
+                    <div className='canClick' style={{float:'right',marginLeft:'30px'}}
                          onClick={this.back.bind(this,currentPath)}>
                         <Icon type='rollback'/>
                     </div>
                 </Tooltip>
-                <Tooltip title="上传新文件">
-                    <div className='canClick' style={{float:'right',paddingLeft:'30px'}}
-                         onClick={this.onUploadClick.bind(this,currentPath)}>
+                <Tooltip title="在当前目录中上传新文件">
+                    <div className='canClick' style={{float:'right'}}
+                         onClick={this.onUploadClick.bind(this,this.props.filesData)}>
                         <Icon type='upload'/>
                     </div>
                 </Tooltip>
             </div>;
         return (
             <div>
-                <UploadModal uploadPorps = {uploadPorps} uploadOk={this.onUploadClick.bind(this)} visible={this.state.showUpload}/>
+                <UploadModal uploadPorps={uploadPorps}
+                             uploadOk={this.onUploadClick.bind(this,this.props.filesData)}
+                             visible={this.state.showUpload}
+                             fileList={this.state.fileList}/>
                 <div className='navigate-header'>{content}</div>
             </div>
         )
@@ -188,7 +240,8 @@ class Navigate extends Component {
 }
 
 
-Navigate.propTypes = {
+Navigate
+    .propTypes = {
     filesData: PropTypes.shape({
         pending: PropTypes.bool.isRequired,
         currentPath: PropTypes.string.isRequired,//当前路径
@@ -202,6 +255,9 @@ Navigate.propTypes = {
     getFilesData: PropTypes.func.isRequired
 
 };
-Navigate.defaultProps = {};
+Navigate
+    .defaultProps = {};
 
-export default Navigate;
+export
+default
+Navigate;

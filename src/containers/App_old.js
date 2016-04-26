@@ -16,6 +16,7 @@ const FormItem = Form.Item;
 
 import Header from './Header';
 import SideBar from './SideBar';
+
 import * as profileActions from '../actions/Profile';
 import * as screenActions from '../actions/Screen';
 
@@ -55,7 +56,7 @@ class App extends Component {
     _resize_mixin_callback() {
         const {screen} = this.props;
         const screenWidth = document.documentElement.clientWidth;
-        let isBigScreen = screenWidth > 768 ? true : false;
+        let isBigScreen = screenWidth > 768;
 
 
         if (isBigScreen != screen.isBigScreen) {

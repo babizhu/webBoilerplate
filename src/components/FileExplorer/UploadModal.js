@@ -10,10 +10,11 @@ import { Icon,Tooltip,Button,Upload,Modal  } from 'antd';
 const Dragger = Upload.Dragger;
 
 
+
 class UploadModal extends Component {
 
     render(){
-        const {visible,uploadOk,uploadPorps} = this.props;
+        const {visible,uploadOk,uploadPorps,fileList} = this.props;
         //alert(uploadPorps.action);
         return(
 
@@ -26,7 +27,7 @@ class UploadModal extends Component {
                        ]}>
 
                 <div style={{ marginTop: 16 }}>
-                    <Dragger {...uploadPorps} >
+                    <Dragger {...uploadPorps} fileList = {fileList}>
                         <p className="ant-upload-drag-icon" style={{ marginTop: 16 }}>
                             <Icon type="inbox"/>
                         </p>

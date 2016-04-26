@@ -9,6 +9,8 @@ import { Icon,Table,Spin,Popconfirm,Pagination } from 'antd';
 import {formatFileSize} from '../../utils/index';
 import {formatTime} from '../../utils/time';
 
+import {decode64,utf8to16} from '../../utils/base64'
+
 class FileView extends Component {
 
     constructor() {
@@ -30,7 +32,7 @@ class FileView extends Component {
         const {readAsText} = this.props.filesData;
         if (res && res.fileContent.content) {
             if (readAsText) {
-                return <pre>{res.fileContent.content}</pre>
+                return <pre>{utf8to16(decode64(res.fileContent.content))}</pre>
             } else {
                 let str = res.fileContent.content;
                 let index = 1;
