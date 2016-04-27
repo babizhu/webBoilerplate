@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 
-import {AnimContainer} from './AnimContainer'
+import {AnimEnhance} from './AnimEnhance'
 
 class NotFound extends Component {
     constructor(props) {
@@ -22,4 +22,4 @@ class NotFound extends Component {
     }
 
 }
-export default AnimContainer(NotFound);
+export default AnimEnhance(NotFound);

@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import Navigate from '../components/FileExplorer/Navigate'
 import ViewContainer from '../components/FileExplorer/ViewContainer'
-import {AnimContainer} from './AnimContainer'
+import {AnimEnhance} from './AnimEnhance'
 import * as fileExplorerActions from '../actions/FileExplorer';
 import * as appActions from '../actions/App';
 
@@ -60,4 +60,4 @@ function mapDispatchToProps() {
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AnimContainer(FileExplorer));
+export default connect(mapStateToProps, mapDispatchToProps)(AnimEnhance(FileExplorer));

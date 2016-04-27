@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 import { QueueAnim,Button,DatePicker,Table } from 'antd';
-import {AnimContainer} from './AnimContainer'
+import {AnimEnhance} from './AnimEnhance'
 
 
 export default class Cluster extends Component {
@@ -75,4 +75,4 @@ export default class Cluster extends Component {
         )
     }
 }
-export default AnimContainer(Cluster);
+export default AnimEnhance(Cluster);

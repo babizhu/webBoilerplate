@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 import { QueueAnim,Button,DatePicker,Table } from 'antd';
-import {AnimContainer} from './AnimContainer'
+import {AnimEnhance} from './AnimEnhance'
 
 
 class C extends Component {
@@ -120,4 +120,4 @@ class C extends Component {
 }
 
 
-export default AnimContainer(C);
+export default AnimEnhance(C);

@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 import { Button,QueueAnim,Upload,Icon } from 'antd';
 import Animate from 'rc-animate';
-import {AnimContainer} from './AnimContainer'
+import {AnimEnhance} from './AnimEnhance'
 
 const Dragger = Upload.Dragger;
 
@@ -175,4 +175,4 @@ class Test extends Component {
 }
 
 
-export default AnimContainer(Test)
+export default AnimEnhance(Test)

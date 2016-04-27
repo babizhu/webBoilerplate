@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 import { QueueAnim,Button,DatePicker,Table } from 'antd';
-import {AnimContainer} from './AnimContainer'
+import {AnimEnhance} from './AnimEnhance'
 
 
 class DashBoard extends Component {
@@ -20,4 +20,4 @@ class DashBoard extends Component {
 }
 
 
-export default AnimContainer(DashBoard);
+export default AnimEnhance(DashBoard);

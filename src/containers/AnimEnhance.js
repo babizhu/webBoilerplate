@@ -4,7 +4,7 @@
 import React, { Component, PropTypes } from 'react'
 import {QueueAnim} from 'antd'
 
-export  const AnimContainer = (ComposedComponent) => class extends Component {
+export  const AnimEnhance = (ComposedComponent) => class extends Component {
     //constructor() {
     //    this.state = { data: null };
     //}
