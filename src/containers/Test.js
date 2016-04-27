@@ -8,6 +8,7 @@ import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 import { Button,QueueAnim,Upload,Icon } from 'antd';
 import Animate from 'rc-animate';
+import {AnimContainer} from './AnimContainer'
 
 const Dragger = Upload.Dragger;
 
@@ -26,7 +27,7 @@ class Box extends Component {
     }
 
 }
-export default class Test extends Component {
+class Test extends Component {
     constructor(props) {
         super(props);
         this.state = {visible: 1,
@@ -174,3 +175,4 @@ export default class Test extends Component {
 }
 
 
+export default AnimContainer(Test)

@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 import { QueueAnim,Button,DatePicker,Table } from 'antd';
+import {AnimContainer} from './AnimContainer'
 
 
-export default class C extends Component {
+class C extends Component {
     constructor(props) {
         super(props)
     }
@@ -119,3 +120,4 @@ export default class C extends Component {
 }
 
 
+export default AnimContainer(C);

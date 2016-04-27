@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Link } from 'react-router'
 import { QueueAnim,Button,DatePicker,Table } from 'antd';
+import {AnimContainer} from './AnimContainer'
 
 
 export default class Cluster extends Component {
@@ -21,7 +22,7 @@ export default class Cluster extends Component {
             name: '两路机房',
             ip: '192.168.1.31',
             address: '西湖区湖底公园1号'
-        },{
+        }, {
             key: '3',
             name: '龙湖机房',
             ip: '192.168.1.31',
@@ -31,7 +32,7 @@ export default class Cluster extends Component {
             name: '两路机房',
             ip: '192.168.1.31',
             address: '西湖区湖底公园1号'
-        },{
+        }, {
             key: '5',
             name: '龙湖机房',
             ip: '192.168.1.31',
@@ -41,7 +42,7 @@ export default class Cluster extends Component {
             name: '两路机房',
             ip: '192.168.1.31',
             address: '西湖区湖底公园1号'
-        },{
+        }, {
             key: '7',
             name: '龙湖机房',
             ip: '192.168.1.31',
@@ -67,16 +68,11 @@ export default class Cluster extends Component {
             key: 'address'
         }];
         return (
-            <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 200], scale: [1, 0.5] }}>
 
 
-                <div key='c'>
+            <Table dataSource={dataSource} columns={columns} size="middle"/>
 
-                    <QueueAnim component="div" animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }}>
-                        <Table dataSource={dataSource} columns={columns} size="middle"/>
-                    </QueueAnim>
-                </div>
-            </QueueAnim>
         )
     }
 }
+export default AnimContainer(Cluster);
