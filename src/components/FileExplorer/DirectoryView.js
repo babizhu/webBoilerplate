@@ -29,10 +29,9 @@ class DirectoryView extends Component {
         }
         getFilesData(tempPath + record.pathSuffix);
     }
-
-
     render() {
         const {filesData} = this.props;
+        const props = this.props;
         const columns = [{
             title: '类型',
             dataIndex: 'isFile',
@@ -48,9 +47,9 @@ class DirectoryView extends Component {
 
                 } else {
                     return <Icon type={folderIcon} style={style}/>
-
                 }
-            }
+            },
+            sorter: (a, b) => a.isFile - b.isFile
         }, {
             title: '名称',
             dataIndex: 'pathSuffix',
@@ -65,7 +64,8 @@ class DirectoryView extends Component {
                     return '~';
                 }
                 return formatFileSize(text);
-            }
+            },
+            sorter: (a, b) => a.length - b.length
         }, {
             title: '用户',
             dataIndex: 'owner',
@@ -85,7 +85,8 @@ class DirectoryView extends Component {
             render: (text, row)=> {
                 //noinspection JSUnresolvedVariable
                 return row.isFile ? text : '~';
-            }
+            },
+
         }, {
             title: '创建时间',
             dataIndex: 'modificationTime',
@@ -96,9 +97,14 @@ class DirectoryView extends Component {
         }, {
             title: '操作',
             key: 'operation',
-            render(text, record) {
+            render(text, record ) {
                 return (
-                    <TableToolButtons record={record} filesData={filesData}/>
+                    <TableToolButtons
+                        record={record}
+
+                        {...props}
+
+                    />
                 );
             }
         }];
@@ -107,6 +113,7 @@ class DirectoryView extends Component {
         //noinspection JSUnresolvedVariable
         return (
             <Table loading={filesData.pending}
+                   pagination={false}
                    dataSource={filesData.data && filesData.data.FileStatus}
                    rowKey={record=>record.fileId}
                    columns={columns} size="middle"

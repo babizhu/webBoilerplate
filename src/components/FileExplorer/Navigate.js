@@ -101,6 +101,14 @@ class Navigate extends Component {
     }
 
     /**
+     * 添加子目录
+     * @param currentPath   当前目录
+     * @param e             e
+     */
+    addDirectory(currentPath, e) {
+        ignoreClick(e);
+    }
+    /**
      * 返回上一层目录
      * @param currentPath   当前目录
      * @param e             e
@@ -207,13 +215,13 @@ class Navigate extends Component {
             action: UPLOAD_URI
         };
 
-
         let content = this.state.isEdit ? this.buildPathInput() :
             <div onClick={this.beginEditPath.bind(this)}>
                 <span onClick={this.pathClick.bind(this,'/')} className='canClick' key='/'>
                      <span><Icon type='hdd' className='root'/>hadoop</span>: /
                 </span>
                 {this.buildPath(currentPath)}
+
                 <Tooltip title="返回上层目录">
                     <div className='canClick' style={{float:'right',marginLeft:'30px'}}
                          onClick={this.back.bind(this,currentPath)}>
@@ -224,6 +232,13 @@ class Navigate extends Component {
                     <div className='canClick' style={{float:'right'}}
                          onClick={this.onUploadClick.bind(this,this.props.filesData)}>
                         <Icon type='upload'/>
+                    </div>
+                </Tooltip>
+                <Tooltip title="新建文件夹">
+                    <div className='canClick' style={{float:'right',marginRight:'30px'}}
+                         onClick={this.addDirectory.bind(this,currentPath)}>
+                        <Icon type="plus-circle-o" />
+
                     </div>
                 </Tooltip>
             </div>;

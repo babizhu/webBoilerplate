@@ -41,7 +41,9 @@ export default class FileExplorer extends Component {
                                       showErrMsg={appActions.showErrMsg}
                                       getFilesData={fileExplorerActions.getFilesData}
                             />
-                            <ViewContainer filesData={filesData} getFilesData={fileExplorerActions.getFilesData}/>
+                            <ViewContainer filesData={filesData}
+                                           getFilesData={fileExplorerActions.getFilesData}
+                                           operation={fileExplorerActions.operation}/>
                         </QueueAnim>
                     </div>
 

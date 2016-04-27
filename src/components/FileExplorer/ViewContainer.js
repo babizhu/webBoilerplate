@@ -39,7 +39,8 @@ ViewContainer.propTypes = {
     /**
      * 根据当前路径从服务器端获取数据，有可能获取的是文件夹的数据，也有可能是具体某个文件的数据
      */
-    getFilesData: PropTypes.func.isRequired
+    getFilesData: PropTypes.func.isRequired,
+    operation: PropTypes.func.isRequired
 };
 ViewContainer.defaultProps = {};
 

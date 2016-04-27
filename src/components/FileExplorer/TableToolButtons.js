@@ -3,8 +3,6 @@
  */
 import React, { Component,PropTypes } from 'react';
 import { Icon,Tooltip,Button,Upload,Modal  } from 'antd';
-const Dragger = Upload.Dragger;
-
 
 import {ignoreClick} from '../../utils/index'
 import {BASE_URI} from '../../conf/config'
@@ -34,18 +32,10 @@ class TableToolButtons extends Component {
     }
 
     onDelClick(record, e) {
-        ignoreClick(e);
-        if (!record.isFile) {
+        const {operation,filesData} = this.props;
 
-            alert(record.pathSuffix);
-        }
-
-
+        operation(2,filesData.currentPath + '/' + record.pathSuffix,'');
     }
-
-
-
-
     render() {
 
         const {record} = this.props;
@@ -90,7 +80,10 @@ TableToolButtons.propTypes = {
         currentPath: PropTypes.string.isRequired,//当前路径
         currentPathIsFile: PropTypes.bool.isRequired,//当前路径是否文件
         data: PropTypes.object//当前路径下的内容，有可能是文件夹的数据，也有可能是具体某个文件的数据
-    }).isRequired
+    }).isRequired,
+
+    //getFilesData: PropTypes.func.isRequired,
+    //operation: PropTypes.func.isRequired,
 
 };
 TableToolButtons.defaultProps = {};
