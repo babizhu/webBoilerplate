@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import Navigate from '../components/FileExplorer/Navigate'
 import ViewContainer from '../components/FileExplorer/ViewContainer'
-
+import {AnimContainer} from './AnimContainer'
 import * as fileExplorerActions from '../actions/FileExplorer';
 import * as appActions from '../actions/App';
 
@@ -20,8 +20,9 @@ export default class FileExplorer extends Component {
 
     componentDidMount() {
         const {currentPath} = this.props.filesData;
-        if ( currentPath === '' ) {
+        if (currentPath === '') {
             this.props.fileExplorerActions.getFilesData('/');
+
         }
     }
 
@@ -30,30 +31,24 @@ export default class FileExplorer extends Component {
 
         const {filesData,fileExplorerActions,appActions} = this.props;
         return (
-            <div>
-                <QueueAnim animConfig={{ opacity: [1, 0], translateX: [0, 200], scale: [1, 0.5] }}>
-                    <div key='c' className="fileExplorer">
-                        <QueueAnim component="div"
-                                   animConfig={{ opacity: [1, 0], translateY: [0, 30], scale: [1, 0.9] }}>
 
+            <div className="fileExplorer">
 
-                            <Navigate filesData={filesData}
-                                      showErrMsg={appActions.showErrMsg}
-                                      getFilesData={fileExplorerActions.getFilesData}
-                            />
-                            <ViewContainer filesData={filesData}
-                                           getFilesData={fileExplorerActions.getFilesData}
-                                           operation={fileExplorerActions.operation}/>
-                        </QueueAnim>
-                    </div>
+                        <Navigate filesData={filesData}
+                                  showErrMsg={appActions.showErrMsg}
+                                  getFilesData={fileExplorerActions.getFilesData}
+                        />
+                        <ViewContainer filesData={filesData}
+                                       getFilesData={fileExplorerActions.getFilesData}
+                                       operation={fileExplorerActions.operation}/>
+                </div>
 
-                </QueueAnim>
-            </div>
         )
     }
 }
 function mapStateToProps(state) {
     return {
+
         filesData: state.filesData
     }
 }
@@ -64,4 +59,5 @@ function mapDispatchToProps() {
     });
 
 }
-export default connect(mapStateToProps, mapDispatchToProps)(FileExplorer);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnimContainer(FileExplorer));
