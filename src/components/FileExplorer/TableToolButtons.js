@@ -5,7 +5,7 @@ import React, { Component,PropTypes } from 'react';
 import { Icon,Tooltip,Button,Upload,Modal  } from 'antd';
 
 import {ignoreClick} from '../../utils/index'
-import {BASE_URI} from '../../conf/config'
+import {BASE_URI,HADOOP_UPLOAD_URI} from '../../conf/config'
 
 class TableToolButtons extends Component {
     constructor() {
@@ -46,7 +46,7 @@ class TableToolButtons extends Component {
             name: 'file',
             //showUploadList: false,
             multiple: true,
-            action: BASE_URI+'upload'
+            action: HADOOP_UPLOAD_URI
         };
         return (
             <div onClick={(e)=>ignoreClick(e)}>

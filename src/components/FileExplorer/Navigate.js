@@ -6,8 +6,9 @@ import React, { Component,PropTypes } from 'react';
 import { Form,Icon,Input,Tooltip,message } from 'antd';
 
 import UploadModal from './UploadModal'
+import AddDirectorydModal from './AddDirectorydModal'
 import {ignoreClick} from '../../utils/index'
-import {BASE_URI,UPLOAD_URI} from '../../conf/config'
+import {BASE_URI,HADOOP_UPLOAD_URI} from '../../conf/config'
 
 import {showErrMsg} from '../../actions/App';
 
@@ -17,6 +18,7 @@ class Navigate extends Component {
         this.state = {
             isEdit: false,
             showUpload: false,
+            addDirectoryModalVisible: false,
             fileList: []
         };
     }
@@ -101,19 +103,26 @@ class Navigate extends Component {
     }
 
     /**
-     * 添加子目录
-     * @param currentPath   当前目录
+     * 添加新文件夹
+     * @param newDirectorName   新文件夹的名称
      * @param e             e
      */
-    addDirectory(currentPath, e) {
+    addDirectory(newDirectorName, e) {
+
         ignoreClick(e);
+        if (newDirectorName) {
+            const {operation} = this.props;
+            operation( 3, filesData.currentPath + '/' + record.pathSuffix,'');
+        }
+        this.setState({addDirectoryModalVisible: !this.state.addDirectoryModalVisible})
     }
+
     /**
      * 返回上一层目录
      * @param currentPath   当前目录
      * @param e             e
      */
-    back(currentPath, e) {
+    backUp(currentPath, e) {
         ignoreClick(e);
         if (currentPath === '/') {
             //alert( '根目录了');
@@ -149,12 +158,18 @@ class Navigate extends Component {
         )
     }
 
-    onUploadClick(filesData, e) {
+    onUploadClick( needRefrsh, e) {
+        const{filesData} = this.props;
         ignoreClick(e);
+        for(let x in needRefrsh ){
+            alert( x )
+        }
         this.setState({showUpload: !this.state.showUpload});
-        if( !filesData.currentPathIsFile ){
-            const {getFilesData} = this.props;
-            getFilesData(filesData.currentPath);
+        if (needRefrsh && !filesData.currentPathIsFile) {
+
+                const {getFilesData} = this.props;
+                getFilesData(filesData.currentPath);
+
         }
 
     }
@@ -193,7 +208,7 @@ class Navigate extends Component {
         if (info.file.status === 'done') {
             if (info.file.response.error) {
                 const e = info.file.response.error;
-                showErrMsg(e.errorId, e.args, UPLOAD_URI);//
+                showErrMsg(e.errorId, e.args, HADOOP_UPLOAD_URI);//
                 //message.error(`${e.args} 上传失败:目录下存在同名文件`);
             }
             else {
@@ -212,7 +227,7 @@ class Navigate extends Component {
             name: 'file',
             //showUploadList: false,
             multiple: true,
-            action: UPLOAD_URI
+            action: HADOOP_UPLOAD_URI
         };
 
         let content = this.state.isEdit ? this.buildPathInput() :
@@ -224,20 +239,20 @@ class Navigate extends Component {
 
                 <Tooltip title="返回上层目录">
                     <div className='canClick' style={{float:'right',marginLeft:'30px'}}
-                         onClick={this.back.bind(this,currentPath)}>
+                         onClick={this.backUp.bind(this,currentPath)}>
                         <Icon type='rollback'/>
                     </div>
                 </Tooltip>
                 <Tooltip title="在当前目录中上传新文件">
                     <div className='canClick' style={{float:'right'}}
-                         onClick={this.onUploadClick.bind(this,this.props.filesData)}>
+                         onClick={this.onUploadClick.bind(this,false)}>
                         <Icon type='upload'/>
                     </div>
                 </Tooltip>
                 <Tooltip title="新建文件夹">
                     <div className='canClick' style={{float:'right',marginRight:'30px'}}
-                         onClick={this.addDirectory.bind(this,currentPath)}>
-                        <Icon type="plus-circle-o" />
+                         onClick={this.addDirectory.bind(this,null)}>
+                        <Icon type="plus-circle-o"/>
 
                     </div>
                 </Tooltip>
@@ -245,9 +260,14 @@ class Navigate extends Component {
         return (
             <div>
                 <UploadModal uploadPorps={uploadPorps}
-                             uploadOk={this.onUploadClick.bind(this,this.props.filesData)}
+                             uploadOk={this.onUploadClick.bind(this)}
                              visible={this.state.showUpload}
                              fileList={this.state.fileList}/>
+
+                <AddDirectorydModal
+                    visible={this.state.addDirectoryModalVisible}
+                    addDirectoryOk={this.addDirectory.bind(this)}
+                />
                 <div className='navigate-header'>{content}</div>
             </div>
         )

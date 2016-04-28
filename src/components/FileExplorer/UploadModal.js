@@ -13,17 +13,23 @@ const Dragger = Upload.Dragger;
 
 class UploadModal extends Component {
 
+    onOk(){
+        const {uploadOk,fileList} = this.props;
+        //alert( fileList );
+        const needRereshUI = !!fileList && fileList.length > 0;//如果上传的文件出了问题，还是会引起刷新action，先不管以后再优化
+        uploadOk(needRereshUI );
+    }
     render(){
-        const {visible,uploadOk,uploadPorps,fileList} = this.props;
+        const {visible,uploadPorps,fileList} = this.props;
         //alert(uploadPorps.action);
         return(
 
             <Modal title="上传文件"
                    visible={visible}
-                   onOk={uploadOk.bind(this)}
-                   onCancel={uploadOk.bind(this)}
+                   onOk={this.onOk.bind(this)}
+                   onCancel={this.onOk.bind(this)}
                    footer={[
-                           <Button key="back" type="ghost" size="large" onClick={uploadOk.bind(this)}>关 闭</Button>
+                           <Button key="back" type="ghost" size="large" onClick={this.onOk.bind(this)}>关 闭</Button>
                        ]}>
 
                 <div style={{ marginTop: 16 }}>

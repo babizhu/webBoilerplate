@@ -37,7 +37,9 @@ export default class FileExplorer extends Component {
                         <Navigate filesData={filesData}
                                   showErrMsg={appActions.showErrMsg}
                                   getFilesData={fileExplorerActions.getFilesData}
-                        />
+                                  operation={fileExplorerActions.operation}/>
+
+                />
                         <ViewContainer filesData={filesData}
                                        getFilesData={fileExplorerActions.getFilesData}
                                        operation={fileExplorerActions.operation}/>

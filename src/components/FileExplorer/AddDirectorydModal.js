@@ -3,46 +3,53 @@
  * 上传组件
  */
 
-
-
 import React, { Component,PropTypes } from 'react';
-import { Icon,Tooltip,Button,Upload,Modal  } from 'antd';
-const Dragger = Upload.Dragger;
-
-
+import { Button, Form, Input, Modal,Icon } from 'antd';
+const createForm = Form.create;
+const FormItem = Form.Item;
 
 class AddDirectorydModal extends Component {
 
-    render(){
-        const {visible,addDirectoryOk} = this.props;
-        //alert(uploadPorps.action);
-        return(
+    onOk(){
+        const {addDirectoryOk,form} = this.props;
+        const directorName = form.getFieldValue('directorName');
+        form.resetFields();
+        addDirectoryOk( directorName );
+    }
+    onCancle(){
+        const {addDirectoryOk} = this.props;
+        addDirectoryOk(  );
+    }
+    render() {
+        const {visible} = this.props;
+        const { getFieldProps } = this.props.form;
 
-            <Modal title="新建文件夹"
-                   visible={visible}
-                   onOk={addDirectoryOk.bind(this)}
-                   onCancel={addDirectoryOk.bind(this)}
-                   >
+        const formItemLayout = {
+            labelCol: {span: 4},
+            wrapperCol: {span: 20},
+        };
+        //const title = <span><Icon type="plus-circle-o"/> 新建文件夹</span>
 
-                <div style={{ marginTop: 16 }}>
-                    <Dragger {...uploadPorps} fileList = {fileList}>
-                        <p className="ant-upload-drag-icon" style={{ marginTop: 16 }}>
-                            <Icon type="inbox"/>
-                        </p>
-                        <p className="ant-upload-text">点击或将文件拖拽到此区域上传</p>
-                        <p className="ant-upload-hint" style={{ marginBottom: 16 }}>支持单个或批量上传，请注意信息安全</p>
-                    </Dragger>
-
-                </div>
+        return (
+            <Modal title="新建文件夹" visible={visible}
+                   onOk={this.onOk.bind(this)}
+                   onCancel={this.onCancle.bind(this)}>
+                <Form horizontal form={this.props.form}>
+                    <FormItem
+                        {...formItemLayout}
+                        label="新文件名：">
+                        <Input {...getFieldProps('directorName', {})} type="text" autoComplete="off"/>
+                    </FormItem>
+                </Form>
             </Modal>
-        )
+        );
     }
 }
 
-UploadModal.propTypes = {
+AddDirectorydModal.propTypes = {
     visible: PropTypes.bool.isRequired,//是否显示对话框
-    addDirectoryOk:PropTypes.func.isRequired,//点击关闭将调用此函数
+    addDirectoryOk: PropTypes.func.isRequired//点击关闭将调用此函数
 };
-UploadModal.defaultProps = {};
+AddDirectorydModal.defaultProps = {};
 
-export default UploadModal;
+export default createForm()(AddDirectorydModal);
