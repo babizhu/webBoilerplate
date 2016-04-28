@@ -10,7 +10,11 @@ import {
     SHOW_FILE_LIST,
     SHOW_FILE_LIST_PENDING,
     SHOW_FILE_LIST_SUCCESS,
-    SHOW_FILE_LIST_ERROR
+    SHOW_FILE_LIST_ERROR,
+    OPERATION,
+    OPERATION_PENDING,
+    OPERATION_SUCCESS,
+    OPERATION_ERROR,
 } from '../actions/FileExplorer'
 
 import { combineReducers } from 'redux'
@@ -23,11 +27,11 @@ import { combineReducers } from 'redux'
 //]}}'
 //};
 
-const initState={
-    currentPath:'',
-    currentPathIsFile:false,
-    pending:false,
-    data:{}
+const initState = {
+    currentPath: '',
+    currentPathIsFile: false,
+    pending: false,
+    data: {}
 
 };
 export default function filesData(state = initState, action = {}) {
@@ -40,12 +44,12 @@ export default function filesData(state = initState, action = {}) {
         case SHOW_FILE_LIST_SUCCESS:
             return {
                 ...state,
-                currentPath: formatCurrentPath(action.meta.path,action.payload.currentPathIsFile),
-                currentPathIsFile:action.payload.currentPathIsFile,
+                currentPath: formatCurrentPath(action.meta.path, action.payload.currentPathIsFile),
+                currentPathIsFile: action.payload.currentPathIsFile,
                 data: action.payload.data,
                 pending: false,
-                readAsText:action.meta.readAsText,//尽在查看文件内容处起作用，表示当前文件的查看方式（文本/二进制）
-                error:null
+                readAsText: action.meta.readAsText,//仅在查看文件内容处起作用，表示当前文件的查看方式（文本/二进制）
+                error: null
             };
         case SHOW_FILE_LIST_ERROR:
             return {
@@ -60,10 +64,39 @@ export default function filesData(state = initState, action = {}) {
     }
 }
 
-function formatCurrentPath( path, isFile ){
-    if( path.endsWith( '/' ) && isFile ){//是文件，但是路径以/结尾，去掉/
-        return path.substring( 0, path.length - 1 );
-    }else if( !isFile && !path.endsWith('/')){//不是文件，但是路径没有以/结尾，增加/
+function submitOperation(state, action) {
+    switch (action.type) {
+        case OPERATION_PENDING:
+            return {
+                ...state,
+                pending: true
+            };
+        case OPERATION_SUCCESS:
+            return {
+                ...state,
+                currentPath: formatCurrentPath(action.meta.path, action.payload.currentPathIsFile),
+                currentPathIsFile: action.payload.currentPathIsFile,
+                data: action.payload.data,
+                pending: false,
+                readAsText: action.meta.readAsText,//仅在查看文件内容处起作用，表示当前文件的查看方式（文本/二进制）
+                error: null
+            };
+        case OPERATION_ERROR:
+            return {
+                ...state,
+                pending: false,
+                error: action.payload
+            };
+        default:
+            return state;
+    }
+
+}
+
+function formatCurrentPath(path, isFile) {
+    if (path.endsWith('/') && isFile) {//是文件，但是路径以/结尾，去掉/
+        return path.substring(0, path.length - 1);
+    } else if (!isFile && !path.endsWith('/')) {//不是文件，但是路径没有以/结尾，增加/
         return path + '/'
     }
     return path;

@@ -32,12 +32,13 @@ class AddDirectorydModal extends Component {
 
         return (
             <Modal title="新建文件夹" visible={visible}
+                   confirmLoading={true}
                    onOk={this.onOk.bind(this)}
                    onCancel={this.onCancle.bind(this)}>
                 <Form horizontal form={this.props.form}>
                     <FormItem
                         {...formItemLayout}
-                        label="新文件名：">
+                        label="新文件夹名：">
                         <Input {...getFieldProps('directorName', {})} type="text" autoComplete="off"/>
                     </FormItem>
                 </Form>
