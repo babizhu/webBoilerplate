@@ -15,6 +15,8 @@ export const OPERATION_PENDING = 'OPERATION_PENDING';
 export const OPERATION_SUCCESS = 'OPERATION_SUCCESS';
 export const OPERATION_ERROR = 'OPERATION_ERROR';
 
+export const OPEN_MODAL = 'OPEN_MODAL';
+
 /**
  * 获取path下的文件或者文件夹信息，如果path是一个文件则获取文件的具体内容
  * @param path) {
@@ -70,5 +72,16 @@ export function operation(op,path,args) {
                 }
             })
         }
+    }
+}
+
+/**
+ * 打开某个对话框
+ * @param modal         对话框类型1、改名 2、删除 3、新建目录
+ */
+export function openModal(modal) {
+    return {
+        type: OPEN_MODAL,
+        modal
     }
 }

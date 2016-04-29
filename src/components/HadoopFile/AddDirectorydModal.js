@@ -14,14 +14,15 @@ class AddDirectorydModal extends Component {
         const {addDirectoryOk,form} = this.props;
         const directorName = form.getFieldValue('directorName');
         form.resetFields();
-        addDirectoryOk( directorName );
+        const visible = false;
+        addDirectoryOk( directorName, visible );
     }
     onCancle(){
         const {addDirectoryOk} = this.props;
         addDirectoryOk(  );
     }
     render() {
-        const {visible} = this.props;
+        const {visible,pending} = this.props;
         const { getFieldProps } = this.props.form;
 
         const formItemLayout = {
@@ -32,7 +33,7 @@ class AddDirectorydModal extends Component {
 
         return (
             <Modal title="新建文件夹" visible={visible}
-                   confirmLoading={true}
+                   confirmLoading={pending}
                    onOk={this.onOk.bind(this)}
                    onCancel={this.onCancle.bind(this)}>
                 <Form horizontal form={this.props.form}>

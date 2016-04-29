@@ -9,7 +9,7 @@ import Test from './containers/Test'
 import Cluster from './containers/Cluster'
 import DashBoard from './containers/DashBoard'
 
-import FileExplorer from './containers/FileExplorer'
+import HadoopFile from './containers/HadoopFile'
 
 
 
@@ -26,7 +26,7 @@ export default (
             <Route path="/c/c1" component={C1}  breadcrumbName="C1"/>
             <Route path="/c/c2" component={C2}  breadcrumbName="C2"/>
         </Route>
-        <Route path="/fileExplorer" breadcrumbName="文件管理" component={FileExplorer} />
+        <Route path="/hadoopFile" breadcrumbName="文件管理" component={HadoopFile} />
         <Route path="*" component={NotFound} breadcrumbName="404 Error"/>
     </Route>
 )

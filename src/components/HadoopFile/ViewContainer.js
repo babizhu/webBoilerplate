@@ -18,8 +18,8 @@ class ViewContainer extends Component {
             showUploadList: false,
             action: 'http://localhost:8080/api/hadoop/upload'
         };
-        const {filesData} = this.props;
-        if( filesData.currentPathIsFile ){
+        const {fileSystemData} = this.props;
+        if( fileSystemData.currentPathIsFile ){
             return <FileView {...this.props} />
         }else{
             return <DirectoryView {...this.props} />
@@ -29,7 +29,7 @@ class ViewContainer extends Component {
 }
 
 ViewContainer.propTypes = {
-    filesData: PropTypes.shape({
+    fileSystemData: PropTypes.shape({
         pending:PropTypes.bool.isRequired,
         currentPath:PropTypes.string.isRequired,//当前路径
         currentPathIsFile: PropTypes.bool.isRequired,//当前路径是否文件

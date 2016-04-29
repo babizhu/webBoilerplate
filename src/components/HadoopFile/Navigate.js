@@ -105,16 +105,19 @@ class Navigate extends Component {
     /**
      * 添加新文件夹
      * @param newDirectorName   新文件夹的名称
-     * @param e             e
+     * @param closeModal        是否关闭窗口
+     * @param e                 e
      */
-    addDirectory(newDirectorName, e) {
-
+    addDirectory(newDirectorName, visible, e) {
         ignoreClick(e);
+        const {operation,fileSystemData,openModal} = this.props;
         if (newDirectorName) {
-            const {operation} = this.props;
-            operation( 3, filesData.currentPath + '/' + record.pathSuffix,'');
+
+            operation(3, fileSystemData.currentPath, newDirectorName);
         }
-        this.setState({addDirectoryModalVisible: !this.state.addDirectoryModalVisible})
+        else {
+            openModal(3);
+        }
     }
 
     /**
@@ -144,8 +147,7 @@ class Navigate extends Component {
      * 构造路径编辑框
      * @returns {XML}
      */
-    buildPathInput() {
-        const {currentPath} = this.props.filesData;
+    buildPathInput(currentPath) {
         return (
             <input
                 defaultValue={currentPath}
@@ -158,20 +160,16 @@ class Navigate extends Component {
         )
     }
 
-    onUploadClick( needRefrsh, e) {
-        const{filesData} = this.props;
+    onUploadClick(needRefrsh, e) {
+
         ignoreClick(e);
-        for(let x in needRefrsh ){
-            alert( x )
-        }
+
         this.setState({showUpload: !this.state.showUpload});
-        if (needRefrsh && !filesData.currentPathIsFile) {
-
-                const {getFilesData} = this.props;
-                getFilesData(filesData.currentPath);
-
+        const {fileSystemData} = this.props;
+        if (needRefrsh && !fileSystemData.currentPathIsFile) {
+            const {getFilesData} = this.props;
+            getFilesData(fileSystemData.currentPath);
         }
-
     }
 
     handleChange(info) {
@@ -197,11 +195,6 @@ class Navigate extends Component {
             return true;
         });
 
-        //const {showErrMsg} = this.props;
-        //for( let e in errMsg ){
-        //    console.log( e )
-        //    showErrMsg(e.errorId, e.args, UPLOAD_URI);//
-        //}
         this.setState({fileList});
 
         const {showErrMsg} = this.props;
@@ -219,7 +212,7 @@ class Navigate extends Component {
     }
 
     render() {
-        const {currentPath} = this.props.filesData;
+        const {currentPath} = this.props.fileSystemData;
         const uploadPorps = {
 
             onChange: this.handleChange.bind(this),
@@ -230,7 +223,7 @@ class Navigate extends Component {
             action: HADOOP_UPLOAD_URI
         };
 
-        let content = this.state.isEdit ? this.buildPathInput() :
+        let content = this.state.isEdit ? this.buildPathInput(currentPath) :
             <div onClick={this.beginEditPath.bind(this)}>
                 <span onClick={this.pathClick.bind(this,'/')} className='canClick' key='/'>
                      <span><Icon type='hdd' className='root'/>hadoop</span>: /
@@ -251,12 +244,23 @@ class Navigate extends Component {
                 </Tooltip>
                 <Tooltip title="新建文件夹">
                     <div className='canClick' style={{float:'right',marginRight:'30px'}}
-                         onClick={this.addDirectory.bind(this,null)}>
+                         onClick={this.addDirectory.bind(this,null,true)}>
                         <Icon type="plus-circle-o"/>
 
                     </div>
                 </Tooltip>
             </div>;
+        const {operationData} = this.props;
+        //console.log( 'operation.error = ' + operation.error);
+        //let visible = this.state.addDirectoryModalVisible;
+        //if (!visible) {
+        //    if (operation.pending || operation.error != null) {
+        //        visible = true;
+        //        //}else if( operation.error != null ){
+        //        //    alert(11111111)
+        //        //    visible = true;
+        //    }
+        //}
         return (
             <div>
                 <UploadModal uploadPorps={uploadPorps}
@@ -265,8 +269,9 @@ class Navigate extends Component {
                              fileList={this.state.fileList}/>
 
                 <AddDirectorydModal
-                    visible={this.state.addDirectoryModalVisible}
+                    visible={operationData.currentOpenModal == 3 }
                     addDirectoryOk={this.addDirectory.bind(this)}
+                    pending={operationData.pending}
                 />
                 <div className='navigate-header'>{content}</div>
             </div>
@@ -277,7 +282,7 @@ class Navigate extends Component {
 
 Navigate
     .propTypes = {
-    filesData: PropTypes.shape({
+    fileSystemData: PropTypes.shape({
         pending: PropTypes.bool.isRequired,
         currentPath: PropTypes.string.isRequired,//当前路径
         currentPathIsFile: PropTypes.bool.isRequired,//当前路径是否文件
@@ -290,9 +295,6 @@ Navigate
     getFilesData: PropTypes.func.isRequired
 
 };
-Navigate
-    .defaultProps = {};
+Navigate.defaultProps = {};
 
-export
-default
-Navigate;
+export default Navigate;

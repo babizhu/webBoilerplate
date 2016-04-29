@@ -21,15 +21,15 @@ class FileView extends Component {
 
     changeFileViewMode() {
         const {getFilesData} = this.props;
-        const {filesData} = this.props;
+        const {fileSystemData} = this.props;
         //this.setState({readAsText:!this.state.readAsText});
         //this.readAsText = !this.readAsText;
-        getFilesData(filesData.currentPath, !filesData.readAsText);
+        getFilesData(fileSystemData.currentPath, !fileSystemData.readAsText);
     }
 
 
     displayFileContent(res) {
-        const {readAsText} = this.props.filesData;
+        const {readAsText} = this.props.fileSystemData;
         if (res && res.fileContent.content) {
             if (readAsText) {
                 return <pre>{utf8to16(decode64(res.fileContent.content))}</pre>
@@ -54,15 +54,15 @@ class FileView extends Component {
      * 下载文件
      */
     download() {
-        const {currentPath} = this.props.filesData;
+        const {currentPath} = this.props.fileSystemData;
         const url = 'http://master:50070/webhdfs/v1' + currentPath + '?op=OPEN';
         //alert(url);
         window.open(url)
     }
 
     render() {
-        const {filesData} = this.props;
-        const {fileStatus} = this.props.filesData.data;
+        const {fileSystemData} = this.props;
+        const {fileStatus} = fileSystemData.data;
         return (
             <div className='fileView'>
                 <div className='fileStatus'>
@@ -70,7 +70,7 @@ class FileView extends Component {
                     <div className='content'>
                         <div className='value canClick' onClick={this.changeFileViewMode.bind(this)}>
                             <Icon type="edit"/>
-                            {filesData.readAsText ? ' 以二进制格式查看' : ' 以文本方式查看'}
+                            {fileSystemData.readAsText ? ' 以二进制格式查看' : ' 以文本方式查看'}
                         </div>
                         <div className='value  canClick'>
                             { fileStatus.length < 1024 * 1024 * 10 ?
@@ -110,14 +110,14 @@ class FileView extends Component {
                 </div>
                 <div className='fileContent'>
 
-                    <Spin spining={filesData.pending}>{this.displayFileContent(filesData.data)}</Spin>
+                    <Spin spining={fileSystemData.pending}>{this.displayFileContent(fileSystemData.data)}</Spin>
                 </div>
             </div>
         )
     }
 }
 FileView.propTypes = {
-    filesData: PropTypes.shape({
+    fileSystemData: PropTypes.shape({
         pending: PropTypes.bool.isRequired,
         currentPath: PropTypes.string.isRequired,//当前路径
         data: PropTypes.object//当前文件的数据

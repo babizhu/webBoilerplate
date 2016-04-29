@@ -19,7 +19,7 @@ class DirectoryView extends Component {
      * @param index     当前index
      */
     onRowClick(record) {
-        const {currentPath} = this.props.filesData;
+        const {currentPath} = this.props.fileSystemData;
         const {getFilesData} = this.props;
         let tempPath = '';
         if (!currentPath) {
@@ -30,7 +30,7 @@ class DirectoryView extends Component {
         getFilesData(tempPath + record.pathSuffix);
     }
     render() {
-        const {filesData} = this.props;
+        const {fileSystemData} = this.props;
         const props = this.props;
         const columns = [{
             title: '类型',
@@ -101,9 +101,7 @@ class DirectoryView extends Component {
                 return (
                     <TableToolButtons
                         record={record}
-
                         {...props}
-
                     />
                 );
             }
@@ -112,9 +110,9 @@ class DirectoryView extends Component {
 
         //noinspection JSUnresolvedVariable
         return (
-            <Table loading={filesData.pending}
+            <Table loading={fileSystemData.pending}
                    pagination={false}
-                   dataSource={filesData.data && filesData.data.FileStatus}
+                   dataSource={fileSystemData.data && fileSystemData.data.FileStatus}
                    rowKey={record=>record.fileId}
                    columns={columns} size="middle"
                    onRowClick={this.onRowClick.bind(this)}/>
@@ -124,7 +122,7 @@ class DirectoryView extends Component {
 
 
 DirectoryView.propTypes = {
-    filesData: PropTypes.shape({
+    fileSystemData: PropTypes.shape({
         pending: PropTypes.bool.isRequired,
         currentPath: PropTypes.string.isRequired,//当前路径
         data: PropTypes.object//当前文件夹的数据

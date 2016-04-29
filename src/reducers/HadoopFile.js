@@ -1,11 +1,8 @@
 /**
  * Created by liu_k on 2016/4/14.
- * reducer
+ * hadoop reducer
  */
-/**
- * Created by liu_k on 2016/3/29.
- * 用户的个人信息,一般登录时加载
- */
+
 import {
     SHOW_FILE_LIST,
     SHOW_FILE_LIST_PENDING,
@@ -15,27 +12,31 @@ import {
     OPERATION_PENDING,
     OPERATION_SUCCESS,
     OPERATION_ERROR,
-} from '../actions/FileExplorer'
+    OPEN_MODAL,
+} from '../actions/HadoopFile'
 
 import { combineReducers } from 'redux'
-//const initState={
-//    data:'{"FileStatuses":{"FileStatus":[
-//{"accessTime":0,"blockSize":0,"childrenNum":6,"fileId":16392,"group":"supergroup","length":0,"modificationTime":1458543698158,"owner":"hadoop","pathSuffix":"input","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
-//{"accessTime":0,"blockSize":0,"childrenNum":8,"fileId":16412,"group":"supergroup","length":0,"modificationTime":1457593033695,"owner":"hadoop","pathSuffix":"output","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
-//{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":16386,"group":"supergroup","length":0,"modificationTime":1453911076738,"owner":"hadoop","pathSuffix":"tmp","permission":"770","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
-//{"accessTime":0,"blockSize":0,"childrenNum":1,"fileId":16889,"group":"supergroup","length":0,"modificationTime":1456197544321,"owner":"hadoop","pathSuffix":"user","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
-//]}}'
-//};
 
-const initState = {
+
+const filesInitState = {
     currentPath: '',
     currentPathIsFile: false,
     pending: false,
     data: {}
-
 };
-export default function filesData(state = initState, action = {}) {
+
+const operationInitState = {
+    currentOpenModal: -1,
+    pending: false,
+    error: null,
+    data: {}
+};
+/**
+ * 文件系统数据
+ */
+function fileSystemData(state = filesInitState, action = {}) {
     switch (action.type) {
+
         case SHOW_FILE_LIST_PENDING:
             return {
                 ...state,
@@ -55,8 +56,6 @@ export default function filesData(state = initState, action = {}) {
             return {
                 ...state,
                 pending: false,
-                //currentPath: action.meta.path,
-
                 error: action.payload
             };
         default:
@@ -64,8 +63,13 @@ export default function filesData(state = initState, action = {}) {
     }
 }
 
-function submitOperation(state, action) {
+function operationData(state = operationInitState, action) {
     switch (action.type) {
+        case OPEN_MODAL:
+            return {
+                ...state,
+                currentOpenModal: state.currentOpenModal == action.modal ? -1 : action.modal
+            };
         case OPERATION_PENDING:
             return {
                 ...state,
@@ -74,11 +78,8 @@ function submitOperation(state, action) {
         case OPERATION_SUCCESS:
             return {
                 ...state,
-                currentPath: formatCurrentPath(action.meta.path, action.payload.currentPathIsFile),
-                currentPathIsFile: action.payload.currentPathIsFile,
-                data: action.payload.data,
+                currentOpenModal: -1,
                 pending: false,
-                readAsText: action.meta.readAsText,//仅在查看文件内容处起作用，表示当前文件的查看方式（文本/二进制）
                 error: null
             };
         case OPERATION_ERROR:
@@ -90,7 +91,6 @@ function submitOperation(state, action) {
         default:
             return state;
     }
-
 }
 
 function formatCurrentPath(path, isFile) {
@@ -100,5 +100,21 @@ function formatCurrentPath(path, isFile) {
         return path + '/'
     }
     return path;
-
 }
+
+const hadoopFile = combineReducers({
+    fileSystemData,
+    operationData
+});
+
+export default hadoopFile
+
+
+//const filesInitState={
+//    data:'{"FileStatuses":{"FileStatus":[
+//{"accessTime":0,"blockSize":0,"childrenNum":6,"fileId":16392,"group":"supergroup","length":0,"modificationTime":1458543698158,"owner":"hadoop","pathSuffix":"input","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+//{"accessTime":0,"blockSize":0,"childrenNum":8,"fileId":16412,"group":"supergroup","length":0,"modificationTime":1457593033695,"owner":"hadoop","pathSuffix":"output","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+//{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":16386,"group":"supergroup","length":0,"modificationTime":1453911076738,"owner":"hadoop","pathSuffix":"tmp","permission":"770","replication":0,"storagePolicy":0,"type":"DIRECTORY"},
+//{"accessTime":0,"blockSize":0,"childrenNum":1,"fileId":16889,"group":"supergroup","length":0,"modificationTime":1456197544321,"owner":"hadoop","pathSuffix":"user","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}
+//]}}'
+//};

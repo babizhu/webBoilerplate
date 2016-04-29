@@ -32,17 +32,17 @@ class TableToolButtons extends Component {
     }
 
     onDelClick(record, e) {
-        const {operation,filesData} = this.props;
+        const {operation,fileSystemData} = this.props;
 
-        operation(2,filesData.currentPath + '/' + record.pathSuffix,'');
+        operation(2,fileSystemData.currentPath + '/' + record.pathSuffix,'');
     }
     render() {
 
-        const {record} = this.props;
+        const {record,fileSystemData} = this.props;
         const uploadPorps = {
 
             onChange: this.handleChange,
-            data: {path: this.props.filesData.currentPath},
+            data: {path: fileSystemData.currentPath},
             name: 'file',
             //showUploadList: false,
             multiple: true,
@@ -75,7 +75,7 @@ class TableToolButtons extends Component {
 
 TableToolButtons.propTypes = {
     record: PropTypes.object,//当前记录
-    filesData: PropTypes.shape({
+    fileSystemData: PropTypes.shape({
         pending: PropTypes.bool.isRequired,
         currentPath: PropTypes.string.isRequired,//当前路径
         currentPathIsFile: PropTypes.bool.isRequired,//当前路径是否文件

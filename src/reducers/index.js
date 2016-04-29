@@ -4,7 +4,7 @@ import { combineReducers } from 'redux'
 import profile from './Profile'
 import screen from './Screen'
 import sideBar from './SideBar'
-import filesData from './FileExplorer'
+import hadoopFile from './HadoopFile'
 import app from './App'
 
 function todos(state, action) {
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     profile,
     screen,
     sideBar,
-    filesData,
+    hadoopFile,
     app,
     routing
 });
