@@ -95,7 +95,7 @@ class Test extends Component {
         //const props = {
         //    name: 'file',
         //    showUploadList: false,
-        //    onChange: this.handleChange,
+        //    onChange: this.uploadHandleChange,
         //    multiple: true,
         //    action: 'http://localhost:8080/api/hadoop/upload'
         //};

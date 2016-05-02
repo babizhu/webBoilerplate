@@ -39,15 +39,7 @@ class TableToolButtons extends Component {
     render() {
 
         const {record,fileSystemData} = this.props;
-        const uploadPorps = {
 
-            onChange: this.handleChange,
-            data: {path: fileSystemData.currentPath},
-            name: 'file',
-            //showUploadList: false,
-            multiple: true,
-            action: HADOOP_UPLOAD_URI
-        };
         return (
             <div onClick={(e)=>ignoreClick(e)}>
 
@@ -80,10 +72,7 @@ TableToolButtons.propTypes = {
         currentPath: PropTypes.string.isRequired,//当前路径
         currentPathIsFile: PropTypes.bool.isRequired,//当前路径是否文件
         data: PropTypes.object//当前路径下的内容，有可能是文件夹的数据，也有可能是具体某个文件的数据
-    }).isRequired,
-
-    //getFilesData: PropTypes.func.isRequired,
-    //operation: PropTypes.func.isRequired,
+    }).isRequired
 
 };
 TableToolButtons.defaultProps = {};

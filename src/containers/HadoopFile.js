@@ -24,6 +24,14 @@ export default class HadoopFile extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.hadoopFile.operationData.pending === true && nextProps.hadoopFile.operationData.pending === false) {
+            if (nextProps.hadoopFile.operationData.error === null) {
+                console.log('应该刷新整个界面?,当前目录 ' + this.props.hadoopFile.fileSystemData.currentPath);
+                this.props.fileExplorerActions.getFilesData(this.props.hadoopFile.fileSystemData.currentPath)
+            }
+        }
+    }
 
     render() {
 
@@ -43,7 +51,7 @@ export default class HadoopFile extends Component {
                                getFilesData={fileExplorerActions.getFilesData}
                                operationData={hadoopFile.operationData}
                                operation={fileExplorerActions.operation}/>
-                </div>
+            </div>
 
         )
     }

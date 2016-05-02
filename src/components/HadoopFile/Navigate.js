@@ -59,16 +59,12 @@ class Navigate extends Component {
             } else if (event.keyCode == 27) {
                 this.setState({isEdit: false});
             }
-
         } else {
             this.setState({isEdit: false})
         }
     }
 
     buildPath(currentPath) {
-        //  /
-        //  /input/badage
-        //  /input/badage/log
         const isFile = !currentPath.endsWith('/');//路径如果以/结尾说明当前路径是目录
         if (currentPath === '/') {
             return;
@@ -105,14 +101,12 @@ class Navigate extends Component {
     /**
      * 添加新文件夹
      * @param newDirectorName   新文件夹的名称
-     * @param closeModal        是否关闭窗口
      * @param e                 e
      */
-    addDirectory(newDirectorName, visible, e) {
+    addDirectory(newDirectorName, e) {
         ignoreClick(e);
         const {operation,fileSystemData,openModal} = this.props;
         if (newDirectorName) {
-
             operation(3, fileSystemData.currentPath, newDirectorName);
         }
         else {
@@ -128,7 +122,6 @@ class Navigate extends Component {
     backUp(currentPath, e) {
         ignoreClick(e);
         if (currentPath === '/') {
-            //alert( '根目录了');
             return;
         }
         const {getFilesData} = this.props;
@@ -138,14 +131,12 @@ class Navigate extends Component {
             path = currentPath.substring(0, currentPath.length - 1);
         }
         path = path.substring(0, path.lastIndexOf('/') + 1);
-        //alert('path = ' + path);
         getFilesData(path);
 
     }
 
     /**
      * 构造路径编辑框
-     * @returns {XML}
      */
     buildPathInput(currentPath) {
         return (
@@ -163,7 +154,6 @@ class Navigate extends Component {
     onUploadClick(needRefrsh, e) {
 
         ignoreClick(e);
-
         this.setState({showUpload: !this.state.showUpload});
         const {fileSystemData} = this.props;
         if (needRefrsh && !fileSystemData.currentPathIsFile) {
@@ -172,15 +162,13 @@ class Navigate extends Component {
         }
     }
 
-    handleChange(info) {
+    uploadHandleChange(info) {
         let fileList = info.fileList;
-
-        let errMsg = [];
 
         // 3. 按照服务器返回信息筛选成功上传的文件
         fileList = fileList.filter((file) => {
             if (file.status === 'done') {
-                if (!file.changeDisplayName) {//显示的文件名只修改一次
+                if (!file.displayNameIsChanged) {//显示的文件名只修改一次
                     if (file.response.error) {
                         file.name = <span>{file.name} <Icon style={{color:'red',marginTop:'5px'}}
                                                             type="cross-circle-o"/></span>;
@@ -189,7 +177,7 @@ class Navigate extends Component {
                         file.name = <span>{file.name} <Icon style={{color:'red',marginTop:'5px'}}
                                                             type="check-circle-o"/></span>;
                     }
-                    file.changeDisplayName = true;
+                    file.displayNameIsChanged = true;
                 }
             }
             return true;
@@ -201,11 +189,10 @@ class Navigate extends Component {
         if (info.file.status === 'done') {
             if (info.file.response.error) {
                 const e = info.file.response.error;
+                //noinspection JSUnresolvedVariable
                 showErrMsg(e.errorId, e.args, HADOOP_UPLOAD_URI);//
-                //message.error(`${e.args} 上传失败:目录下存在同名文件`);
             }
             else {
-
                 //message.success(`${info.file.name} 上传成功。`);
             }
         }
@@ -215,10 +202,9 @@ class Navigate extends Component {
         const {currentPath} = this.props.fileSystemData;
         const uploadPorps = {
 
-            onChange: this.handleChange.bind(this),
+            onChange: this.uploadHandleChange.bind(this),
             data: {path: currentPath},
             name: 'file',
-            //showUploadList: false,
             multiple: true,
             action: HADOOP_UPLOAD_URI
         };
@@ -242,7 +228,7 @@ class Navigate extends Component {
                         <Icon type='upload'/>
                     </div>
                 </Tooltip>
-                <Tooltip title="新建文件夹">
+                <Tooltip title="新建目录">
                     <div className='canClick' style={{float:'right',marginRight:'30px'}}
                          onClick={this.addDirectory.bind(this,null,true)}>
                         <Icon type="plus-circle-o"/>
@@ -251,16 +237,7 @@ class Navigate extends Component {
                 </Tooltip>
             </div>;
         const {operationData} = this.props;
-        //console.log( 'operation.error = ' + operation.error);
-        //let visible = this.state.addDirectoryModalVisible;
-        //if (!visible) {
-        //    if (operation.pending || operation.error != null) {
-        //        visible = true;
-        //        //}else if( operation.error != null ){
-        //        //    alert(11111111)
-        //        //    visible = true;
-        //    }
-        //}
+
         return (
             <div>
                 <UploadModal uploadPorps={uploadPorps}

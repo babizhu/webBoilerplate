@@ -8,25 +8,22 @@ import { Icon,Table,Spin,Popconfirm,Pagination } from 'antd';
 
 import {formatFileSize} from '../../utils/index';
 import {formatTime} from '../../utils/time';
-
 import {decode64,utf8to16} from '../../utils/base64'
+import {HADOOP_DOWNLOAD_URL} from '../../conf/config'
 
 class FileView extends Component {
 
     constructor() {
         super();
-        //this.state={readAsText:true};
-        //this.readAsText = true;
     }
 
+    /**
+     * 切换当前的文件查看模式:二进制或者文本模式
+     */
     changeFileViewMode() {
-        const {getFilesData} = this.props;
-        const {fileSystemData} = this.props;
-        //this.setState({readAsText:!this.state.readAsText});
-        //this.readAsText = !this.readAsText;
+        const {getFilesData,fileSystemData} = this.props;
         getFilesData(fileSystemData.currentPath, !fileSystemData.readAsText);
     }
-
 
     displayFileContent(res) {
         const {readAsText} = this.props.fileSystemData;
@@ -55,8 +52,7 @@ class FileView extends Component {
      */
     download() {
         const {currentPath} = this.props.fileSystemData;
-        const url = 'http://master:50070/webhdfs/v1' + currentPath + '?op=OPEN';
-        //alert(url);
+        const url = HADOOP_DOWNLOAD_URL.replace('%s',currentPath);
         window.open(url)
     }
 
@@ -123,9 +119,6 @@ FileView.propTypes = {
         data: PropTypes.object//当前文件的数据
     }).isRequired,
 
-    /**
-     * 根据当前路径从服务器端获取数据，有可能获取的是文件夹的数据，也有可能是具体某个文件的数据
-     */
     getFilesData: PropTypes.func.isRequired
 };
 FileView.defaultProps = {};
