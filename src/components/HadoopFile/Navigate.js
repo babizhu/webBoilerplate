@@ -18,7 +18,6 @@ class Navigate extends Component {
         this.state = {
             isEdit: false,
             showUpload: false,
-            addDirectoryModalVisible: false,
             fileList: []
         };
     }

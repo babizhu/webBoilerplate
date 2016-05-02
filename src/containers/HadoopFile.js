@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Table } from 'antd';
+import { message } from 'antd';
 import { bindActionCreators } from 'redux';
 
 import Navigate from '../components/HadoopFile/Navigate'
@@ -27,8 +27,12 @@ export default class HadoopFile extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.hadoopFile.operationData.pending === true && nextProps.hadoopFile.operationData.pending === false) {
             if (nextProps.hadoopFile.operationData.error === null) {
-                console.log('应该刷新整个界面?,当前目录 ' + this.props.hadoopFile.fileSystemData.currentPath);
-                this.props.fileExplorerActions.getFilesData(this.props.hadoopFile.fileSystemData.currentPath)
+                message.success('操作成功。');
+
+                if( !this.props.hadoopFile.fileSystemData.currentPathIsFile ) {
+                    console.log('应该刷新整个界面?,当前目录 ' + this.props.hadoopFile.fileSystemData.currentPath);
+                    this.props.fileExplorerActions.getFilesData(this.props.hadoopFile.fileSystemData.currentPath)
+                }
             }
         }
     }
