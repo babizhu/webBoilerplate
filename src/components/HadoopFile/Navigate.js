@@ -229,7 +229,7 @@ class Navigate extends Component {
                 </Tooltip>
                 <Tooltip title="新建目录">
                     <div className='canClick' style={{float:'right',marginRight:'30px'}}
-                         onClick={this.addDirectory.bind(this,null,true)}>
+                         onClick={this.addDirectory.bind(this,null)}>
                         <Icon type="plus-circle-o"/>
 
                     </div>

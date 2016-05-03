@@ -4,19 +4,25 @@
  */
 
 import React, { Component,PropTypes } from 'react';
-import { Icon,Table } from 'antd';
+import { Icon,Table,Tooltip,Button } from 'antd';
 
+import DelDirectorydModal from './DelDirectorydModal';
 import TableToolButtons from './TableToolButtons';
 import {formatTime} from '../../utils/time';
 import {formatFileSize} from '../../utils/index';
+import {ignoreClick} from '../../utils/index';
 
 
 class DirectoryView extends Component {
 
+    constructor() {
+        super();
+        this.operationDirectory = '';
+    }
+
     /**
      * 响应单击表格的row的事件
      * @param record    当前记录
-     * @param index     当前index
      */
     onRowClick(record) {
         const {currentPath} = this.props.fileSystemData;
@@ -29,9 +35,33 @@ class DirectoryView extends Component {
         }
         getFilesData(tempPath + record.pathSuffix);
     }
+
+    delDirectoryOk(record, recursiveDelete, e) {
+        const {operation,fileSystemData,openModal} = this.props;
+        if (recursiveDelete != undefined) {
+
+            console.log('要删除的文件是:' + this.operationDirectory + ' recursiveDel=' + recursiveDelete);
+            operation(2,this.operationDirectory ,recursiveDelete);
+        } else {
+            if( record ){
+                this.operationDirectory = fileSystemData.currentPath + record.pathSuffix;
+            }
+            openModal(2);
+        }
+        ////for( let x in record )
+        //
+        ////alert( record);
+        ////for( let x in recursiveDel )
+        ////alert(x)
+        //console.log('aaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaa')
+        //alert('bbbbbbbbbbbbbb')
+    }
+
     render() {
-        const {fileSystemData} = this.props;
-        const props = this.props;
+        const parent = this;
+        const {fileSystemData,operationData} = this.props;
+        //const props = this.props;
+        //var delDirectoryOk = this.delDirectoryOk;
         const columns = [{
             title: '类型',
             dataIndex: 'isFile',
@@ -85,8 +115,7 @@ class DirectoryView extends Component {
             render: (text, row)=> {
                 //noinspection JSUnresolvedVariable
                 return row.isFile ? text : '~';
-            },
-
+            }
         }, {
             title: '创建时间',
             dataIndex: 'modificationTime',
@@ -97,12 +126,34 @@ class DirectoryView extends Component {
         }, {
             title: '操作',
             key: 'operation',
-            render(text, record ) {
+            render(text, record) {
+                function abc(record){
+                    console.log(record.group);
+                    //delDirectoryOk(record,null);
+                    //this.delDirectoryOk(record,null);
+                    console.log(parent.delDirectoryOk);
+                    parent.delDirectoryOk(record);
+                    //s.delDirectoryOk(record,null);
+                };
                 return (
-                    <TableToolButtons
-                        record={record}
-                        {...props}
-                    />
+
+                    <div onClick={(e)=>ignoreClick(e)}>
+                        <span className='actions'>
+                            <Tooltip title="重命名">
+                                <Button type="ghost" className='button'
+                                        onClick={parent.delDirectoryOk.bind(parent,record)}>
+                                    <Icon type="edit"/>
+                                </Button>
+                            </Tooltip>
+
+                            <Tooltip title="删除">
+                                <Button type="ghost" className='button'
+                                        onClick={parent.delDirectoryOk.bind(parent,record,null)}>
+                                    <Icon type="delete"/>
+                                </Button>
+                            </Tooltip>
+                        </span>
+                    </div>
                 );
             }
         }];
@@ -110,12 +161,21 @@ class DirectoryView extends Component {
 
         //noinspection JSUnresolvedVariable
         return (
-            <Table loading={fileSystemData.pending}
-                   pagination={false}
-                   dataSource={fileSystemData.data && fileSystemData.data.FileStatus}
-                   rowKey={record=>record.fileId}
-                   columns={columns} size="middle"
-                   onRowClick={this.onRowClick.bind(this)}/>
+            <span>
+                <Table loading={fileSystemData.pending}
+                       pagination={false}
+                       dataSource={fileSystemData.data && fileSystemData.data.FileStatus}
+                       rowKey={record=>record.fileId}
+                       columns={columns} size="middle"
+                       onRowClick={this.onRowClick.bind(this)}/>
+
+                <DelDirectorydModal
+                    visible={operationData.currentOpenModal == 2 }
+                    delDirectoryOk={this.delDirectoryOk.bind(this)}
+                    pending={operationData.pending}
+                    directory={this.operationDirectory}
+                />
+            </span>
         )
     }
 }

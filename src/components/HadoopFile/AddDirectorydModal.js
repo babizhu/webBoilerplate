@@ -14,12 +14,11 @@ class AddDirectorydModal extends Component {
         const {addDirectoryOk,form} = this.props;
         const directorName = form.getFieldValue('directorName');
         form.resetFields();
-        const visible = false;
-        addDirectoryOk( directorName, visible );
+        addDirectoryOk( directorName );
     }
     onCancle(){
         const {addDirectoryOk} = this.props;
-        addDirectoryOk(  );
+        addDirectoryOk();
     }
     render() {
         const {visible,pending} = this.props;

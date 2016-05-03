@@ -54,7 +54,9 @@ export default class HadoopFile extends Component {
                 <ViewContainer fileSystemData={hadoopFile.fileSystemData}
                                getFilesData={fileExplorerActions.getFilesData}
                                operationData={hadoopFile.operationData}
-                               operation={fileExplorerActions.operation}/>
+                               operation={fileExplorerActions.operation}
+                               openModal={fileExplorerActions.openModal}
+                />
             </div>
 
         )

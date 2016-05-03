@@ -4,8 +4,9 @@
 import React, { Component,PropTypes } from 'react';
 import { Icon,Tooltip,Button,Upload,Modal  } from 'antd';
 
-import {ignoreClick} from '../../utils/index'
-import {BASE_URI,HADOOP_UPLOAD_URI} from '../../conf/config'
+
+import {ignoreClick} from '../../utils/index';
+import {BASE_URI,HADOOP_UPLOAD_URI} from '../../conf/config';
 
 class TableToolButtons extends Component {
     constructor() {
@@ -31,14 +32,19 @@ class TableToolButtons extends Component {
 
     }
 
-    onDelClick(record, e) {
-        const {operation,fileSystemData} = this.props;
 
-        operation(2,fileSystemData.currentPath + '/' + record.pathSuffix,'');
+    delDirectoryOk( record, recursiveDel, e ){
+        const {operation,fileSystemData,openModal} = this.props;
+        if( recursiveDel ){
+
+        alert('要删除的文件是:' + fileSystemData.currentPath+ record.pathSuffix);
+        }else {
+            openModal(2);
+        }
     }
     render() {
 
-        const {record,fileSystemData} = this.props;
+        const {record,operationData,fileSystemData} = this.props;
 
         return (
             <div onClick={(e)=>ignoreClick(e)}>
@@ -52,12 +58,14 @@ class TableToolButtons extends Component {
                 </Tooltip>
 
                 <Tooltip title="删除">
-                    <Button type="ghost" className='button' onClick={this.onDelClick.bind(this,record)}>
+                    <Button type="ghost" className='button'
+                            onClick={this.delDirectoryOk.bind(this,record,null)}>
                         <Icon type="delete"/>
                     </Button>
                 </Tooltip>
 
             </span>
+
 
             </div>
 
