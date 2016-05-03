@@ -7,6 +7,7 @@ import React, { Component,PropTypes } from 'react';
 import { Icon,Table,Tooltip,Button } from 'antd';
 
 import DelDirectorydModal from './DelDirectorydModal';
+import RenameDirectorydModal from './RenameDirectorydModal';
 import TableToolButtons from './TableToolButtons';
 import {formatTime} from '../../utils/time';
 import {formatFileSize} from '../../utils/index';
@@ -36,7 +37,20 @@ class DirectoryView extends Component {
         getFilesData(tempPath + record.pathSuffix);
     }
 
-    delDirectoryOk(record, recursiveDelete, e) {
+    renameDirectoryOk(record,newDirectoryName){
+        const {operation,fileSystemData,openModal} = this.props;
+        if (newDirectoryName) {
+
+            console.log('要修改的文件是:' + this.operationDirectory + ' newDirectoryName=' + newDirectoryName);
+            //operation(2,this.operationDirectory ,recursiveDelete);
+        } else {
+            if( record ){
+                this.operationDirectory = fileSystemData.currentPath + record.pathSuffix;
+            }
+            openModal(1);
+        }
+    }
+    delDirectoryOk(record, recursiveDelete) {
         const {operation,fileSystemData,openModal} = this.props;
         if (recursiveDelete != undefined) {
 
@@ -141,7 +155,7 @@ class DirectoryView extends Component {
                         <span className='actions'>
                             <Tooltip title="重命名">
                                 <Button type="ghost" className='button'
-                                        onClick={parent.delDirectoryOk.bind(parent,record)}>
+                                        onClick={parent.renameDirectoryOk.bind(parent,record,null)}>
                                     <Icon type="edit"/>
                                 </Button>
                             </Tooltip>
@@ -172,6 +186,12 @@ class DirectoryView extends Component {
                 <DelDirectorydModal
                     visible={operationData.currentOpenModal == 2 }
                     delDirectoryOk={this.delDirectoryOk.bind(this)}
+                    pending={operationData.pending}
+                    directory={this.operationDirectory}
+                />
+                <RenameDirectorydModal
+                    visible={operationData.currentOpenModal == 1 }
+                    renameDirectoryOk={this.renameDirectoryOk.bind(this)}
                     pending={operationData.pending}
                     directory={this.operationDirectory}
                 />
