@@ -37,27 +37,28 @@ class DirectoryView extends Component {
         getFilesData(tempPath + record.pathSuffix);
     }
 
-    renameDirectoryOk(record,newDirectoryName){
+    renameDirectoryOk(record, newDirectoryName) {
         const {operation,fileSystemData,openModal} = this.props;
         if (newDirectoryName) {
-
+            operation(1, this.operationDirectory, newDirectoryName);
             console.log('要修改的文件是:' + this.operationDirectory + ' newDirectoryName=' + newDirectoryName);
             //operation(2,this.operationDirectory ,recursiveDelete);
         } else {
-            if( record ){
+            if (record) {
                 this.operationDirectory = fileSystemData.currentPath + record.pathSuffix;
             }
             openModal(1);
         }
     }
+
     delDirectoryOk(record, recursiveDelete) {
         const {operation,fileSystemData,openModal} = this.props;
         if (recursiveDelete != undefined) {
 
             console.log('要删除的文件是:' + this.operationDirectory + ' recursiveDel=' + recursiveDelete);
-            operation(2,this.operationDirectory ,recursiveDelete);
+            operation(2, this.operationDirectory, recursiveDelete);
         } else {
-            if( record ){
+            if (record) {
                 this.operationDirectory = fileSystemData.currentPath + record.pathSuffix;
             }
             openModal(2);
@@ -141,7 +142,7 @@ class DirectoryView extends Component {
             title: '操作',
             key: 'operation',
             render(text, record) {
-                function abc(record){
+                function abc(record) {
                     console.log(record.group);
                     //delDirectoryOk(record,null);
                     //this.delDirectoryOk(record,null);
@@ -194,6 +195,7 @@ class DirectoryView extends Component {
                     renameDirectoryOk={this.renameDirectoryOk.bind(this)}
                     pending={operationData.pending}
                     directory={this.operationDirectory}
+
                 />
             </span>
         )

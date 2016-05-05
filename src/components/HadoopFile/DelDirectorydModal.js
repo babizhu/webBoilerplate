@@ -18,6 +18,7 @@ class DelDirectorydModal extends Component {
             } else {
                 delDirectoryOk(null, !!values.recursiveDel);
                 form.resetFields();
+                values.recursiveDel = false;
             }
         });
     }
@@ -39,7 +40,7 @@ class DelDirectorydModal extends Component {
     }
 
     render() {
-        const {visible,pending,directory} = this.props;
+        const {visible,pending,directory,recursiveDelChecked} = this.props;
         const { getFieldProps } = this.props.form;
 
         const formItemLayout = {
@@ -73,7 +74,6 @@ class DelDirectorydModal extends Component {
                         label="危险操作：">
                         <Input {...rePassProps}
                             type="text" autoComplete="off"
-
                             placeholder="请输入要删除的文件名，以避免误操作"/>
                     </FormItem>
 
