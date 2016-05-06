@@ -32,12 +32,14 @@ export function formatFileSize(size) {
 }
 
 export function ignoreClick(e) {
+    if( !e ){
+        return;
+    }
     if (e && e.stopPropagation) {
+        //W3C取消冒泡事件
         e.stopPropagation();
-        e.preventDefault();
-
     } else {
-        // 否则，我们需要使用IE的方式来取消事件冒泡
+        //IE取消冒泡事件
         window.event.cancelBubble = true;
     }
 }

@@ -124,7 +124,7 @@ class DirectoryView extends Component {
             dataIndex: 'permission',
             key: 'permission'
         }, {
-            title: '备份数',
+            title: '备份',
             dataIndex: 'replication',
             key: 'replication',
             render: (text, row)=> {

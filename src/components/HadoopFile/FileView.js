@@ -55,7 +55,6 @@ class FileView extends Component {
         const url = HADOOP_DOWNLOAD_URL.replace('%s',currentPath);
         window.open(url)
     }
-
     render() {
         const {fileSystemData} = this.props;
         const {fileStatus} = fileSystemData.data;
@@ -69,15 +68,15 @@ class FileView extends Component {
                             {fileSystemData.readAsText ? ' 以二进制格式查看' : ' 以文本方式查看'}
                         </div>
                         <div className='value  canClick'>
-                            { fileStatus.length < 1024 * 1024 * 10 ?
+                            { fileStatus.length < 1024 * 1024 * 10 * 10 ?
                                 <Popconfirm title="确定要下载这个文件吗，文件太大有可能导致服务器死机？"
                                             onConfirm={this.download.bind(this)}
                                 >
-                                    <a href="#"><Icon type="file"/> 下载此文件（小于10M）</a>
+                                    <a href="#"><Icon type="file"/> 下载此文件（小于100M）</a>
                                 </Popconfirm>
                                 :
-                                <Popconfirm title="文件大小超过10M，不提供下载服务" >
-                                    <a href="#"><Icon type="file"/> 下载此文件（小于10M）</a>
+                                <Popconfirm title="文件大小超过100M，不提供下载服务" >
+                                    <a href="#"><Icon type="file"/> 下载此文件（小于100M）</a>
                                 </Popconfirm>}
                         </div>
                     </div>

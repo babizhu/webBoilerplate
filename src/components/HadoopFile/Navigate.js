@@ -211,7 +211,7 @@ class Navigate extends Component {
         let content = this.state.isEdit ? this.buildPathInput(currentPath) :
             <div onClick={this.beginEditPath.bind(this)}>
                 <span onClick={this.pathClick.bind(this,'/')} className='canClick' key='/'>
-                     <span><Icon type='hdd' className='root'/>hadoop</span>: /
+                     <span><Icon type='hdd' className='root'/>HDFS</span>: /
                 </span>
                 {this.buildPath(currentPath)}
 
