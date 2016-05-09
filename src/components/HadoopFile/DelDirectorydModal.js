@@ -12,11 +12,12 @@ class DelDirectorydModal extends Component {
 
     onOk() {
         const {delDirectoryOk,form} = this.props;
+        //noinspection JSUnresolvedFunction
         form.validateFields((errors, values) => {
             if (!!errors) {
-                return;
             } else {
                 delDirectoryOk(null, !!values.recursiveDel);
+                //noinspection JSUnresolvedFunction
                 form.resetFields();
                 values.recursiveDel = false;
             }
@@ -28,19 +29,19 @@ class DelDirectorydModal extends Component {
         delDirectoryOk();
     }
 
-    checkDirectory(rule, value, callback) {
+    checkDirectory(value, callback) {
         //const {delDirectoryOk,form} = this.props;
         const {directory} = this.props;
 
         if (value && value !== directory) {
-            callback('未输入正确的目录名！');
+            callback('未输入正确的文件(夹)名！');
         } else {
             callback();
         }
     }
 
     render() {
-        const {visible,pending,directory,recursiveDelChecked} = this.props;
+        const {visible,pending,directory} = this.props;
         const { getFieldProps } = this.props.form;
 
         const formItemLayout = {
@@ -52,29 +53,31 @@ class DelDirectorydModal extends Component {
             rules: [{
                 required: true,
                 whitespace: true,
-                message: '请输入要删除的目录名称',
+                message: '请输入要删除的文件(夹)名称'
             }, {
-                validator: this.checkDirectory.bind(this),
-            }],
+                validator: this.checkDirectory.bind(this)
+            }]
         });
+        const redTitle = <span style={{color:'red'}}>危险操作：</span>;
         return (
-            <Modal title="删除文件夹" visible={visible}
+            <Modal title="删除文件(夹)" visible={visible}
                    confirmLoading={pending}
                    onOk={this.onOk.bind(this)}
                    onCancel={this.onCancle.bind(this)}>
                 <Form horizontal form={this.props.form}>
                     <FormItem
-                        label="删除目录："
+                        label="删除："
                         {...formItemLayout}>
                         <p className="ant-form-text" id="static" name="static">{directory}</p>
 
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="危险操作：">
+                        label={redTitle}
+                    >
                         <Input {...rePassProps}
                             type="text" autoComplete="off"
-                            placeholder="请输入要删除的文件名，以避免误操作"/>
+                            placeholder="请输入< 完整 >路径，以免误操作"/>
                     </FormItem>
 
                     <FormItem
@@ -91,7 +94,7 @@ class DelDirectorydModal extends Component {
 DelDirectorydModal.propTypes = {
     visible: PropTypes.bool.isRequired,//是否显示对话框
     delDirectoryOk: PropTypes.func.isRequired,//点击关闭将调用此函数
-    directory: PropTypes.string.isRequired,//要删除的目录
+    directory: PropTypes.string.isRequired//要删除的文件(夹)
 };
 DelDirectorydModal.defaultProps = {};
 
