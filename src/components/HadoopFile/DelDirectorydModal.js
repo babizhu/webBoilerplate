@@ -77,7 +77,7 @@ class DelDirectorydModal extends Component {
                     >
                         <Input {...rePassProps}
                             type="text" autoComplete="off"
-                            placeholder="请输入删除目标的 完整 路径，以免误操作"/>
+                            placeholder="请输入删除目标的< 完整 >路径，以免误操作"/>
                     </FormItem>
 
                     <FormItem
