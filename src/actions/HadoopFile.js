@@ -17,15 +17,14 @@ export const OPERATION_ERROR = 'OPERATION_ERROR';
 
 export const OPEN_MODAL = 'OPEN_MODAL';
 
+
 /**
  * 获取path下的文件或者文件夹信息，如果path是一个文件则获取文件的具体内容
- * @param path) {
-    return {
-        type
- * @returns {{type: string, payload: {promise: *}}}
+ * @param path          要获取信息的文件路径
+ * @param readAsText    如果是路径是文件，true：采用文本方式读取，false：采用二进制方式读取
+ * @param block         文件的块（文件太大，不可能读取整个文件，而是以块为单位读取，块的大小在服务器端指定）
+ * @returns {{type: string, meta: {path: *, noSysErrMsg: boolean, readAsText: boolean}, payload: {promise: *}}}
  */
-
-
 export function getFilesData(path,readAsText=true,block=0) {
     return {
         type: SHOW_FILE_LIST,

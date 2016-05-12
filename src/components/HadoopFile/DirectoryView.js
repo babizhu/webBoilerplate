@@ -15,7 +15,6 @@ import {ignoreClick} from '../../utils/index';
 
 
 class DirectoryView extends Component {
-
     constructor() {
         super();
         this.operationDirectory = '';
@@ -41,7 +40,7 @@ class DirectoryView extends Component {
         const {operation,fileSystemData,openModal} = this.props;
         if (newDirectoryName) {
             operation(1, this.operationDirectory, newDirectoryName);
-            console.log('要修改的文件是:' + this.operationDirectory + ' newDirectoryName=' + newDirectoryName);
+            //console.log('要修改的文件是:' + this.operationDirectory + ' newDirectoryName=' + newDirectoryName);
             //operation(2,this.operationDirectory ,recursiveDelete);
         } else {
             if (record) {
@@ -142,14 +141,7 @@ class DirectoryView extends Component {
             title: '操作',
             key: 'operation',
             render(text, record) {
-                function abc(record) {
-                    console.log(record.group);
-                    //delDirectoryOk(record,null);
-                    //this.delDirectoryOk(record,null);
-                    console.log(parent.delDirectoryOk);
-                    parent.delDirectoryOk(record);
-                    //s.delDirectoryOk(record,null);
-                };
+
                 return (
 
                     <div onClick={(e)=>ignoreClick(e)}>
@@ -181,7 +173,8 @@ class DirectoryView extends Component {
                        pagination={false}
                        dataSource={fileSystemData.data && fileSystemData.data.FileStatus}
                        rowKey={record=>record.fileId}
-                       columns={columns} size="middle"
+                       columns={columns}
+                       size="middle"
                        onRowClick={this.onRowClick.bind(this)}/>
 
                 <DelDirectorydModal
