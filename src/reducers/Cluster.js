@@ -48,6 +48,11 @@ function clusterData(state = initState, action = {}) {
                 pending: false,
                 error: action.payload
             };
+        case CLUSTER_OPERATION_SUCCESS:
+            console.log( 'CLUSTER_OPERATION_SUCCESS 之后' + action);
+            return{
+                ...state,
+            }
         default:
             return state;
     }

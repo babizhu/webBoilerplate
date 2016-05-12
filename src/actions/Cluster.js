@@ -55,6 +55,8 @@ export function operation(op, cluster) {
     return {
         type: CLUSTER_OPERATION,
         meta: {
+            op,
+            cluster,
             //path,
         },
         payload: {

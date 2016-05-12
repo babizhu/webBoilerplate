@@ -20,7 +20,6 @@ export default class HadoopFile extends Component {
         const {currentPath} = this.props.hadoopFile.fileSystemData;
         if (currentPath === '') {
             this.props.fileExplorerActions.getFilesData('/');
-
         }
     }
 
