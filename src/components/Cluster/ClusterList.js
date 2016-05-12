@@ -80,6 +80,7 @@ class ClusterList extends Component {
         }];
         return (
             <span>
+                <Button>添加</Button><Button>启动</Button><Button type="primary" icon="search">按钮</Button><br /><br />
                 <Table dataSource={clusterData.data} columns={columns} size="middle"
                        loading={clusterData.pending}
                        size="middle"

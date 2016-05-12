@@ -20,7 +20,7 @@ import SideBar from './SideBar';
 import * as profileActions from '../actions/Profile';
 import * as screenActions from '../actions/Screen';
 
-import 'antd/lib/index.css';
+import 'antd/dist/antd.css'
 /**
  * 程序的实际入口
  */
