@@ -1,0 +1,16 @@
+$danger_text_color: #f44336;//危险的文本颜色
+$danger_bg_color: $danger_text_color;//危险的背景颜色，多用于删除对话框的title
+
+
+/**
+* 用于删除对话框的title
+**/
+@mixin danger-modal-header {
+  padding: 13px 18px 14px 16px;
+  background: #f44336;
+  color: #fff;
+}
+
+.dangerText{
+  color: $danger_text_color;
+}

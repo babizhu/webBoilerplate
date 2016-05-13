@@ -3,7 +3,10 @@
  * 集群列表
  */
 import React, { Component,PropTypes } from 'react';
-import { Icon,Table,Tooltip,Button } from 'antd';
+import { Menu,Icon,Table,Dropdown ,Tooltip,Button,Input } from 'antd';
+const DropdownButton = Dropdown.Button;
+const InputGroup = Input.Group;
+
 
 import DelClusterModal from './DelClusterModal'
 import {ignoreClick} from '../../utils/index';
@@ -12,7 +15,7 @@ import {ignoreClick} from '../../utils/index';
 class ClusterList extends Component {
     constructor() {
         super();
-        this.currentCluster={};
+        this.currentCluster = {};
     }
 
     /**
@@ -39,6 +42,23 @@ class ClusterList extends Component {
     }
 
     render() {
+        const menu = (
+            <Menu>
+                <Menu.Item key="1">重新启动</Menu.Item>
+                <Menu.Item key="2">彻底删除</Menu.Item>
+            </Menu>
+        );
+        const rowSelection = {
+            onChange(selectedRowKeys, selectedRows) {
+                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            },
+            onSelect(record, selected, selectedRows) {
+                console.log(record, selected, selectedRows);
+            },
+            onSelectAll(selected, selectedRows, changeRows) {
+                console.log(selected, selectedRows, changeRows);
+            },
+        };
         const {clusterData,operationData} = this.props;
         const parent = this;
         const columns = [{
@@ -78,13 +98,35 @@ class ClusterList extends Component {
                 );
             }
         }];
+
         return (
             <span>
-                <Button>添加</Button><Button>启动</Button><Button type="primary" icon="search">按钮</Button><br /><br />
-                <Table dataSource={clusterData.data} columns={columns} size="middle"
-                       loading={clusterData.pending}
-                       size="middle"
-                       rowKey={record=>record.id}/>
+                <div style={{margin:'10px 0px'}}>
+                    <Button type="primary" icon="reload"/>
+                    <Button type="ghost" icon="search" style={{margin:'0px 6px'}}>添加</Button>
+                    <Button type="ghost" icon="right" style={{margin:'0px 6px'}}>启动</Button>
+                    <Button type="ghost" icon="poweroff" style={{margin:'0px 6px'}}>停止</Button>
+                    <DropdownButton overlay={menu} type="primary">
+                        更多操作
+                    </DropdownButton>
+                    <div style={{float:'right', width:'30%'}}>
+
+
+
+                            <Input placeholder="search by name、id or description"/>
+
+
+
+                    </div>
+
+                </div>
+                <Table
+                    dataSource={clusterData.data}
+                    rowSelection={rowSelection}
+                    columns={columns} size="middle"
+                    loading={clusterData.pending}
+                    size="middle"
+                    rowKey={record=>record.id}/>
                 <DelClusterModal
                     visible={operationData.currentOpenModal == 2 }
                     delClusterOk={this.delClusterOk.bind(this)}
