@@ -13,7 +13,7 @@
   "author": "liulaoye",
   "license": "ISC",
   "dependencies": {
-    "antd": "^0.12.16",
+    "antd": "^1.0.1",
     "babel-polyfill": "latest",
     "css-loader": "latest",
     "rc-animate": "latest",
@@ -30,6 +30,7 @@
     "superagent": "^1.8.3"
   },
   "devDependencies": {
+    "babel-plugin-antd":"latest",
     "express": "latest",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.3",

@@ -8,24 +8,17 @@ import { Button, Form, Input, Modal,Icon,Switch  } from 'antd';
 const createForm = Form.create;
 const FormItem = Form.Item;
 
-class DelClusterModal extends Component {
+class EditClusterModal extends Component {
 
     onOk() {
-        const {delClusterOk,form,currentCluster} = this.props;
-        //noinspection JSUnresolvedFunction
-        form.validateFields((errors, values) => {
-            if (!!errors) {
-            } else {
-                delClusterOk(null,{id:currentCluster.id});
-                //noinspection JSUnresolvedFunction
+        const {editClusterOk} = this.props;
 
-            }
-        });
+        editClusterOk(null,{id:currentCluster.id});
     }
 
     onCancle() {
-        const {delClusterOk} = this.props;
-        delClusterOk();
+        const {editClusterOk} = this.props;
+        editClusterOk();
     }
 
     checkName(rule, value, callback) {
@@ -82,11 +75,11 @@ class DelClusterModal extends Component {
     }
 }
 
-DelClusterModal.propTypes = {
+EditClusterModal.propTypes = {
     visible: PropTypes.bool.isRequired,//是否显示对话框
-    delClusterOk: PropTypes.func.isRequired,//点击关闭将调用此函数
-    currentCluster: PropTypes.object.isRequired//要删除的集群
+    editClusterOk: PropTypes.func.isRequired,//点击关闭将调用此函数
+    currentCluster: PropTypes.object.isRequired//要修改的集群内容
 };
-DelClusterModal.defaultProps = {};
+EditClusterModal.defaultProps = {};
 
-export default createForm()(DelClusterModal);
+export default createForm()(EditClusterModal);

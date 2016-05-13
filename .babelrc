@@ -1,5 +1,5 @@
 {
- "plugins": ["transform-es2015-spread"],
+ "plugins": ["transform-es2015-spread","antd"],
   "presets": ["es2015","react","stage-0" ],
   "env": {
     "development": {

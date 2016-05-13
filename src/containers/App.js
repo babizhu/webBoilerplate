@@ -15,7 +15,7 @@ import * as appActions from '../actions/App';
 import {BIG_SCREEN_WIDTH} from '../const/Const';
 
 
-import 'antd/lib/index.css';
+import 'antd/dist/antd.css'
 
 class App extends Component {
     constructor(props) {
