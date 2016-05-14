@@ -14,3 +14,8 @@ $danger_bg_color: $danger_text_color;//危险的背景颜色，多用于删除�
 .dangerText{
   color: $danger_text_color;
 }
+.dangerModal{
+  .ant-modal-header {
+    @include danger-modal-header;
+  }
+}
