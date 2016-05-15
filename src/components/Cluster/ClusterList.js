@@ -9,13 +9,20 @@ const InputGroup = Input.Group;
 
 
 import DelClusterModal from './DelClusterModal'
+import ClusterModal from './ClusterModal'
+
 import {ignoreClick} from '../../utils/index';
 
 
 class ClusterList extends Component {
     constructor() {
         super();
-        this.currentCluster = {};
+        this.currentCluster = {id: -1};
+        this.state = {selectedRowKeys: []}
+    }
+
+    buildEmptyCluster() {
+        return {id: -1};
     }
 
     /**
@@ -27,6 +34,18 @@ class ClusterList extends Component {
     }
 
     editOk(record) {
+    }
+
+    addOrEditClusterOk(record, cluster) {
+        const {openModal,operation} = this.props;
+        if (cluster) {//从弹出窗口回调而来的
+            operation(1, cluster);
+        } else {
+            if (record) {
+                this.currentCluster = record;
+            }
+            openModal(1);
+        }
     }
 
     delClusterOk(record, cluster) {
@@ -41,24 +60,30 @@ class ClusterList extends Component {
         }
     }
 
+    onSelectChange(selectedRowKeys) {
+        console.log('selectedRowKeys changed: ', selectedRowKeys);
+        this.setState({selectedRowKeys});
+    }
+
+    refresh() {
+        this.props.getClustersData();
+    }
+
     render() {
+        const { selectedRowKeys } = this.state;
+        const rowSelection = {
+            selectedRowKeys,
+            onChange: this.onSelectChange.bind(this)
+        };
+        const hasSelected = selectedRowKeys.length > 0;
+
         const menu = (
             <Menu>
                 <Menu.Item key="1">重新启动</Menu.Item>
                 <Menu.Item key="2">彻底删除</Menu.Item>
             </Menu>
         );
-        const rowSelection = {
-            onChange(selectedRowKeys, selectedRows) {
-                console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            },
-            onSelect(record, selected, selectedRows) {
-                console.log(record, selected, selectedRows);
-            },
-            onSelectAll(selected, selectedRows, changeRows) {
-                console.log(selected, selectedRows, changeRows);
-            },
-        };
+
         const {clusterData,operationData} = this.props;
         const parent = this;
         const columns = [{
@@ -72,7 +97,7 @@ class ClusterList extends Component {
         }, {
             title: '描述',
             dataIndex: 'description',
-            key: 'address'
+            key: 'description'
         }, {
             title: '操作',
             key: 'operation',
@@ -81,7 +106,9 @@ class ClusterList extends Component {
                     <div onClick={(e)=>ignoreClick(e)}>
                         <span className='actions'>
                             <Tooltip title="编辑集群">
-                                <Button type="ghost" className='button'>
+                                <Button type="ghost" className='button'
+                                        onClick={parent.addOrEditClusterOk.bind(parent,record,null)}>
+
                                     <Icon type="edit"/>
                                 </Button>
                             </Tooltip>
@@ -99,23 +126,22 @@ class ClusterList extends Component {
             }
         }];
 
+        //const hasSelected = selectedRowKeys.length > 0;
         return (
             <span>
                 <div style={{margin:'10px 0px'}}>
-                    <Button type="primary" icon="reload"/>
-                    <Button type="ghost" icon="search" style={{margin:'0px 6px'}}>添加</Button>
-                    <Button type="ghost" icon="right" style={{margin:'0px 6px'}}>启动</Button>
-                    <Button type="ghost" icon="poweroff" style={{margin:'0px 6px'}}>停止</Button>
-                    <DropdownButton overlay={menu} type="primary">
+                    <Button type="primary" icon="reload" onClick={this.refresh.bind(this)}
+                            loading={clusterData.pending}/>
+                    <Button type="ghost" icon="plus" style={{margin:'0px 6px'}}
+                            onClick={this.addOrEditClusterOk.bind(this,this.buildEmptyCluster(),null)}>
+                        添加</Button>
+                    <Button type="ghost" icon="right" style={{margin:'0px 6px'}} disabled={!hasSelected}>启动</Button>
+                    <Button type="ghost" icon="poweroff" style={{margin:'0px 6px'}} disabled={!hasSelected}>停止</Button>
+                    <DropdownButton overlay={menu} type="primary" disabled={!hasSelected}>
                         更多操作
                     </DropdownButton>
                     <div style={{float:'right', width:'30%'}}>
-
-
-
-                            <Input placeholder="search by name、id or description"/>
-
-
+                        <Input placeholder="search by name、id or description"/>
 
                     </div>
 
@@ -130,6 +156,12 @@ class ClusterList extends Component {
                 <DelClusterModal
                     visible={operationData.currentOpenModal == 2 }
                     delClusterOk={this.delClusterOk.bind(this)}
+                    pending={operationData.pending}
+                    currentCluster={this.currentCluster}
+                />
+                <ClusterModal
+                    visible={operationData.currentOpenModal == 3 || operationData.currentOpenModal == 1 }
+                    addOrEditClusterOk={this.addOrEditClusterOk.bind(this)}
                     pending={operationData.pending}
                     currentCluster={this.currentCluster}
                 />
