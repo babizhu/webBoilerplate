@@ -95,6 +95,10 @@ class ClusterList extends Component {
             dataIndex: 'ip',
             key: 'ip'
         }, {
+            title: '创建时间',
+            dataIndex: 'createTime',
+            key: 'createTime'
+        }, {
             title: '描述',
             dataIndex: 'description',
             key: 'description'
