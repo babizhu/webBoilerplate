@@ -10,10 +10,11 @@ const FormItem = Form.Item;
 
 class ClusterModal extends Component {
 
-    constructor(){
+    constructor() {
         super();
-        this.newItem={};
+        this.newItem = {};
     }
+
     onOk() {
         const {addOrEditClusterOk,form,currentCluster} = this.props;
         //noinspection JSUnresolvedFunction
@@ -22,8 +23,8 @@ class ClusterModal extends Component {
             } else {
                 let cluster = currentCluster;
                 cluster = {...form.getFieldsValue()};
-                console.log( cluster );
-                addOrEditClusterOk(null, cluster );
+                console.log(cluster);
+                addOrEditClusterOk(null, cluster);
             }
         });
     }
@@ -36,16 +37,16 @@ class ClusterModal extends Component {
     /**
      * 初始化form的内容
      */
-    componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
         const {visible,currentCluster,form} = this.props;
-        if( visible && !nextProps.visible){//对话框由可见变为不可见
+        if (visible && !nextProps.visible) {//对话框由可见变为不可见
             if (this.formIsEdit(currentCluster)) {
                 form.resetFields();
             } else {
                 this.resetFormError(form);
             }
-        }else if( !visible && nextProps.visible ){//对话框由不可见变为可见
-            if (this.formIsEdit( nextProps.currentCluster)) {
+        } else if (!visible && nextProps.visible) {//对话框由不可见变为可见
+            if (this.formIsEdit(nextProps.currentCluster)) {
                 form.resetFields();
             }
         }
@@ -93,29 +94,24 @@ class ClusterModal extends Component {
             }]
         });
 
+        const nameProps = getFieldProps('name', {
+            initialValue: currentCluster && currentCluster.name,
+            rules: [{
+                required: true,
+                whitespace: true,
+                message: '请输入集群名称'
+            }, {
+                //validator: this.checkDirectory.bind(this)
+            }
+            ]
+        });
+
         let title = '编辑集群';
         let nameFiled;
 
-        if (currentCluster.id == -1) {
+        if (!this.formIsEdit(currentCluster)) {
             title = '添加集群';
-            const nameProps = getFieldProps('name', {
-                rules: [{
-                    required: true,
-                    whitespace: true,
-                    message: '请输入集群名称'
-                }, {
-                    //validator: this.checkDirectory.bind(this)
-                }]
-            });
-            nameFiled = <FormItem label='名称：' {...formItemLayout} >
-                <Input {...nameProps}  />
-            </FormItem>;
-        }else{
-            nameFiled  = <FormItem
-                {...formItemLayout}
-                label="名称：">
-                <p className="ant-form-text" id="clusterName" name="clusterName">{currentCluster.name}</p>
-            </FormItem>
+
         }
 
         return (
@@ -124,7 +120,9 @@ class ClusterModal extends Component {
                    onOk={this.onOk.bind(this)}
                    onCancel={this.onCancle.bind(this)}>
                 <Form horizontal form={this.props.form}>
-                    {nameFiled}
+                    <FormItem label='名称：' {...formItemLayout} >
+                        <Input {...nameProps} disabled={this.formIsEdit(currentCluster)} />
+                    </FormItem>
                     <FormItem
                         label="IP："
                         {...formItemLayout}>
