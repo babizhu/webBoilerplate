@@ -20,14 +20,14 @@ export default class Cluster extends Component {
 
         //const clusterData = this.props.cluster.clusterData;
         const {clusterData,operationData} = this.props.cluster;
-        const {openModal,operation,getClustersData} = this.props;
+        const {openClusterModal,clusterOperation,getClustersData} = this.props;
         return (
             <div className="cluster">
                 <ClusterList
                     clusterData={clusterData}
                     operationData={operationData}
-                    openModal={openModal}
-                    operation={operation}
+                    openModal={openClusterModal}
+                    operation={clusterOperation}
                     getClustersData={getClustersData}
                 />
             </div>

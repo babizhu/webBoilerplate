@@ -10,12 +10,12 @@ export const SHOW_FILE_LIST_PENDING = 'SHOW_FILE_LIST_PENDING';
 export const SHOW_FILE_LIST_SUCCESS = 'SHOW_FILE_LIST_SUCCESS';
 export const SHOW_FILE_LIST_ERROR = 'SHOW_FILE_LIST_ERROR';
 
-export const OPERATION = 'OPERATION';
-export const OPERATION_PENDING = 'OPERATION_PENDING';
-export const OPERATION_SUCCESS = 'OPERATION_SUCCESS';
-export const OPERATION_ERROR = 'OPERATION_ERROR';
+export const HADOOP_OPERATION = 'HADOOP_OPERATION';
+export const HADOOP_OPERATION_PENDING = 'HADOOP_OPERATION_PENDING';
+export const HADOOP_OPERATION_SUCCESS = 'HADOOP_OPERATION_SUCCESS';
+export const HADOOP_OPERATION_ERROR = 'HADOOP_OPERATION_ERROR';
 
-export const OPEN_MODAL = 'OPEN_MODAL';
+export const OPEN_HADOOP_MODAL = 'OPEN_HADOOP_MODAL';
 
 
 /**
@@ -56,9 +56,9 @@ export function getFilesData(path,readAsText=true,block=0) {
  *
  * @returns {{type: string, meta: {path: *, noSysErrMsg: boolean, readAsText: boolean}, payload: {promise: *}}}
  */
-export function operation(op,path,args) {
+export function hadoopOperation(op,path,args) {
     return {
-        type: OPERATION,
+        type: HADOOP_OPERATION,
         meta:{
             //path,
         },
@@ -78,9 +78,9 @@ export function operation(op,path,args) {
  * 打开某个对话框
  * @param modal         对话框类型1、改名 2、删除 3、新建目录
  */
-export function openModal(modal) {
+export function openHadoopModal(modal) {
     return {
-        type: OPEN_MODAL,
+        type: OPEN_HADOOP_MODAL,
         modal
     }
 }

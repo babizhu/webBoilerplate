@@ -8,11 +8,11 @@ import {
     SHOW_FILE_LIST_PENDING,
     SHOW_FILE_LIST_SUCCESS,
     SHOW_FILE_LIST_ERROR,
-    OPERATION,
-    OPERATION_PENDING,
-    OPERATION_SUCCESS,
-    OPERATION_ERROR,
-    OPEN_MODAL,
+    HADOOP_OPERATION,
+    HADOOP_OPERATION_PENDING,
+    HADOOP_OPERATION_SUCCESS,
+    HADOOP_OPERATION_ERROR,
+    OPEN_HADOOP_MODAL,
 } from '../actions/HadoopFile'
 
 import { combineReducers } from 'redux'
@@ -65,24 +65,24 @@ function fileSystemData(state = filesInitState, action = {}) {
 
 function operationData(state = operationInitState, action) {
     switch (action.type) {
-        case OPEN_MODAL:
+        case OPEN_HADOOP_MODAL:
             return {
                 ...state,
                 currentOpenModal: state.currentOpenModal == action.modal ? -1 : action.modal
             };
-        case OPERATION_PENDING:
+        case HADOOP_OPERATION_PENDING:
             return {
                 ...state,
                 pending: true
             };
-        case OPERATION_SUCCESS:
+        case HADOOP_OPERATION_SUCCESS:
             return {
                 ...state,
                 currentOpenModal: -1,
                 pending: false,
                 error: null
             };
-        case OPERATION_ERROR:
+        case HADOOP_OPERATION_ERROR:
             return {
                 ...state,
                 pending: false,

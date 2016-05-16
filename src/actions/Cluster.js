@@ -15,7 +15,7 @@ export const CLUSTER_OPERATION_PENDING = 'CLUSTER_OPERATION_PENDING';
 export const CLUSTER_OPERATION_SUCCESS = 'CLUSTER_OPERATION_SUCCESS';
 export const CLUSTER_OPERATION_ERROR = 'CLUSTER_OPERATION_ERROR';
 
-export const OPEN_MODAL = 'OPEN_MODAL';
+export const OPEN_CLUSTER_MODAL = 'OPEN_CLUSTER_MODAL';
 
 /**
  * 获取集群的列表信息
@@ -51,12 +51,12 @@ export function getClustersData(cnd = null, pageNumber = 0, pageSize = 20) {
  * @param cluster       当前要操作的集群
  * @returns {{type: string, meta: {path: *, noSysErrMsg: boolean, readAsText: boolean}, payload: {promise: *}}}
  */
-export function operation(op, cluster) {
+export function clusterOperation(op, cluster) {
     return {
         type: CLUSTER_OPERATION,
         meta: {
             op,
-            cluster,
+            cluster
             //path,
         },
         payload: {
@@ -73,9 +73,9 @@ export function operation(op, cluster) {
  * 打开某个对话框
  * @param modal         对话框类型   1:增 2:、删除 3:改
  */
-export function openModal(modal) {
+export function openClusterModal(modal) {
     return {
-        type: OPEN_MODAL,
+        type: OPEN_CLUSTER_MODAL,
         modal
     }
 }

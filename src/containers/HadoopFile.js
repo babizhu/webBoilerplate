@@ -46,15 +46,15 @@ export default class HadoopFile extends Component {
                           operationData={hadoopFile.operationData}
                           showErrMsg={appActions.showErrMsg}
                           getFilesData={fileExplorerActions.getFilesData}
-                          operation={fileExplorerActions.operation}
-                          openModal={fileExplorerActions.openModal}
+                          operation={fileExplorerActions.hadoopOperation}
+                          openModal={fileExplorerActions.openHadoopModal}
                 />
 
                 <ViewContainer fileSystemData={hadoopFile.fileSystemData}
                                getFilesData={fileExplorerActions.getFilesData}
                                operationData={hadoopFile.operationData}
-                               operation={fileExplorerActions.operation}
-                               openModal={fileExplorerActions.openModal}
+                               operation={fileExplorerActions.hadoopOperation}
+                               openModal={fileExplorerActions.openHadoopModal}
                 />
             </div>
 

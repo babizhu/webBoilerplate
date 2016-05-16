@@ -8,7 +8,6 @@ import { Icon,Table,Tooltip,Button } from 'antd';
 
 import DelDirectorydModal from './DelDirectorydModal';
 import RenameDirectorydModal from './RenameDirectorydModal';
-import TableToolButtons from './TableToolButtons';
 import {formatTime} from '../../utils/time';
 import {formatFileSize} from '../../utils/index';
 import {ignoreClick} from '../../utils/index';
@@ -54,7 +53,7 @@ class DirectoryView extends Component {
         const {operation,fileSystemData,openModal} = this.props;
         if (recursiveDelete != undefined) {
 
-            console.log('要删除的文件是:' + this.operationDirectory + ' recursiveDel=' + recursiveDelete);
+            //console.log('要删除的文件是:' + this.operationDirectory + ' recursiveDel=' + recursiveDelete);
             operation(2, this.operationDirectory, recursiveDelete);
         } else {
             if (record) {

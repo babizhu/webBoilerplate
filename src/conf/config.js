@@ -8,8 +8,8 @@
  * @type {string}
  */
 //const host = 'http://localhost:8080';
-//const host = 'http://192.168.1.5:8080';
-const host = 'http://qtrj77.6655.la:8085';
+const host = 'http://192.168.1.5:8080';
+//const host = 'http://qtrj77.6655.la:8085';
 
 const downloadHost = 'http://192.168.1.5';
 

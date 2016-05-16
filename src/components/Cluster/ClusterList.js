@@ -108,11 +108,9 @@ class ClusterList extends Component {
                             <Tooltip title="编辑集群">
                                 <Button type="ghost" className='button'
                                         onClick={parent.addOrEditClusterOk.bind(parent,record,null)}>
-
                                     <Icon type="edit"/>
                                 </Button>
                             </Tooltip>
-
                             <Tooltip title="删除集群">
                                 <Button type="ghost"
                                         className='button'
@@ -126,7 +124,6 @@ class ClusterList extends Component {
             }
         }];
 
-        //const hasSelected = selectedRowKeys.length > 0;
         return (
             <span>
                 <div style={{margin:'10px 0px'}}>
@@ -142,7 +139,6 @@ class ClusterList extends Component {
                     </DropdownButton>
                     <div style={{float:'right', width:'30%'}}>
                         <Input placeholder="search by name、id or description"/>
-
                     </div>
 
                 </div>
@@ -170,8 +166,6 @@ class ClusterList extends Component {
         )
     }
 }
-
-
 ClusterList.propTypes = {
     clusterData: PropTypes.shape({
         pending: PropTypes.bool.isRequired,

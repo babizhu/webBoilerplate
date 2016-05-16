@@ -17,7 +17,7 @@ import {
     CLUSTER_OPERATION_PENDING,
     CLUSTER_OPERATION_SUCCESS,
     CLUSTER_OPERATION_ERROR,
-    OPEN_MODAL
+    OPEN_CLUSTER_MODAL
 } from '../actions/Cluster'
 
 
@@ -51,8 +51,8 @@ function clusterData(state = initState, action = {}) {
         case CLUSTER_OPERATION_SUCCESS:
             console.log( 'CLUSTER_OPERATION_SUCCESS 之后' + action);
             return{
-                ...state,
-            }
+                ...state
+            };
         default:
             return state;
     }
@@ -65,7 +65,7 @@ const operationInitState = {
 };
 function operationData(state = operationInitState, action) {
     switch (action.type) {
-        case OPEN_MODAL:
+        case OPEN_CLUSTER_MODAL:
             return {
                 ...state,
                 currentOpenModal: state.currentOpenModal == action.modal ? -1 : action.modal
