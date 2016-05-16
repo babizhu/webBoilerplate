@@ -160,7 +160,7 @@ class ClusterList extends Component {
                     currentCluster={this.currentCluster}
                 />
                 <ClusterModal
-                    visible={operationData.currentOpenModal == 3 || operationData.currentOpenModal == 1 }
+                    visible={ operationData.currentOpenModal == 1 }
                     addOrEditClusterOk={this.addOrEditClusterOk.bind(this)}
                     pending={operationData.pending}
                     currentCluster={this.currentCluster}

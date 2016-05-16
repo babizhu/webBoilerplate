@@ -23,7 +23,6 @@ export const OPEN_CLUSTER_MODAL = 'OPEN_CLUSTER_MODAL';
  * @param pageNumber        当前页数
  * @param pageSize          每页的记录数量
  *
- * @returns {{type: *, meta: {path: *, noSysErrMsg: boolean, readAsText: *}, payload: {promise: *}}}
  */
 export function getClustersData(cnd = null, pageNumber = 0, pageSize = 20) {
     return {
@@ -46,10 +45,10 @@ export function getClustersData(cnd = null, pageNumber = 0, pageSize = 20) {
 }
 
 /**
- * 集群数据操作（增删改）统一到这里处理
- * @param op            操作类型1:增 2:、删除 3:改
+ * 增删改 统一到这里处理
+ * 增和改统一到一个操作中处理
+ * @param op            操作类型1:增 改 2:、删除
  * @param cluster       当前要操作的集群
- * @returns {{type: string, meta: {path: *, noSysErrMsg: boolean, readAsText: boolean}, payload: {promise: *}}}
  */
 export function clusterOperation(op, cluster) {
     return {
@@ -71,7 +70,9 @@ export function clusterOperation(op, cluster) {
 }
 /**
  * 打开某个对话框
- * @param modal         对话框类型   1:增 2:、删除 3:改
+ *  * 增和改统一到一个对话框中处理
+
+ * @param modal         对话框类型   1:增 改 2:删除
  */
 export function openClusterModal(modal) {
     return {

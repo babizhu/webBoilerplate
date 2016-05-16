@@ -21,9 +21,9 @@ class ClusterModal extends Component {
         form.validateFields((errors, values) => {
             if (!!errors) {
             } else {
-                let cluster = currentCluster;
-                cluster = {...form.getFieldsValue()};
-                console.log(cluster);
+                let cluster =  {...currentCluster,...form.getFieldsValue()};
+
+                //console.log(cluster);
                 addOrEditClusterOk(null, cluster);
             }
         });
