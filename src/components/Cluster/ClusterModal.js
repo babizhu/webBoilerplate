@@ -10,24 +10,27 @@ const FormItem = Form.Item;
 
 class ClusterModal extends Component {
 
+    constructor(){
+        super();
+        this.newItem={};
+    }
     onOk() {
         const {addOrEditClusterOk,form,currentCluster} = this.props;
         //noinspection JSUnresolvedFunction
         form.validateFields((errors, values) => {
             if (!!errors) {
             } else {
-                addOrEditClusterOk(currentCluster);
-
+                let cluster = currentCluster;
+                cluster = {...form.getFieldsValue()};
+                console.log( cluster );
+                addOrEditClusterOk(null, cluster );
             }
         });
     }
 
     onCancle() {
-        const {addOrEditClusterOk,form} = this.props;
-        //form.resetFields();
+        const {addOrEditClusterOk} = this.props;
         addOrEditClusterOk();
-        //form.resetFields();
-        //this.resetFormError(form)
     }
 
     /**
@@ -46,20 +49,6 @@ class ClusterModal extends Component {
                 form.resetFields();
             }
         }
-        //if (visible === false) {
-        //    if (!this.formIsEdit()) {
-        //        this.resetFormError(form)
-        //    } else {
-        //        form.resetFields();
-        //    }
-        //}else if(nextProps.visible){
-        //    if (!this.formIsEdit()){
-        //        form.resetFields();
-        //    }
-        //}
-        //form.setFieldsValue({ip: currentCluster.ip, name: currentCluster.name});
-        //console.log('componentDidMount!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-
     }
 
     /**
@@ -105,11 +94,7 @@ class ClusterModal extends Component {
         });
 
         let title = '编辑集群';
-        let nameFiled = <FormItem
-            {...formItemLayout}
-            label="名称：">
-            <p className="ant-form-text" id="clusterName" name="clusterName">{currentCluster.name}</p>
-        </FormItem>
+        let nameFiled;
 
         if (currentCluster.id == -1) {
             title = '添加集群';
@@ -125,6 +110,12 @@ class ClusterModal extends Component {
             nameFiled = <FormItem label='名称：' {...formItemLayout} >
                 <Input {...nameProps}  />
             </FormItem>;
+        }else{
+            nameFiled  = <FormItem
+                {...formItemLayout}
+                label="名称：">
+                <p className="ant-form-text" id="clusterName" name="clusterName">{currentCluster.name}</p>
+            </FormItem>
         }
 
         return (
