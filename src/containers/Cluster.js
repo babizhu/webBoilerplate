@@ -19,17 +19,20 @@ class Cluster extends Component {
     render() {
 
         //const clusterData = this.props.cluster.clusterData;
+        const { children } = this.props;
         const {clusterData,operationData} = this.props.cluster;
         const {openClusterModal,clusterOperation,getClustersData} = this.props;
+
         return (
             <div className="cluster">
+                {children||
                 <ClusterList
                     clusterData={clusterData}
                     operationData={operationData}
                     openModal={openClusterModal}
                     operation={clusterOperation}
                     getClustersData={getClustersData}
-                />
+                />}
             </div>
         )
     }

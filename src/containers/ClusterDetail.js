@@ -13,12 +13,19 @@ class ClusterDetail extends Component {
 
     }
 
+    test(){
+        let re = '';
+        for(let x in this.props.params ){
+            console.log(x)
+        }
+        return re;
+    }
     render() {
 
         return (
             <div>
                 test
-                {this.props.toString()}
+                {this.props.params.name}
             </div>
         )
     }

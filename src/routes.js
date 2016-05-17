@@ -9,7 +9,7 @@ import Test from './containers/Test'
 import Cluster from './containers/Cluster'
 import ClusterDetail from './containers/ClusterDetail'
 import DashBoard from './containers/DashBoard'
-
+import ClusterList from './components/Cluster/ClusterList'
 import HadoopFile from './containers/HadoopFile'
 
 
@@ -18,9 +18,7 @@ export default (
         <IndexRoute component={DashBoard} breadcrumbName="中控台"/>
         <Route path="/test" component={Test} breadcrumbName="测试模块"/>
         <Route path="/cluster" component={Cluster} breadcrumbName="集群列表" >
-
-            <Route path="/cluster/name" component={ClusterDetail}  />
-
+            <Route path=":name" component={ClusterDetail} breadcrumbName=":name" />
         </Route>
 
 
