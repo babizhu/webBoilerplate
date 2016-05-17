@@ -50,7 +50,7 @@ class SideBar extends Component {
             if (sideBar.showMode == MINI) {//大屏幕下的mini模式，也就是仅显示菜单图标
                 widthValue = 'auto';
             } else {
-                widthValue = '260px';
+                widthValue = '240px';
             }
             displayMode = 'table-cell';
         } else {
