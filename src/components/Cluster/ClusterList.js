@@ -3,9 +3,11 @@
  * 集群列表
  */
 import React, { Component,PropTypes } from 'react';
-import { Menu,Icon,Table,Dropdown ,Tooltip,Button,Input } from 'antd';
+import ReactDom from "react-dom"
+import { Menu,Icon,Table,Dropdown ,Tooltip,Button,Input,message } from 'antd';
 const DropdownButton = Dropdown.Button;
 const InputGroup = Input.Group;
+import { Link } from 'react-router'
 
 
 import DelClusterModal from './DelClusterModal'
@@ -32,8 +34,19 @@ class ClusterList extends Component {
     onRowClick(record) {
 
     }
+    componentWillReceiveProps(nextProps) {
+        if (this.props.operationData.pending && !nextProps.operationData.pending) {
+            if (nextProps.operationData.error === null) {
+                message.success('操作成功。');
 
-    editOk(record) {
+                //console.log( 'ClusterModal.form = ' + ReactDom.findDOMNode(this.refs.ClusterModal) );
+                //this.currentCluster = this.buildEmptyCluster();
+                //if( !this.props.hadoopFile.fileSystemData.currentPathIsFile ) {
+                //    console.log('应该刷新整个界面?,当前目录 ' + this.props.hadoopFile.fileSystemData.currentPath);
+                //    this.props.fileExplorerActions.getFilesData(this.props.hadoopFile.fileSystemData.currentPath)
+                //}
+            }
+        }
     }
 
     addOrEditClusterOk(record, cluster) {
@@ -89,7 +102,10 @@ class ClusterList extends Component {
         const columns = [{
             title: '名称',
             dataIndex: 'name',
-            key: 'name'
+            key: 'name',
+            render: (text, row)=> {
+                return <Link to={'/cluster/'+text} >{text}</Link>
+            }
         }, {
             title: 'IP地址',
             dataIndex: 'ip',
@@ -148,6 +164,7 @@ class ClusterList extends Component {
                 </div>
                 <Table
                     dataSource={clusterData.data}
+                    pagination={false}
                     rowSelection={rowSelection}
                     columns={columns} size="middle"
                     loading={clusterData.pending}
@@ -160,6 +177,7 @@ class ClusterList extends Component {
                     currentCluster={this.currentCluster}
                 />
                 <ClusterModal
+                    ref = 'ClusterModal'
                     visible={ operationData.currentOpenModal == 1 }
                     addOrEditClusterOk={this.addOrEditClusterOk.bind(this)}
                     pending={operationData.pending}

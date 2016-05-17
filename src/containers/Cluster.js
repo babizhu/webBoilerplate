@@ -7,7 +7,7 @@ import ClusterList from '../components/Cluster/ClusterList'
 import * as clusterActions from '../actions/Cluster'
 import '../css/cluster.scss'
 
-export default class Cluster extends Component {
+class Cluster extends Component {
     constructor(props) {
         super(props)
     }

@@ -35,20 +35,23 @@ class ClusterModal extends Component {
     }
 
     /**
-     * 初始化form的内容
+     * 初始化form的内容，目前看当操作成功后，保留上次的操作内容很没有必要，干脆屏蔽，但不删除，存档
      */
     componentWillReceiveProps(nextProps) {
         const {visible,currentCluster,form} = this.props;
+        //if (visible && !nextProps.visible) {//对话框由可见变为不可见
+        //    if (this.formIsEdit(currentCluster)) {
+        //        form.resetFields();
+        //    } else {
+        //        this.resetFormError(form);
+        //    }
+        //} else if (!visible && nextProps.visible) {//对话框由不可见变为可见
+        //    if (this.formIsEdit(nextProps.currentCluster)) {
+        //        form.resetFields();
+        //    }
+        //}
         if (visible && !nextProps.visible) {//对话框由可见变为不可见
-            if (this.formIsEdit(currentCluster)) {
-                form.resetFields();
-            } else {
-                this.resetFormError(form);
-            }
-        } else if (!visible && nextProps.visible) {//对话框由不可见变为可见
-            if (this.formIsEdit(nextProps.currentCluster)) {
-                form.resetFields();
-            }
+            form.resetFields();
         }
     }
 

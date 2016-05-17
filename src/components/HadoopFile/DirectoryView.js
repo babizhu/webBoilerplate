@@ -61,14 +61,7 @@ class DirectoryView extends Component {
             }
             openModal(2);
         }
-        ////for( let x in record )
-        //
-        ////alert( record);
-        ////for( let x in recursiveDel )
-        ////alert(x)
-        //console.log('aaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbaaaaaaaaaaaaaaa')
-        //alert('bbbbbbbbbbbbbb')
-    }
+           }
 
     render() {
         const parent = this;

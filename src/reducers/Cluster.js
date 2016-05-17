@@ -25,7 +25,7 @@ const initState = {
 
     pending: false,
     data: [],
-    pager:{}
+    pager: {}
 };
 function clusterData(state = initState, action = {}) {
     switch (action.type) {
@@ -38,7 +38,7 @@ function clusterData(state = initState, action = {}) {
             return {
                 ...state,
                 data: action.payload.list,
-                pager:action.payload.page,
+                pager: action.payload.page,
                 pending: false,
                 error: null
             };
@@ -49,15 +49,48 @@ function clusterData(state = initState, action = {}) {
                 error: action.payload
             };
         case CLUSTER_OPERATION_SUCCESS:
-            console.log( 'CLUSTER_OPERATION_SUCCESS 之后' + action);
-            return{
-                ...state
+            //console.log('CLUSTER_OPERATION_SUCCESS 之后' + JSON.stringify(action.payload));
+            //console.log(updateClusterState(state.data, action.payload));
+            return {
+                ...state,
+                data:updateClusterState(state.data, action.payload.data,action.meta.op === 2)
             };
         default:
             return state;
     }
 }
 
+/**
+ * 根据增删改操作的返回结果更新客户端内存的业务数据
+ */
+function updateClusterState(initData, newData,isDelete) {
+    console.log('是否删除？ ' + isDelete);
+    if (!newData) {
+        return;
+    }
+    let result = [];
+    let isExist = false;
+    for (const cluster of initData) {
+        if (cluster.id === newData.id) {//更新或者删除
+            if (!isDelete) {//更新
+
+                result.push({...cluster,...newData});
+            }
+            isExist = true;//找到了此cluster
+        } else {
+            result.push(cluster);
+        }
+    }
+    if (!isExist) {//新增
+        result.unshift(newData);
+    }
+    //const index = initData.findIndex((cluster)=>cluster.id == newData.id);
+    //if (index == -1) {//新增
+    //
+    //}
+    return result;
+
+}
 const operationInitState = {
     currentOpenModal: -1,
     pending: false,
@@ -92,6 +125,7 @@ function operationData(state = operationInitState, action) {
             return state;
     }
 }
+
 
 const cluster = combineReducers({
     clusterData,

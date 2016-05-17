@@ -4,6 +4,7 @@
  */
 
 import React, { Component,PropTypes } from 'react';
+import ReactDom from "react-dom"
 import { Button, Form, Input, Modal,Icon,Switch  } from 'antd';
 const createForm = Form.create;
 const FormItem = Form.Item;
@@ -24,8 +25,27 @@ class DelClusterModal extends Component {
     }
 
     onCancle() {
-        const {delClusterOk} = this.props;
+        const {delClusterOk,form} = this.props;
         delClusterOk();
+
+    }
+    componentWillReceiveProps(nextProps) {
+        const {visible,form} = this.props;
+
+        if (visible && !nextProps.visible) {//对话框由可见变为不可见
+            form.resetFields();
+
+        }
+    }
+    componentDidUpdate() {
+
+        //const el1 = ReactDom.findDOMNode(this.refs.name).focus();
+        //const dom = this.refs.name.focus();
+        //console.log('dom=' + dom);
+        //if (dom) {
+        //    //dom.focus();
+        //    //inputDom.select();
+        //}
     }
 
     checkName(rule, value, callback) {
@@ -73,6 +93,8 @@ class DelClusterModal extends Component {
                         label={redTitle}
                     >
                         <Input {...checkName}
+                            autoFocus="autoFocus"
+                            ref='name'
                             type="text" autoComplete="off"
                             placeholder="请输入要删除集群的名称，以免误操作"/>
                     </FormItem>
