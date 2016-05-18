@@ -2,8 +2,11 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-import {AnimEnhance} from './AnimEnhance'
+import {AnimEnhance} from './../AnimEnhance'
+import { Tabs } from 'antd';
+const TabPane = Tabs.TabPane;
 
+import ClusterDashBoard from '../../components/Cluster/ClusterDashBoard'
 
 class ClusterDetail extends Component {
     constructor(props) {
@@ -21,11 +24,15 @@ class ClusterDetail extends Component {
         return re;
     }
     render() {
-
         return (
             <div>
-                test
-                {this.props.params.name}
+
+                <Tabs defaultActiveKey="1" tabPosition="top">
+                    <TabPane tab="集群总览" key="1"><ClusterDashBoard /></TabPane>
+                    <TabPane tab="服务状态" key="2">选项卡二内容</TabPane>
+                    <TabPane tab="机器列表" key="3">选项卡三内容</TabPane>
+                    <TabPane tab="集群日志" key="4">选项卡三内容</TabPane>
+                </Tabs>
             </div>
         )
     }

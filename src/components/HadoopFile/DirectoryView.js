@@ -133,9 +133,7 @@ class DirectoryView extends Component {
             title: '操作',
             key: 'operation',
             render(text, record) {
-
                 return (
-
                     <div onClick={(e)=>ignoreClick(e)}>
                         <span className='actions'>
                             <Tooltip title="重命名">

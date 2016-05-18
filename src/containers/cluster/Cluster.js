@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-import {AnimEnhance} from './AnimEnhance'
-import ClusterList from '../components/Cluster/ClusterList'
-import * as clusterActions from '../actions/Cluster'
-import '../css/cluster.scss'
+import {AnimEnhance} from './../AnimEnhance'
+import ClusterList from '../../components/Cluster/ClusterList'
+import * as clusterActions from '../../actions/Cluster'
+import '../../css/cluster.scss'
 
 class Cluster extends Component {
     constructor(props) {

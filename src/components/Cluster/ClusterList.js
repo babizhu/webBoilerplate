@@ -8,7 +8,7 @@ import { Menu,Icon,Table,Dropdown ,Tooltip,Button,Input,message } from 'antd';
 const DropdownButton = Dropdown.Button;
 const InputGroup = Input.Group;
 import { Link } from 'react-router'
-
+import { browserHistory } from 'react-router'
 
 import DelClusterModal from './DelClusterModal'
 import ClusterModal from './ClusterModal'
@@ -33,18 +33,13 @@ class ClusterList extends Component {
      */
     onRowClick(record) {
 
+        browserHistory.push('/cluster/' + record.name);
     }
+
     componentWillReceiveProps(nextProps) {
         if (this.props.operationData.pending && !nextProps.operationData.pending) {
             if (nextProps.operationData.error === null) {
-                message.success('操作成功。');
-
-                //console.log( 'ClusterModal.form = ' + ReactDom.findDOMNode(this.refs.ClusterModal) );
-                //this.currentCluster = this.buildEmptyCluster();
-                //if( !this.props.hadoopFile.fileSystemData.currentPathIsFile ) {
-                //    console.log('应该刷新整个界面?,当前目录 ' + this.props.hadoopFile.fileSystemData.currentPath);
-                //    this.props.fileExplorerActions.getFilesData(this.props.hadoopFile.fileSystemData.currentPath)
-                //}
+                message.success('操作成功。', 6);
             }
         }
     }
@@ -102,10 +97,7 @@ class ClusterList extends Component {
         const columns = [{
             title: '名称',
             dataIndex: 'name',
-            key: 'name',
-            render: (text, row)=> {
-                return <Link to={'/cluster/'+text} >{text}</Link>
-            }
+            key: 'name'
         }, {
             title: 'IP地址',
             dataIndex: 'ip',
@@ -164,11 +156,12 @@ class ClusterList extends Component {
                 </div>
                 <Table
                     dataSource={clusterData.data}
+                    onRowClick={this.onRowClick.bind(this)}
                     pagination={false}
                     rowSelection={rowSelection}
-                    columns={columns} size="middle"
+                    columns={columns}
                     loading={clusterData.pending}
-                    size="middle"
+                    size='middle'
                     rowKey={record=>record.id}/>
                 <DelClusterModal
                     visible={operationData.currentOpenModal == 2 }
@@ -177,7 +170,7 @@ class ClusterList extends Component {
                     currentCluster={this.currentCluster}
                 />
                 <ClusterModal
-                    ref = 'ClusterModal'
+                    ref='ClusterModal'
                     visible={ operationData.currentOpenModal == 1 }
                     addOrEditClusterOk={this.addOrEditClusterOk.bind(this)}
                     pending={operationData.pending}

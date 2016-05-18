@@ -9,7 +9,7 @@ import {AnimEnhance} from './AnimEnhance'
 import * as fileExplorerActions from '../actions/HadoopFile';
 import * as appActions from '../actions/App';
 
-import '../css/fileExplorer.scss'
+import '../css/hadoopFile.scss'
 
 export default class HadoopFile extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ export default class HadoopFile extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.hadoopFile.operationData.pending === true && nextProps.hadoopFile.operationData.pending === false) {
             if (nextProps.hadoopFile.operationData.error === null) {
-                message.success('操作成功。');
+                message.success('操作成功。',6);
 
                 if( !this.props.hadoopFile.fileSystemData.currentPathIsFile ) {
                     console.log('应该刷新整个界面?,当前目录 ' + this.props.hadoopFile.fileSystemData.currentPath);
@@ -35,9 +35,7 @@ export default class HadoopFile extends Component {
             }
         }
     }
-
     render() {
-
         const {hadoopFile,fileExplorerActions,appActions} = this.props;
         return (
 

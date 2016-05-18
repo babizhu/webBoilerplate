@@ -1,7 +1,9 @@
 @import "base";
 .cluster {
 
-
+  .ant-table-row {
+    cursor: pointer;
+  }
   .actions {
 
     .button {
