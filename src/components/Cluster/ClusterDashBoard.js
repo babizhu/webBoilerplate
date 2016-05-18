@@ -8,7 +8,7 @@ import ReactHighcharts,{Highcharts} from 'react-highcharts'
 
 import {AnimEnhance} from '../../containers/AnimEnhance'
 
-//import '../css/dashboard.scss'
+import '../../css/cluster.scss'
 class ClusterDashBoard extends Component {
     constructor(props) {
         super(props)
@@ -418,7 +418,7 @@ class ClusterDashBoard extends Component {
             }]
         };
         return (
-            <div className='dashboard'>
+            <div className='cluster-dash-board'>
 
 
                 <div className="gutter-example">

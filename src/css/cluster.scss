@@ -16,6 +16,25 @@
       margin: 10px;
     }
   }
+  .cluster-detail{
+    .header{
+      border-radius: 5px;
+      //height:auto;
+      //height: 38px;
+      //margin-bottom: 10px;
+      //background: #f6a69a;
+      padding: 10px;
+      color: black;
+      //fontSize: '12px';
+      background: #F7F7F7;
+
+    }
+    .row:before, .row:after{
+      //display:none;
+      //height:10px;
+    }
+  }
+
 
 }
 

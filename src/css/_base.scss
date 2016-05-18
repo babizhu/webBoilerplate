@@ -19,3 +19,17 @@ $danger_bg_color: $danger_text_color;//危险的背景颜色，多用于删除�
     @include danger-modal-header;
   }
 }
+.row {
+  //background: #ECECEC;
+  padding:10px;
+
+  margin-left: -8px;
+  margin-right: -8px;
+}
+.row > div {
+  padding: 0 8px;
+}
+.row:before, .row:after{
+  display:none;
+  height:10px;
+}
