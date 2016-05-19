@@ -1,14 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
-import { Link } from 'react-router'
 import { Card, Col, Row } from 'antd';
-
 import ReactHighcharts,{Highcharts} from 'react-highcharts'
 
-import {AnimEnhance} from '../../containers/AnimEnhance'
-
 import '../../css/cluster.scss'
+
 class ClusterDashBoard extends Component {
     constructor(props) {
         super(props)
@@ -18,9 +13,14 @@ class ClusterDashBoard extends Component {
         //let chart = this.refs.chart.getChart();
         //chart.series[0].addPoint({x: 10, y: 12});
     }
-
+    shouldComponentUpdate(nextProps){
+        if( this.props.showMoreClusterInfo != nextProps.showMoreClusterInfo){//
+            return false;
+        }
+    }
     render() {
         const config = {
+            credits: {enabled: false},
             title: {
                 text: '我的任务',
                 x: -20 //center
@@ -67,6 +67,8 @@ class ClusterDashBoard extends Component {
         };
 
         const cfg1 = {
+            credits: {enabled: false},
+
             chart: {
                 type: 'pie',
                 options3d: {
@@ -112,6 +114,8 @@ class ClusterDashBoard extends Component {
         };
 
         const cfg2 = {
+            credits: {enabled: false},
+
             chart: {
                 type: 'spline'
             },
@@ -466,4 +470,4 @@ class ClusterDashBoard extends Component {
 
 
 
-export default AnimEnhance(ClusterDashBoard);
+export default ClusterDashBoard;

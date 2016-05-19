@@ -3,33 +3,33 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
 import {AnimEnhance} from './../AnimEnhance'
-import { Tabs ,Col, Row,Button } from 'antd';
+import { Tabs ,Col, Row,Button,Icon,Tooltip } from 'antd';
 const TabPane = Tabs.TabPane;
 
 import ClusterDashBoard from '../../components/Cluster/ClusterDashBoard'
 
 class ClusterDetail extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            showMoreClusterInfo: false
+        }
+    }
+
+    showMoreClusterInfo() {
+        this.setState({showMoreClusterInfo: !this.state.showMoreClusterInfo})
     }
 
     componentDidMount() {
 
     }
 
-    test() {
-        let re = '';
-        for (let x in this.props.params) {
-            console.log(x)
-        }
-        return re;
-    }
-
     render() {
+        const {ownCluster} = this.props;
         return (
             <div className='cluster-detail'>
-                <Row className='header'>
-                    <Col span={24}>
+                <div className='header'>
+                    <div>
                         <table style={{width:'100%'}}>
                             <tbody>
                             <tr>
@@ -44,23 +44,38 @@ class ClusterDetail extends Component {
                             </tr>
                             </tbody>
                         </table>
-                    </Col>
-                </Row>
-                <Row className='header'>
+                    </div>
 
-                    <Col lg={6} sm={24} md={8}> <b>创建时间</b> : 2015-12-21 14:45:23</Col>
-                    <Col lg={4} sm={24} md={16}><b>IP</b> : 192.168.1.55</Col>
-                    <Col lg={4} sm={24} md={8}><b>地区</b> : 重庆新牌坊电信机房</Col>
-                    <Col lg={10} sm={24} md={16}><b>描述</b> : 运行在虚拟机上用于学习的集群192.168.1.22</Col>
+                    <div style={{lineHeight:'25px'}}>
+                        {this.state.showMoreClusterInfo ? <div>
+                            <div><b>所在地区</b> : 重庆新牌坊电信机房</div>
+                            <div><b>IP 地址</b> : {ownCluster.ip}</div>
+                            <div><b>创建时间</b> : {ownCluster.createTime}</div>
+                            </div>
+                         : null}
+                        <div className='cluster-desc'>
+                            <div className='content'><b>集群描述</b> : {ownCluster.description}</div>
+                            <div className='show-more-button'>
+                                <Tooltip title={this.state.showMoreClusterInfo?'收起':'展开'}>
+                                    <Button type="ghost"
+                                            icon={this.state.showMoreClusterInfo?'up':'down' }
+                                            size="small"
+                                            onClick={this.showMoreClusterInfo.bind(this)}
+                                    />
+                                </Tooltip>
+                            </div>
+                        </div>
+                    </div>
 
-
-                </Row>
+                </div>
 
                 <Row>
 
                     <Col lg={24} sm={24} md={24}>
                         <Tabs defaultActiveKey="1" tabPosition="top">
-                            <TabPane tab="集群总览" key="1"><ClusterDashBoard /></TabPane>
+                            <TabPane tab="集群总览" key="1">
+                                <ClusterDashBoard showMoreClusterInfo={this.state.showMoreClusterInfo}/>
+                            </TabPane>
                             <TabPane tab="服务状态" key="2">选项卡二内容</TabPane>
                             <TabPane tab="机器列表" key="3">选项卡三内容</TabPane>
                             <TabPane tab="集群日志" key="4">选项卡三内容</TabPane>
@@ -73,9 +88,15 @@ class ClusterDetail extends Component {
         )
     }
 }
-function mapStateToProps(state) {
+function getClusterByName(clusters, name) {
+    return clusters.find((c)=>c.name === name );
+}
+function mapStateToProps(state,ownProps) {
+
+    const name = ownProps.params.name;
+    //alert(name)
     return {
-        cluster: state.cluster
+        ownCluster: getClusterByName(state.cluster.clusterData.data, name)
     }
 }
 //function mapDispatchToProps() {

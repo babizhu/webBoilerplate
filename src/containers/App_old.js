@@ -3,6 +3,8 @@
  * 包括组件如何获取url的相关信息，也就是history中browserHistory的用法
  * 如何使用ant design的form组件
  * 如何在connect的第二个参数放入多个actions
+ *
+ * 如何用一个bool值来控制多个div的显示
  */
 import React, { Component, PropTypes } from 'react'
 import {findDOMNode} from 'react-dom';
@@ -112,9 +114,15 @@ class App extends Component {
         const { children, url,name,dispatch } = this.props;
         const { getFieldProps } = this.props.form;
 
-
+        const isShow = false;
         return (
             <div>
+                {isShow?[
+                    <div key="a"><b>所在地区</b> : 重庆新牌坊电信机房</div>,
+                    <div key="b"><b>IP 地址</b> : 192.168.1.55</div>,
+                    <div key="c"><b>创建时间</b> : 2015-12-21 14:45:23</div>
+                ]:null}
+
                 <Header />
                 <SideBar />
                 <Form inline>
