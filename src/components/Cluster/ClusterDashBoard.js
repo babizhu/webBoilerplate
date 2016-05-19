@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { Card, Col, Row } from 'antd';
 import ReactHighcharts,{Highcharts} from 'react-highcharts'
+import HighchartsMore from 'highcharts-3d'
+HighchartsMore(ReactHighcharts.Highcharts);
 
 import '../../css/cluster.scss'
 
@@ -34,7 +36,7 @@ class ClusterDashBoard extends Component {
             },
             yAxis: {
                 title: {
-                    text: 'Temperature (°C)'
+                    text: '温度 (°C)'
                 },
                 plotLines: [{
                     value: 0,
@@ -45,12 +47,7 @@ class ClusterDashBoard extends Component {
             tooltip: {
                 valueSuffix: '°C'
             },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
+
             series: [{
                 name: 'Tokyo',
                 data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
@@ -68,7 +65,6 @@ class ClusterDashBoard extends Component {
 
         const cfg1 = {
             credits: {enabled: false},
-
             chart: {
                 type: 'pie',
                 options3d: {
@@ -78,7 +74,7 @@ class ClusterDashBoard extends Component {
                 }
             },
             title: {
-                text: '任务运行状况 2016'
+                text: 'Browser market shares at a specific website, 2014'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -98,17 +94,17 @@ class ClusterDashBoard extends Component {
                 type: 'pie',
                 name: 'Browser share',
                 data: [
-                    ['Firefox',   45.0],
-                    ['IE',       26.8],
+                    ['Firefox', 45.0],
+                    ['IE', 26.8],
                     {
                         name: 'Chrome',
                         y: 12.8,
                         sliced: true,
                         selected: true
                     },
-                    ['Safari',    8.5],
-                    ['Opera',     6.2],
-                    ['Others',   0.7]
+                    ['Safari', 8.5],
+                    ['Opera', 6.2],
+                    ['Others', 0.7]
                 ]
             }]
         };
