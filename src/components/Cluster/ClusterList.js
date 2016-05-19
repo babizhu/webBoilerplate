@@ -6,9 +6,9 @@ import React, { Component,PropTypes } from 'react';
 import ReactDom from "react-dom"
 import { Menu,Icon,Table,Dropdown ,Tooltip,Button,Input,message } from 'antd';
 const DropdownButton = Dropdown.Button;
-const InputGroup = Input.Group;
 import { Link } from 'react-router'
 import { browserHistory } from 'react-router'
+import Label from '../Utils/Label'
 
 import DelClusterModal from './DelClusterModal'
 import ClusterModal from './ClusterModal'
@@ -106,6 +106,14 @@ class ClusterList extends Component {
             title: '创建时间',
             dataIndex: 'createTime',
             key: 'createTime'
+        }, {
+            title: '状态',
+            key: 'status',
+            render(text,record){
+                const s = record.name.indexOf('d') > 0;
+
+                return <Label text={s?'运行中':'已停止'} isSuccess={s}/>
+            }
         }, {
             title: '描述',
             dataIndex: 'description',

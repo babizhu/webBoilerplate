@@ -14,9 +14,9 @@ class ClusterDashBoard extends Component {
         //chart.series[0].addPoint({x: 10, y: 12});
     }
     shouldComponentUpdate(nextProps){
-        if( this.props.showMoreClusterInfo != nextProps.showMoreClusterInfo){//
-            return false;
-        }
+        //if( nextProps.showMoreClusterInfo )
+        return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
+
     }
     render() {
         const config = {
@@ -429,17 +429,17 @@ class ClusterDashBoard extends Component {
                     <Row gutter={16}>
                         <Col lg={8} sm={24} md={12} style={{paddingBottom:'10px'}}>
                             <Card title="" bordered={true}>
-                                <ReactHighcharts config={config} ref="chart"></ReactHighcharts>
+                                <ReactHighcharts config={config} ref="chart"/>
                             </Card>
                         </Col>
                         <Col lg={8} sm={24} md={12}  style={{paddingBottom:'10px'}}>
                             <Card title="" bordered={true}>
-                                <ReactHighcharts config={cfg1} ref="chart"></ReactHighcharts>
+                                <ReactHighcharts config={cfg1} ref="chart"/>
                             </Card>
                         </Col>
                         <Col lg={8} sm={24} md={12}>
                             <Card title="" bordered={true}>
-                                <ReactHighcharts config={cfg2} ref="chart"></ReactHighcharts>
+                                <ReactHighcharts config={cfg2} ref="chart"/>
                             </Card>
                         </Col>
                     </Row>
@@ -453,7 +453,7 @@ class ClusterDashBoard extends Component {
                         <Col span="24">
 
                             <Card title="" bordered={true}>
-                                <ReactHighcharts config={cfg3} ref="chart"></ReactHighcharts>
+                                <ReactHighcharts config={cfg3} ref="chart"/>
 
 
                             </Card>

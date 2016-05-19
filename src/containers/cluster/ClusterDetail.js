@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-
-import {AnimEnhance} from './../AnimEnhance'
 import { Tabs ,Col, Row,Button,Icon,Tooltip } from 'antd';
 const TabPane = Tabs.TabPane;
+
+import {AnimEnhance} from './../AnimEnhance'
+import Label from '../../components/Utils/Label'
 
 import ClusterDashBoard from '../../components/Cluster/ClusterDashBoard'
 
@@ -33,12 +34,12 @@ class ClusterDetail extends Component {
                         <table style={{width:'100%'}}>
                             <tbody>
                             <tr>
-                                <td style={{width:'25%'}}><h2>{this.props.params.name}</h2>
-                                </td>
+                                <td><span className='cluster-title'>{this.props.params.name}</span>
+                                    <span className='span-label'><Label  text={'运行中'} isSuccess={true}/></span></td>
                                 <td style={{float:'right'}}>
-                                    <Button type="ghost" icon="reload" style={{margin:'0px 6px'}}>重启</Button>
-                                    <Button type="ghost" icon="right" style={{margin:'0px 6px'}}>启动</Button>
-                                    <Button type="ghost" icon="poweroff" style={{margin:'0px 6px'}}>停止</Button>
+                                    <Button type="ghost" icon="reload"   className='button'>重启</Button>
+                                    <Button type="ghost" icon="right"    className='button'>启动</Button>
+                                    <Button type="ghost" icon="poweroff" className='button'>停止</Button>
                                 </td>
                             </tr>
                             </tbody>
@@ -47,21 +48,19 @@ class ClusterDetail extends Component {
 
                     <div style={{lineHeight:'25px'}}>
                         {this.state.showMoreClusterInfo ? <div>
+                            <div><b>I P 地 址</b> : {ownCluster.ip}</div>
                             <div><b>所在地区</b> : 重庆新牌坊电信机房</div>
-                            <div><b>IP 地址</b> : {ownCluster.ip}</div>
                             <div><b>创建时间</b> : {ownCluster.createTime}</div>
                             </div>
                          : null}
                         <div className='cluster-desc'>
-                            <div className='content'><b>集群描述</b> : {ownCluster.description}</div>
+                            <div className='content'><b>集群描述</b> : {ownCluster && ownCluster.description}</div>
                             <div className='show-more-button'>
-                                <Tooltip title={this.state.showMoreClusterInfo?'收起':'展开'}>
                                     <Button type="ghost"
                                             icon={this.state.showMoreClusterInfo?'up':'down' }
                                             size="small"
                                             onClick={this.showMoreClusterInfo.bind(this)}
                                     />
-                                </Tooltip>
                             </div>
                         </div>
                     </div>
