@@ -36,10 +36,9 @@ class ClusterDetail extends Component {
                                 <td style={{width:'25%'}}><h2>{this.props.params.name}</h2>
                                 </td>
                                 <td style={{float:'right'}}>
-                                    <Button type="primary" icon="plus"
-                                            style={{margin:'0px 6px'}}>添加</Button>
-                                    <Button type="primary" icon="right" style={{margin:'0px 6px'}}>启动</Button>
-                                    <Button type="primary" icon="poweroff" style={{margin:'0px 6px'}}>停止</Button>
+                                    <Button type="ghost" icon="reload" style={{margin:'0px 6px'}}>重启</Button>
+                                    <Button type="ghost" icon="right" style={{margin:'0px 6px'}}>启动</Button>
+                                    <Button type="ghost" icon="poweroff" style={{margin:'0px 6px'}}>停止</Button>
                                 </td>
                             </tr>
                             </tbody>
