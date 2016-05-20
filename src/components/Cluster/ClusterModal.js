@@ -1,10 +1,11 @@
 /**
  * Created by liukun on 16/4/25.
- * 上传组件
+ * 添加、修改集群数据
  */
 
 import React, { Component,PropTypes } from 'react';
-import { Button, Form, Input, Modal,Icon,Switch  } from 'antd';
+import { Button, Form, Input, Modal,Icon,Checkbox   } from 'antd';
+const CheckboxGroup = Checkbox.Group;
 const createForm = Form.create;
 const FormItem = Form.Item;
 
@@ -22,7 +23,9 @@ class ClusterModal extends Component {
             if (!!errors) {
             } else {
                 let cluster =  {...currentCluster,...form.getFieldsValue()};
-
+                if( cluster.service ){
+                    cluster.service = cluster.service.join();//把数组转换为逗号分隔的字符串
+                }
                 //console.log(cluster);
                 addOrEditClusterOk(null, cluster);
             }
@@ -58,8 +61,8 @@ class ClusterModal extends Component {
     /**
      * 用户打开对话框，并尝试提交之后，如果出现某些验证错误，此时用户点击取消关闭窗口
      * 下次打开对话框时，错误提示依然存在，此函数帮助去掉这些错误提示
-     * 保持界面美观
-     */
+     * 保持界面美观------暂时不需要了
+
     resetFormError(form) {
         const forms = ['ip', 'name'];
         for (let f of forms) {
@@ -67,7 +70,7 @@ class ClusterModal extends Component {
                 form.resetFields([f]);
             }
         }
-    }
+    }*/
 
     /**
      * 当前对话框是用于新增（false）或者是修改(true)信息
@@ -78,10 +81,22 @@ class ClusterModal extends Component {
         return currentCluster.id !== -1;
     }
 
+    getServiceOptions(){
+        return [
+            {label: 'Hadoop', value: 'Hadoop'},
+            {label: 'HBase', value: 'HBase'},
+            {label: 'Storm', value: 'Storm'},
+            {label: 'Spark', value: 'Spark'},
+            {label: 'Hive', value: 'Hive'},
+            {label: 'Flume', value: 'Flume'},
+            {label: 'Kafka', value: 'Kafka'},
+            {label: 'MapReduce2', value: 'MapReduce2'},
+            {label: 'Zookeeper', value: 'Zookeeper'}
+        ];
+    }
     render() {
         const {visible,pending,currentCluster} = this.props;
         const { getFieldProps } = this.props.form;
-
         const formItemLayout = {
             labelCol: {span: 3},
             wrapperCol: {span: 20}
@@ -105,8 +120,10 @@ class ClusterModal extends Component {
                 message: '请输入集群名称'
             }, {
                 //validator: this.checkDirectory.bind(this)
-            }
-            ]
+            }]
+        });
+        const serviceProps = getFieldProps('service', {
+            initialValue: currentCluster && currentCluster.service &&currentCluster.service.split(',')
         });
 
         let title = '编辑集群';
@@ -114,7 +131,6 @@ class ClusterModal extends Component {
 
         if (!this.formIsEdit(currentCluster)) {
             title = '添加集群';
-
         }
 
         return (
@@ -125,6 +141,11 @@ class ClusterModal extends Component {
                 <Form horizontal form={this.props.form}>
                     <FormItem label='名称：' {...formItemLayout} >
                         <Input {...nameProps} disabled={this.formIsEdit(currentCluster)} />
+                    </FormItem>
+                    <FormItem
+                        label="服务："
+                        {...formItemLayout} >
+                        <CheckboxGroup {...serviceProps } options={this.getServiceOptions()} defaultValue={['Hadoop']}  />
                     </FormItem>
                     <FormItem
                         label="IP："

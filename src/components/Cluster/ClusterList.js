@@ -98,6 +98,10 @@ class ClusterList extends Component {
             title: '名称',
             dataIndex: 'name',
             key: 'name'
+        },{
+            title: '服务',
+            dataIndex: 'service',
+            key: 'service'
         }, {
             title: 'IP地址',
             dataIndex: 'ip',
@@ -147,18 +151,19 @@ class ClusterList extends Component {
         return (
             <span>
                 <div style={{margin:'10px 0px'}}>
-                    <Button type="primary" icon="reload" onClick={this.refresh.bind(this)}
-                            loading={clusterData.pending}/>
-                    <Button type="ghost" icon="plus" style={{margin:'0px 6px'}}
-                            onClick={this.addOrEditClusterOk.bind(this,this.buildEmptyCluster(),null)}>
-                        添加</Button>
-                    <Button type="ghost" icon="right" style={{margin:'0px 6px'}} disabled={!hasSelected}>启动</Button>
-                    <Button type="ghost" icon="poweroff" style={{margin:'0px 6px'}} disabled={!hasSelected}>停止</Button>
-                    <DropdownButton overlay={menu} type="primary" disabled={!hasSelected}>
-                        更多操作
-                    </DropdownButton>
-                    <div style={{float:'right', width:'30%'}}>
-                        <Input placeholder="search by name、id or description"/>
+
+                    <Input style={{ width:'30%'}} placeholder="search by name、id or description"/>
+                    <div style={{float:'right'}}>
+                        <Button type="primary" icon="reload" onClick={this.refresh.bind(this)}
+                                loading={clusterData.pending}/>
+                        <Button type="ghost" icon="plus" style={{margin:'0px 6px'}}
+                                onClick={this.addOrEditClusterOk.bind(this,this.buildEmptyCluster(),null)}>
+                            添加</Button>
+                        <Button type="ghost" icon="right" style={{margin:'0px 6px'}} disabled={!hasSelected}>启动</Button>
+                        <Button type="ghost" icon="poweroff" style={{margin:'0px 6px'}} disabled={!hasSelected}>停止</Button>
+                        <DropdownButton overlay={menu} type="primary" disabled={!hasSelected}>
+                            更多操作
+                        </DropdownButton>
                     </div>
 
                 </div>

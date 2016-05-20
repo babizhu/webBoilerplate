@@ -117,11 +117,12 @@ class App extends Component {
         const isShow = false;
         return (
             <div>
-                {isShow?[
-                    <div key="a"><b>所在地区</b> : 重庆新牌坊电信机房</div>,
-                    <div key="b"><b>IP 地址</b> : 192.168.1.55</div>,
-                    <div key="c"><b>创建时间</b> : 2015-12-21 14:45:23</div>
-                ]:null}
+                {this.state.showMoreClusterInfo ? <div>
+                    <div><b>I P 地 址</b> : {ownCluster.ip}</div>
+                    <div><b>所在地区</b> : 重庆新牌坊电信机房</div>
+                    <div><b>创建时间</b> : {ownCluster.createTime}</div>
+                </div>
+                    : null}
 
                 <Header />
                 <SideBar />

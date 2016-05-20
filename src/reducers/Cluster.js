@@ -62,19 +62,23 @@ function clusterData(state = initState, action = {}) {
 
 /**
  * 根据增删改操作的返回结果更新客户端内存的业务数据
+ * @param initData      原始内容
+ * @param changeData    变化的数据
+ * @param isDelete      是否删除操作导致的变化
+ * @returns {Array}
  */
-function updateClusterState(initData, newData,isDelete) {
-    console.log('是否删除？ ' + isDelete);
-    if (!newData) {
+function updateClusterState(initData, changeData,isDelete) {
+    //console.log('是否删除？ ' + isDelete);
+    if (!changeData) {
         return;
     }
     let result = [];
     let isExist = false;
     for (const cluster of initData) {
-        if (cluster.id === newData.id) {//更新或者删除
+        if (cluster.id === changeData.id) {//更新或者删除
             if (!isDelete) {//更新
 
-                result.push({...cluster,...newData});
+                result.push({...cluster,...changeData});
             }
             isExist = true;//找到了此cluster
         } else {
@@ -82,7 +86,7 @@ function updateClusterState(initData, newData,isDelete) {
         }
     }
     if (!isExist) {//新增
-        result.unshift(newData);
+        result.unshift(changeData);
     }
     //const index = initData.findIndex((cluster)=>cluster.id == newData.id);
     //if (index == -1) {//新增
