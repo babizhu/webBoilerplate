@@ -33,3 +33,14 @@ $danger_bg_color: $danger_text_color;//危险的背景颜色，多用于删除�
   display:none;
   height:10px;
 }
+//table右侧的操作按钮
+.table-actions {
+
+  .button {
+    padding: 2px 7px;
+    margin: 0 5px;
+
+    //color:darken(lightcoral,20%);
+    //font-weight: bold;
+  }
+}

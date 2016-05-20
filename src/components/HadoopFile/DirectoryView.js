@@ -135,7 +135,7 @@ class DirectoryView extends Component {
             render(text, record) {
                 return (
                     <div onClick={(e)=>ignoreClick(e)}>
-                        <span className='actions'>
+                        <span className='table-actions'>
                             <Tooltip title="重命名">
                                 <Button type="ghost" className='button'
                                         onClick={parent.renameDirectoryOk.bind(parent,record,null)}>

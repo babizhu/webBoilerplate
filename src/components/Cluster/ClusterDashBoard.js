@@ -25,11 +25,11 @@ class ClusterDashBoard extends Component {
             credits: {enabled: false},
             title: {
                 text: '我的任务',
-                x: -20 //center
+                //x: -20 //center
             },
             subtitle: {
                 text: 'Source: WorldClimate.com',
-                x: -20
+                //x: -20
             },
             xAxis: {
                 categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -421,7 +421,7 @@ class ClusterDashBoard extends Component {
             <div className='cluster-dash-board'>
 
 
-                <div className="gutter-example">
+                <div>
                     <Row gutter={16}>
                         <Col lg={8} sm={24} md={12} style={{paddingBottom:'10px'}}>
                             <Card title="" bordered={true}>
@@ -450,8 +450,6 @@ class ClusterDashBoard extends Component {
 
                             <Card title="" bordered={true}>
                                 <ReactHighcharts config={cfg3} ref="chart"/>
-
-
                             </Card>
                         </Col>
 

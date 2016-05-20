@@ -1,4 +1,4 @@
-
+@import "base";
 .fileExplorer {
   .row {
     cursor: pointer;
@@ -44,17 +44,6 @@
       whiteSpace: '-moz-pre-wrap';
       padding:10px;
       border-radius: 5px;
-    }
-  }
-  .actions {
-    .button {
-      padding: 2px 10px;
-      margin: 0 5px;
-      //color:darken(lightcoral,20%);
-      //font-weight: bold;
-    }
-    .buttonDisabled {
-      margin: 10px;
     }
   }
 

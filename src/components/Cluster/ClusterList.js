@@ -129,7 +129,7 @@ class ClusterList extends Component {
             render(text, record) {
                 return (
                     <div onClick={(e)=>ignoreClick(e)}>
-                        <span className='actions'>
+                        <span className='table-actions'>
                             <Tooltip title="编辑集群">
                                 <Button type="ghost" className='button'
                                         onClick={parent.addOrEditClusterOk.bind(parent,record,null)}>
