@@ -97,6 +97,7 @@ class ClusterList extends Component {
         const columns = [{
             title: '名称',
             dataIndex: 'name',
+            width: 90,
             key: 'name'
         },{
             title: '服务',
@@ -112,10 +113,10 @@ class ClusterList extends Component {
             key: 'createTime'
         }, {
             title: '状态',
+            width: 70,
             key: 'status',
             render(text,record){
                 const s = record.name.indexOf('d') > 0;
-
                 return <Label text={s?'运行中':'已停止'} isSuccess={s}/>
             }
         }, {
@@ -149,25 +150,28 @@ class ClusterList extends Component {
         }];
 
         return (
-            <span>
-                <div style={{margin:'10px 0px'}}>
+            <div className='cluster-list'>
+                <div style={{margin:'10px 0px',height:'auto',minWidth:'560px'}}>
 
-                    <Input style={{ width:'30%'}} placeholder="search by name、id or description"/>
+                    <Input style={{ width:'25%'}} placeholder="search by name、id or description"/>
                     <div style={{float:'right'}}>
                         <Button type="primary" icon="reload" onClick={this.refresh.bind(this)}
-                                loading={clusterData.pending}/>
-                        <Button type="ghost" icon="plus" style={{margin:'0px 6px'}}
+                                loading={clusterData.pending}
+                                className='button'/>
+                        <Button type="ghost" icon="plus" className='button'
                                 onClick={this.addOrEditClusterOk.bind(this,this.buildEmptyCluster(),null)}>
                             添加</Button>
-                        <Button type="ghost" icon="right" style={{margin:'0px 6px'}} disabled={!hasSelected}>启动</Button>
-                        <Button type="ghost" icon="poweroff" style={{margin:'0px 6px'}} disabled={!hasSelected}>停止</Button>
-                        <DropdownButton overlay={menu} type="primary" disabled={!hasSelected}>
+                        <Button type="ghost" icon="right" className='button' disabled={!hasSelected}>启动</Button>
+                        <Button type="ghost" icon="poweroff" className='button' disabled={!hasSelected}>停止</Button>
+                        <DropdownButton overlay={menu} type="primary" disabled={!hasSelected}  style={{margin:'0px 6px'}}>
                             更多操作
                         </DropdownButton>
                     </div>
 
                 </div>
+                <div>
                 <Table
+                    style={{minWidth:'560px'}}
                     dataSource={clusterData.data}
                     onRowClick={this.onRowClick.bind(this)}
                     pagination={false}
@@ -189,7 +193,8 @@ class ClusterList extends Component {
                     pending={operationData.pending}
                     currentCluster={this.currentCluster}
                 />
-            </span>
+                    </div>
+            </div>
 
         )
     }
