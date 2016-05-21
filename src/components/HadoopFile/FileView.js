@@ -62,7 +62,7 @@ class FileView extends Component {
             <div className='fileView'>
                 <div className='fileStatus'>
                     <div className='infoHeader'>操作</div>
-                    <div className='content'>
+                    <div className='cluster-description'>
                         <div className='value canClick' onClick={this.changeFileViewMode.bind(this)}>
                             <Icon type="edit"/>
                             {fileSystemData.readAsText ? ' 以二进制格式查看' : ' 以文本方式查看'}
@@ -81,7 +81,7 @@ class FileView extends Component {
                         </div>
                     </div>
                     <div className='infoHeader'>信息</div>
-                    <div className='content'>
+                    <div className='cluster-description'>
                         <div className='name'>文件名</div>
                         <div className='value'>{fileStatus && fileStatus.pathSuffix}</div>
                         <div className='name'>大小</div>

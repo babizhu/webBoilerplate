@@ -8,6 +8,8 @@ import {AnimEnhance} from './../AnimEnhance'
 import Label from '../../components/Utils/Label'
 
 import ClusterDashBoard from '../../components/Cluster/ClusterDashBoard'
+import ClusterConfig from '../../components/Cluster/ClusterConfig'
+import ClusterNodes from '../../components/Cluster/ClusterNodes'
 
 class ClusterDetail extends Component {
     constructor(props) {
@@ -48,13 +50,13 @@ class ClusterDetail extends Component {
 
                     <div style={{lineHeight:'25px'}}>
                         {this.state.showMoreClusterInfo ? <div>
-                            <div><b>I P 地 址</b> : {ownCluster.ip}</div>
+                            <div><b>I P 地 址 </b> : {ownCluster.ip}</div>
                             <div><b>所在地区</b> : 重庆新牌坊电信机房</div>
                             <div><b>创建时间</b> : {ownCluster.createTime}</div>
                             </div>
                          : null}
                         <div className='cluster-desc'>
-                            <div className='content'><b>集群描述</b> : {ownCluster && ownCluster.description}</div>
+                            <div className='cluster-description'><b>集群描述</b> : {ownCluster && ownCluster.description}</div>
                             <div className='show-more-button'>
                                     <Button type="ghost"
                                             icon={this.state.showMoreClusterInfo?'up':'down' }
@@ -75,8 +77,15 @@ class ClusterDetail extends Component {
                                 <ClusterDashBoard showMoreClusterInfo={this.state.showMoreClusterInfo}/>
                             </TabPane>
                             <TabPane tab="服务状态" key="2">选项卡二内容</TabPane>
-                            <TabPane tab="机器列表" key="3">选项卡三内容</TabPane>
+                            <TabPane tab="节点列表" key="3">
+                                <ClusterNodes showMoreClusterInfo={this.state.showMoreClusterInfo}/>
+
+                            </TabPane>
                             <TabPane tab="集群日志" key="4">选项卡三内容</TabPane>
+                            <TabPane tab="配置管理" key="5">
+                                <ClusterConfig showMoreClusterInfo={this.state.showMoreClusterInfo}/>
+
+                            </TabPane>
                         </Tabs>
                     </Col>
                 </Row>
