@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import { Card, Col, Row,Table,Button,Input, } from 'antd';
+import { Card, Col, Row,Table,Button,Input,Tooltip,Icon } from 'antd';
 import ReactHighcharts,{Highcharts} from 'react-highcharts'
 import HighchartsMore from 'highcharts-3d'
 HighchartsMore(ReactHighcharts.Highcharts);
 
+import Label from '../Utils/Label'
 import '../../css/cluster.scss'
 
 /**
@@ -40,15 +41,15 @@ class ClusterNodes extends Component {
             dataIndex: 'ip',
             key: 'ip'
         }, {
-            title: 'CPU',
+            title: 'CPU [ 空闲 ]',
             dataIndex: 'cpu',
             key: 'cpu'
         }, {
-            title: '内存',
+            title: '内存 [ 空闲 ]',
             dataIndex: 'mem',
             key: 'mem'
         }, {
-            title: '磁盘',
+            title: '磁盘 [ 空闲 ]',
             dataIndex: 'disk',
             key: 'disk'
         }, {
@@ -68,14 +69,14 @@ class ClusterNodes extends Component {
                         <span className='table-actions'>
                             <Tooltip title="编辑集群">
                                 <Button type="ghost" className='button'
-                                        onClick={parent.addOrEditClusterOk.bind(parent,record,null)}>
+                                >
                                     <Icon type="edit"/>
                                 </Button>
                             </Tooltip>
                             <Tooltip title="删除集群">
                                 <Button type="ghost"
                                         className='button'
-                                        onClick={parent.delClusterOk.bind(parent,record,null)}>
+                                >
                                     <Icon type="delete"/>
                                 </Button>
                             </Tooltip>
@@ -86,20 +87,96 @@ class ClusterNodes extends Component {
         }];
 
     }
-    addOrEditClusterNode(){
+
+    addOrEditClusterNode() {
 
     }
-    buildEmptyNode(){
+
+    buildEmptyNode() {
 
     }
-    refresh(){
+
+    refresh() {
 
     }
-    getData(){
-        return[
 
+    getData() {
+        return [
+            {
+                id: 1,
+                name: 'master',
+                service: 'Hadoop,Zookeeper',
+                ip: '192.168.1.5',
+                cpu: <span>4核心 [ <span style={{color:'red'}}>16%</span> ]</span>,
+                mem: <span>128G [ <span style={{color:'red'}}>16%</span> ]</span>,
+                disk: <span>1024G [ <span style={{color:'green'}}>56%</span> ]</span>,
+            },
+            {
+                id: 2,
+                name: 'slave1',
+                service: 'Hadoop,Spark,Storm,Flume,Pig',
+                ip: '192.168.1.6',
+                cpu: <span>4核心 [ <span style={{color:'green'}}>56%</span> ]</span>,
+                mem: <span>128G [ <span style={{color:'red'}}>16%</span> ]</span>,
+                disk: <span>1024G [ <span style={{color:'red'}}>23%</span> ]</span>,
+            },
+            {
+                id: 3,
+                name: 'slave2',
+                service: 'Hadoop,Zookeeper,Spark,HBase',
+                ip: '192.168.1.7',
+                cpu: <span>4核心 [ <span style={{color:'green'}}>56%</span> ]</span>,
+                mem: <span>128G [ <span style={{color:'red'}}>16%</span> ]</span>,
+                disk: <span>1024G [ <span style={{color:'green'}}>56%</span> ]</span>,
+            },
+            {
+                id: 4,
+                name: 'slave3',
+                service: 'Hadoop,Zookeeper',
+                ip: '192.168.1.8',
+                cpu: <span>4核心 [ <span style={{color:'green'}}>56%</span> ]</span>,
+                mem: <span>128G [ <span style={{color:'red'}}>16%</span> ]</span>,
+                disk: <span>1024G [ <span style={{color:'green'}}>56%</span> ]</span>,
+            },
+            {
+                id: 5,
+                name: 'slave4',
+                service: 'Hadoop,Flume,Storm',
+                ip: '192.168.1.9',
+                cpu: <span>4核心 [ <span style={{color:'green'}}>56%</span> ]</span>,
+                mem: <span>128G [ <span style={{color:'red'}}>16%</span> ]</span>,
+                disk: <span>1024G [ <span style={{color:'green'}}>56%</span> ]</span>,
+            },
+            {
+                id: 6,
+                name: 'slave5',
+                service: 'Hadoop,Storm',
+                ip: '192.168.1.10',
+                cpu: <span>4核心 [ <span style={{color:'green'}}>56%</span> ]</span>,
+                mem: <span>128G [ <span style={{color:'red'}}>16%</span> ]</span>,
+                disk: <span>1024G [ <span style={{color:'green'}}>56%</span> ]</span>,
+            },
+            {
+                id: 7,
+                name: 'slave6',
+                service: 'Hadoop,HBase',
+                ip: '192.168.1.11',
+                cpu: <span>4核心 [ <span style={{color:'green'}}>56%</span> ]</span>,
+                mem: <span>128G [ <span style={{color:'red'}}>16%</span> ]</span>,
+                disk: <span>1024G [ <span style={{color:'green'}}>56%</span> ]</span>,
+            },
+            {
+                id: 8,
+                name: 'slave7',
+                service: 'Hadoop,HBase',
+                ip: '192.168.1.12',
+                cpu: <span>4核心 [ <span style={{color:'red'}}>26%</span> ]</span>,
+                mem: <span>128G [ <span style={{color:'green'}}>66%</span> ]</span>,
+                disk: <span>1024G [ <span style={{color:'green'}}>56%</span> ]</span>,
+            }
         ]
     }
+
     render() {
         return (
             <div>
@@ -107,9 +184,7 @@ class ClusterNodes extends Component {
 
                     <Input style={{ width:'25%'}} placeholder="search by name、id or description"/>
                     <div style={{float:'right'}}>
-                        <Button type="primary" icon="reload" onClick={this.refresh.bind(this)}
 
-                                className='button'/>
                         <Button type="ghost" icon="plus" className='button'
                                 onClick={this.addOrEditClusterNode.bind(this,this.buildEmptyNode(),null)}>
                             添加</Button>
@@ -120,7 +195,7 @@ class ClusterNodes extends Component {
                 <div>
                     <Table
                         style={{minWidth:'560px'}}
-                        //dataSource={clusterData.data}
+                        dataSource={this.getData()}
                         //onRowClick={this.onRowClick.bind(this)}
                         pagination={false}
                         //rowSelection={rowSelection}
