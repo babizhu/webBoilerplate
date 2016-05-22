@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Row,Icon } from 'antd';
 import ReactHighcharts,{Highcharts} from 'react-highcharts'
 import HighchartsMore from 'highcharts-3d'
 HighchartsMore(ReactHighcharts.Highcharts);
@@ -462,29 +462,40 @@ class ClusterDashBoard extends Component {
                 ]
             }]
         };
-
         return (
             <div className='cluster-dash-board'>
 
 
                 <Row gutter={16}>
-                    <Col lg={12} sm={24} md={12} style={{paddingBottom:'10px'}}>
-                        <Pannel title='节点状态'
-                                content={<span>集群总共<span style={{fontSize:'30px',color:'#2db7f5'}}> 6 </span>个节点,存活
-                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 4 </span>,死亡<span style={{fontSize:'30px',color:'#f50'}}> 2 </span></span>}/>
-
-                    </Col>
-                    <Col lg={12} sm={24} md={12} style={{paddingBottom:'10px'}}>
-                        <Pannel title='任务状态'
-                                content={<span>集群总共<span style={{fontSize:'30px',color:'#2db7f5'}}> 6 </span>个节点,存活
-                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 4 </span>,死亡<span style={{fontSize:'30px',color:'#f50'}}> 2 </span></span>}/>
-
-                    </Col>
-                </Row>
-                <Row gutter={16}>
                     <Col lg={8} sm={24} md={12} style={{paddingBottom:'10px'}}>
-                        <Card title="" bordered={true}>
-                            <ReactHighcharts config={config} ref="chart"/>
+                        <Card title="" bordered={true} style={{height:'450px'}}>
+                            <Icon type="desktop" /><h3>节点状态</h3>
+                            <span >总共<span style={{fontSize:'30px',color:'#2db7f5'}}> 6 </span>个节点 , 存活
+                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 6 </span>个 , 死亡<span
+                                    style={{fontSize:'30px',color:'#f50'}}> 0 </span>个</span>
+
+                            <hr style={{border:'0px',borderBottom: '1px dashed #ccc',margin: '10px 0px'}}/>
+
+                            <Icon type="setting" /><h3>任务状态</h3>
+                            <span >总共运行<span style={{fontSize:'30px',color:'#2db7f5'}}> 10 </span>个任务 , 成功
+                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 4 </span>个 , 失败<span
+                                    style={{fontSize:'30px',color:'#f50'}}> 2 </span>个 ,
+                            悬挂
+                                <span style={{fontSize:'30px',color:'#aa6708'}}> 4 </span>个.
+                            </span>
+                            <hr style={{border:'0px',borderBottom: '1px dashed #ccc',margin: '10px 0px'}}/>
+
+                            <Icon type="cloud-o" /><h3>服务状态</h3>
+                            <span >总共运行<span style={{fontSize:'30px',color:'#2db7f5'}}> 8 </span>个服务 , 正常运行
+                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 5 </span>个 , 停止<span
+                                    style={{fontSize:'30px',color:'#f50'}}> 3 </span></span>个
+                            <hr style={{border:'0px',borderBottom: '1px dashed #ccc',margin: '10px 0px'}}/>
+
+                            <Icon type="notification" /><h3> 报警状态</h3>
+                            <span >总共<span style={{fontSize:'30px',color:'#2db7f5'}}> 6 </span>个节点,存活
+                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 4 </span>,死亡<span
+                                    style={{fontSize:'30px',color:'#f50'}}> 2 </span></span>
+
                         </Card>
                     </Col>
                     <Col lg={8} sm={24} md={12} style={{paddingBottom:'10px'}}>
@@ -524,7 +535,8 @@ class ClusterDashBoard extends Component {
                 </Row>
             </div>
 
-        )
+        );
+
     }
 }
 
