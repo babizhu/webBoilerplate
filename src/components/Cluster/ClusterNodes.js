@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Card, Col, Row,Table,Button,Input,Tooltip,Icon } from 'antd';
+import { Card, Col, Row,Table,Button,Input,Tooltip,Icon,Progress } from 'antd';
 import ReactHighcharts,{Highcharts} from 'react-highcharts'
 import HighchartsMore from 'highcharts-3d'
 HighchartsMore(ReactHighcharts.Highcharts);
@@ -28,18 +28,18 @@ class ClusterNodes extends Component {
 
     getColumns() {
         return [{
-            title: '机器名',
+            title: 'Host',
             dataIndex: 'name',
             width: 90,
             key: 'name'
         }, {
+            title: 'IP',
+            dataIndex: 'ip',
+            key: 'ip'
+        }, {
             title: '服务',
             dataIndex: 'service',
             key: 'service'
-        }, {
-            title: 'IP地址',
-            dataIndex: 'ip',
-            key: 'ip'
         }, {
             title: 'CPU [ 空闲 ]',
             dataIndex: 'cpu',
@@ -107,8 +107,8 @@ class ClusterNodes extends Component {
                 name: 'master',
                 service: 'Hadoop,Zookeeper',
                 ip: '192.168.1.5',
-                cpu: <span>4核心 [ <span style={{color:'red'}}>16%</span> ]</span>,
-                mem: <span>128G [ <span style={{color:'red'}}>16%</span> ]</span>,
+                cpu: <Progress type="circle" percent={30} width={40} />,
+                mem: <span>128G  <Progress type="circle" percent={79.9} width={40}  /></span>,
                 disk: <span>1024G [ <span style={{color:'green'}}>56%</span> ]</span>,
             },
             {

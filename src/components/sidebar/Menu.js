@@ -36,7 +36,6 @@ class Menu extends Component {
     menuClick(menuItem) {
         const {changeMenuOpenStatus} = this.props;
         changeMenuOpenStatus(menuItem.index);
-
     }
 
 
@@ -65,12 +64,15 @@ class Menu extends Component {
      */
     static isSelected(menuItem, componentUrl) {
         const url = componentUrl.substring(1);//去除掉url最前面的/
-        if (url == menuItem.component) {
+        //console.log( 'url=' + url);
+        //console.log(url.split('/')[0]+ ' ' + url.split('/')[1]);
+        //console.log(menuItem.component);
+        if (url == menuItem.component || url.split('/')[0] == menuItem.component ) {
             return true;
         }
         if (menuItem.subMenu) {
             for (const subMenu of menuItem.subMenu) {
-                if (subMenu.component == url) {
+                if (subMenu.component == url || url.split('/')[0] == subMenu.component) {
                     return true;
                 }
             }

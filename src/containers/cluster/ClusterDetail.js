@@ -50,7 +50,8 @@ class ClusterDetail extends Component {
 
                     <div style={{lineHeight:'25px'}}>
                         {this.state.showMoreClusterInfo ? <div>
-                            <div><b>I P 地 址 </b> : {ownCluster.ip}</div>
+                            <div><b>I P 地 址</b> : {ownCluster && ownCluster.ip}</div>
+                            <div><b>集群服务</b> : {ownCluster && ownCluster.service}</div>
                             <div><b>所在地区</b> : 重庆新牌坊电信机房</div>
                             <div><b>创建时间</b> : {ownCluster.createTime}</div>
                             </div>

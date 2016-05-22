@@ -4,6 +4,7 @@ import ReactHighcharts,{Highcharts} from 'react-highcharts'
 import HighchartsMore from 'highcharts-3d'
 HighchartsMore(ReactHighcharts.Highcharts);
 
+import Pannel from '../Utils/Pannel'
 import '../../css/cluster.scss'
 
 class ClusterDashBoard extends Component {
@@ -15,16 +16,18 @@ class ClusterDashBoard extends Component {
         //let chart = this.refs.chart.getChart();
         //chart.series[0].addPoint({x: 10, y: 12});
     }
-    shouldComponentUpdate(nextProps){
+
+    shouldComponentUpdate(nextProps) {
         //if( nextProps.showMoreClusterInfo )
         return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
 
     }
+
     render() {
         const config = {
             credits: {enabled: false},
             title: {
-                text: '我的任务',
+                text: '我的任务'
                 //x: -20 //center
             },
             subtitle: {
@@ -48,16 +51,29 @@ class ClusterDashBoard extends Component {
                 valueSuffix: '°C'
             },
 
+
             series: [{
+                animation: {
+                    duration: 1500
+                },
                 name: 'Tokyo',
                 data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
             }, {
+                animation: {
+                    duration: 1500
+                },
                 name: 'New York',
                 data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
             }, {
+                animation: {
+                    duration: 1500
+                },
                 name: 'Berlin',
                 data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
             }, {
+                animation: {
+                    duration: 1500
+                },
                 name: 'London',
                 data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
             }]
@@ -90,8 +106,13 @@ class ClusterDashBoard extends Component {
                     }
                 }
             },
+
+            animation: {
+                duration: 1500
+            },
             series: [{
-                type: 'pie',
+
+                //type: 'pie',
                 name: 'Browser share',
                 data: [
                     ['Firefox', 45.0],
@@ -111,7 +132,6 @@ class ClusterDashBoard extends Component {
 
         const cfg2 = {
             credits: {enabled: false},
-
             chart: {
                 type: 'spline'
             },
@@ -223,6 +243,9 @@ class ClusterDashBoard extends Component {
                 }
             },
             series: [{
+                animation: {
+                    duration: 1500
+                },
                 name: 'Hestavollane',
                 data: [4.3, 5.1, 4.3, 5.2, 5.4, 4.7, 3.5, 4.1, 5.6, 7.4, 6.9, 7.1,
                     7.9, 7.9, 7.5, 6.7, 7.7, 7.7, 7.4, 7.0, 7.1, 5.8, 5.9, 7.4,
@@ -244,7 +267,29 @@ class ClusterDashBoard extends Component {
                 }
             }
         };
-        const cfg3={
+        const cfg4 = {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: '多级饼图'
+            },
+
+            series: [{
+                dataLabels: {
+                    enabled: false
+                },
+                data: [1, 2, 3, 4, 5],
+                size: '60%',
+                startAngle: 0
+            }, {
+                data: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                size: '80%',
+                innerSize: '60%',
+                startAngle: 0
+            }]
+        };
+        const cfg3 = {
             chart: {
                 zoomType: 'x',
                 spacingRight: 20
@@ -278,7 +323,7 @@ class ClusterDashBoard extends Component {
             plotOptions: {
                 area: {
                     fillColor: {
-                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
                         stops: [
                             [0, Highcharts.getOptions().colors[0]],
                             [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
@@ -304,19 +349,19 @@ class ClusterDashBoard extends Component {
                 pointInterval: 24 * 3600 * 1000,
                 pointStart: Date.UTC(2006, 0, 1),
                 data: [
-                    0.8446, 0.8445, 0.8444, 0.8451,    0.8418, 0.8264,    0.8258, 0.8232,    0.8233, 0.8258,
-                    0.8283, 0.8278, 0.8256, 0.8292,    0.8239, 0.8239,    0.8245, 0.8265,    0.8261, 0.8269,
-                    0.8273, 0.8244, 0.8244, 0.8172,    0.8139, 0.8146,    0.8164, 0.82,    0.8269, 0.8269,
-                    0.8269, 0.8258, 0.8247, 0.8286,    0.8289, 0.8316,    0.832, 0.8333,    0.8352, 0.8357,
-                    0.8355, 0.8354, 0.8403, 0.8403,    0.8406, 0.8403,    0.8396, 0.8418,    0.8409, 0.8384,
+                    0.8446, 0.8445, 0.8444, 0.8451, 0.8418, 0.8264, 0.8258, 0.8232, 0.8233, 0.8258,
+                    0.8283, 0.8278, 0.8256, 0.8292, 0.8239, 0.8239, 0.8245, 0.8265, 0.8261, 0.8269,
+                    0.8273, 0.8244, 0.8244, 0.8172, 0.8139, 0.8146, 0.8164, 0.82, 0.8269, 0.8269,
+                    0.8269, 0.8258, 0.8247, 0.8286, 0.8289, 0.8316, 0.832, 0.8333, 0.8352, 0.8357,
+                    0.8355, 0.8354, 0.8403, 0.8403, 0.8406, 0.8403, 0.8396, 0.8418, 0.8409, 0.8384,
                     0.8386, 0.8372, 0.839, 0.84, 0.8389, 0.84, 0.8423, 0.8423, 0.8435, 0.8422,
-                    0.838, 0.8373, 0.8316, 0.8303,    0.8303, 0.8302,    0.8369, 0.84, 0.8385, 0.84,
-                    0.8401, 0.8402, 0.8381, 0.8351,    0.8314, 0.8273,    0.8213, 0.8207,    0.8207, 0.8215,
-                    0.8242, 0.8273, 0.8301, 0.8346,    0.8312, 0.8312,    0.8312, 0.8306,    0.8327, 0.8282,
+                    0.838, 0.8373, 0.8316, 0.8303, 0.8303, 0.8302, 0.8369, 0.84, 0.8385, 0.84,
+                    0.8401, 0.8402, 0.8381, 0.8351, 0.8314, 0.8273, 0.8213, 0.8207, 0.8207, 0.8215,
+                    0.8242, 0.8273, 0.8301, 0.8346, 0.8312, 0.8312, 0.8312, 0.8306, 0.8327, 0.8282,
                     0.824, 0.8255, 0.8256, 0.8273, 0.8209, 0.8151, 0.8149, 0.8213, 0.8273, 0.8273,
                     0.8261, 0.8252, 0.824, 0.8262, 0.8258, 0.8261, 0.826, 0.8199, 0.8153, 0.8097,
-                    0.8101, 0.8119, 0.8107, 0.8105,    0.8084, 0.8069,    0.8047, 0.8023,    0.7965, 0.7919,
-                    0.7921, 0.7922, 0.7934, 0.7918,    0.7915, 0.787, 0.7861, 0.7861, 0.7853, 0.7867,
+                    0.8101, 0.8119, 0.8107, 0.8105, 0.8084, 0.8069, 0.8047, 0.8023, 0.7965, 0.7919,
+                    0.7921, 0.7922, 0.7934, 0.7918, 0.7915, 0.787, 0.7861, 0.7861, 0.7853, 0.7867,
                     0.7827, 0.7834, 0.7766, 0.7751, 0.7739, 0.7767, 0.7802, 0.7788, 0.7828, 0.7816,
                     0.7829, 0.783, 0.7829, 0.7781, 0.7811, 0.7831, 0.7826, 0.7855, 0.7855, 0.7845,
                     0.7798, 0.7777, 0.7822, 0.7785, 0.7744, 0.7743, 0.7726, 0.7766, 0.7806, 0.785,
@@ -417,51 +462,71 @@ class ClusterDashBoard extends Component {
                 ]
             }]
         };
+
         return (
             <div className='cluster-dash-board'>
 
 
-                <div>
-                    <Row gutter={16}>
-                        <Col lg={8} sm={24} md={12} style={{paddingBottom:'10px'}}>
-                            <Card title="" bordered={true}>
-                                <ReactHighcharts config={config} ref="chart"/>
-                            </Card>
-                        </Col>
-                        <Col lg={8} sm={24} md={12}  style={{paddingBottom:'10px'}}>
-                            <Card title="" bordered={true}>
-                                <ReactHighcharts config={cfg1} ref="chart"/>
-                            </Card>
-                        </Col>
-                        <Col lg={8} sm={24} md={12}>
-                            <Card title="" bordered={true}>
-                                <ReactHighcharts config={cfg2} ref="chart"/>
-                            </Card>
-                        </Col>
-                    </Row>
+                <Row gutter={16}>
+                    <Col lg={12} sm={24} md={12} style={{paddingBottom:'10px'}}>
+                        <Pannel title='节点状态'
+                                content={<span>集群总共<span style={{fontSize:'30px',color:'#2db7f5'}}> 6 </span>个节点,存活
+                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 4 </span>,死亡<span style={{fontSize:'30px',color:'#f50'}}> 2 </span></span>}/>
+
+                    </Col>
+                    <Col lg={12} sm={24} md={12} style={{paddingBottom:'10px'}}>
+                        <Pannel title='任务状态'
+                                content={<span>集群总共<span style={{fontSize:'30px',color:'#2db7f5'}}> 6 </span>个节点,存活
+                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 4 </span>,死亡<span style={{fontSize:'30px',color:'#f50'}}> 2 </span></span>}/>
+
+                    </Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col lg={8} sm={24} md={12} style={{paddingBottom:'10px'}}>
+                        <Card title="" bordered={true}>
+                            <ReactHighcharts config={config} ref="chart"/>
+                        </Card>
+                    </Col>
+                    <Col lg={8} sm={24} md={12} style={{paddingBottom:'10px'}}>
+                        <Card title="" bordered={true}>
+                            <ReactHighcharts config={cfg1} ref="chart1"/>
+                        </Card>
+                    </Col>
+                    <Col lg={8} sm={24} md={12}>
+                        <Card title="" bordered={true}>
+                            <ReactHighcharts config={cfg2} ref="chart2"/>
+                        </Card>
+                    </Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col span="24">
+                        <div style={{height:'30px'}}></div>
+                    </Col>
+
+                </Row>
+                <Row gutter={16}>
                     <Row gutter={16}>
                         <Col span="24">
-                            <div style={{height:'30px'}}></div>
-                        </Col>
-
-                    </Row>
-                    <Row gutter={16}>
-                        <Col span="24">
 
                             <Card title="" bordered={true}>
-                                <ReactHighcharts config={cfg3} ref="chart"/>
+                                <ReactHighcharts config={cfg4} ref="chart4"/>
                             </Card>
                         </Col>
 
                     </Row>
-                </div>
+                    <Col span="24">
 
-                
+                        <Card title="" bordered={true}>
+                            <ReactHighcharts config={cfg3} ref="chart3"/>
+                        </Card>
+                    </Col>
+
+                </Row>
             </div>
+
         )
     }
 }
-
 
 
 export default ClusterDashBoard;
