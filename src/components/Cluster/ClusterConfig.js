@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { Card, Col, Row } from 'antd';
 import ReactHighcharts from 'react-highcharts'
-import HighchartsMore from 'highcharts-3d'
-HighchartsMore(ReactHighcharts.Highcharts);
+//import HighchartsMore from 'highcharts-3d'
+//HighchartsMore(ReactHighcharts.Highcharts);
 
 import '../../css/cluster.scss'
 
@@ -28,12 +28,12 @@ class ClusterConfig extends Component {
            chart: {
                type: 'pie',
                options3d: {
-                   enabled: false,
+                   enabled: true,
                    alpha: 45
                }
            },
            title: {
-               text: 'Contents of Highsofts weekly fruit delivery'
+               text: '3D 饼图测试'
            },
            subtitle: {
                text: '3D donut in Highcharts'
@@ -41,7 +41,7 @@ class ClusterConfig extends Component {
            plotOptions: {
                pie: {
                    innerSize: 100,
-                   depth: 45
+                   depth: 35
                }
            },
            series: [{
@@ -62,7 +62,7 @@ class ClusterConfig extends Component {
        };
        return(
            <span>
-           <h1>报警设置</h1>
+           <h3>报警设置</h3>
            <ReactHighcharts config={cfg5} ref="chart5"/>
                </span>
 

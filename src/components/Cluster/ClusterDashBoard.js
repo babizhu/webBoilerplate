@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { Card, Col, Row,Icon } from 'antd';
+import { Card, Col, Row,Icon ,Button} from 'antd';
 import ReactHighcharts,{Highcharts} from 'react-highcharts'
-import HighchartsMore from 'highcharts-3d'
-HighchartsMore(ReactHighcharts.Highcharts);
+//import HighchartsMore from 'highcharts-3d'
+//HighchartsMore(ReactHighcharts.Highcharts);
 
 import Pannel from '../Utils/Pannel'
 import '../../css/cluster.scss'
@@ -31,7 +31,7 @@ class ClusterDashBoard extends Component {
                 //x: -20 //center
             },
             subtitle: {
-                text: 'Source: WorldClimate.com',
+                text: 'Source: WorldClimate.com'
                 //x: -20
             },
             xAxis: {
@@ -99,7 +99,7 @@ class ClusterDashBoard extends Component {
                 pie: {
                     allowPointSelect: true,
                     cursor: 'pointer',
-                    depth: 35,
+                    depth: 25,
                     dataLabels: {
                         enabled: true,
                         format: '{point.name}'
@@ -469,32 +469,54 @@ class ClusterDashBoard extends Component {
                 <Row gutter={16}>
                     <Col lg={8} sm={24} md={12} style={{paddingBottom:'10px'}}>
                         <Card title="" bordered={true} style={{height:'450px'}}>
-                            <Icon type="desktop" /><h3>节点状态</h3>
-                            <span >总共<span style={{fontSize:'30px',color:'#2db7f5'}}> 6 </span>个节点 , 存活
-                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 6 </span>个 , 死亡<span
-                                    style={{fontSize:'30px',color:'#f50'}}> 0 </span>个</span>
+                            <Icon type="desktop"/> <span style={{paddingLeft:'6px',fontWeight:'bold'}}>节点状态</span>
+                            <div >
+                                总共<span style={{fontSize:'21px',color:'#2db7f5'}}> 1806 </span>个节点 <br /> 存活
+                                <span style={{fontSize:'21px',color:'#66bb6a'}}> 806 </span>个 , 宕机
+                                <span style={{fontSize:'21px',color:'#f50'}}> 1000 </span>个
+                                <span
+                                    className='no_border_icon_button' style={{float:'right',position: 'relative',top:'10px'}}>
+                                    <Button className='no_border_icon_button' type="ghost" icon='double-right' size="small"/>
+                                </span>
+                            </div>
 
                             <hr style={{border:'0px',borderBottom: '1px dashed #ccc',margin: '10px 0px'}}/>
 
-                            <Icon type="setting" /><h3>任务状态</h3>
-                            <span >总共运行<span style={{fontSize:'30px',color:'#2db7f5'}}> 10 </span>个任务 , 成功
-                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 4 </span>个 , 失败<span
-                                    style={{fontSize:'30px',color:'#f50'}}> 2 </span>个 ,
-                            悬挂
-                                <span style={{fontSize:'30px',color:'#aa6708'}}> 4 </span>个.
-                            </span>
+                            <Icon type="setting"/> <span style={{paddingLeft:'6px',fontWeight:'bold'}}>任务状态</span>
+                            <div>
+                                总共运行<span style={{fontSize:'21px',color:'#2db7f5'}}> 10 </span>个任务<br /> 成功
+                                <span style={{fontSize:'21px',color:'#66bb6a'}}> 4970 </span>个 , 失败
+                                <span style={{fontSize:'21px',color:'#f50'}}> 129 </span>个 , 正在运行
+                                <span style={{fontSize:'21px',color:'#aa6708'}}> 54 </span>个
+                                <span
+                                    className='no_border_icon_button' style={{float:'right',position: 'relative',top:'10px'}}>
+                                    <Button className='no_border_icon_button' type="ghost" icon='double-right' size="small"/>
+                                </span>
+                            </div>
                             <hr style={{border:'0px',borderBottom: '1px dashed #ccc',margin: '10px 0px'}}/>
 
-                            <Icon type="cloud-o" /><h3>服务状态</h3>
-                            <span >总共运行<span style={{fontSize:'30px',color:'#2db7f5'}}> 8 </span>个服务 , 正常运行
-                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 5 </span>个 , 停止<span
-                                    style={{fontSize:'30px',color:'#f50'}}> 3 </span></span>个
+                            <Icon type="cloud-o"/> <span style={{paddingLeft:'6px',fontWeight:'bold'}}>服务状态</span>
+                            <div >
+                                总共运行<span style={{fontSize:'21px',color:'#2db7f5'}}> 8 </span>个服务<br />正常运行
+                                <span style={{fontSize:'21px',color:'#66bb6a'}}> 5 </span>个 , 停止
+                                <span style={{fontSize:'21px',color:'#f50'}}> 3 </span>个
+                                <span
+                                    className='no_border_icon_button' style={{float:'right',position: 'relative',top:'10px'}}>
+                                    <Button className='no_border_icon_button' type="ghost" icon='double-right' size="small"/>
+                                </span>
+                            </div>
                             <hr style={{border:'0px',borderBottom: '1px dashed #ccc',margin: '10px 0px'}}/>
 
-                            <Icon type="notification" /><h3> 报警状态</h3>
-                            <span >总共<span style={{fontSize:'30px',color:'#2db7f5'}}> 6 </span>个节点,存活
-                                <span style={{fontSize:'30px',color:'#66bb6a'}}> 4 </span>,死亡<span
-                                    style={{fontSize:'30px',color:'#f50'}}> 2 </span></span>
+                            <Icon type="notification"/> <span style={{paddingLeft:'6px',fontWeight:'bold'}}>报警状态</span>
+                            <div >
+                                总共<span style={{fontSize:'21px',color:'#2db7f5'}}> 6 </span>个节点<br />存活
+                                <span style={{fontSize:'21px',color:'#66bb6a'}}> 4 </span>个,死亡
+                                <span style={{fontSize:'21px',color:'#f50'}}> 2 </span>个
+                                <span
+                                    className='no_border_icon_button' style={{float:'right',position: 'relative',top:'10px'}}>
+                                    <Button className='no_border_icon_button' type="ghost" icon='double-right' size="small"/>
+                                </span>
+                            </div>
 
                         </Card>
                     </Col>

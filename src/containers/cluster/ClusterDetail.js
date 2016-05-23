@@ -10,6 +10,7 @@ import Label from '../../components/Utils/Label'
 import ClusterDashBoard from '../../components/Cluster/ClusterDashBoard'
 import ClusterConfig from '../../components/Cluster/ClusterConfig'
 import ClusterNodes from '../../components/Cluster/ClusterNodes'
+import ClusterServices from '../../components/Cluster/ClusterServices'
 
 class ClusterDetail extends Component {
     constructor(props) {
@@ -58,7 +59,7 @@ class ClusterDetail extends Component {
                          : null}
                         <div className='cluster-desc'>
                             <div className='cluster-description'><b>集群描述</b> : {ownCluster && ownCluster.description}</div>
-                            <div className='show-more-button'>
+                            <div className='no_border_icon_button show-more-button'>
                                     <Button type="ghost"
                                             icon={this.state.showMoreClusterInfo?'up':'down' }
                                             size="small"
@@ -77,12 +78,16 @@ class ClusterDetail extends Component {
                             <TabPane tab="集群总览" key="1">
                                 <ClusterDashBoard showMoreClusterInfo={this.state.showMoreClusterInfo}/>
                             </TabPane>
-                            <TabPane tab="服务状态" key="2">选项卡二内容</TabPane>
+                            <TabPane tab="服务状态" key="2">
+                                <ClusterServices showMoreClusterInfo={this.state.showMoreClusterInfo}/>
+
+
+                            </TabPane>
                             <TabPane tab="节点列表" key="3">
                                 <ClusterNodes showMoreClusterInfo={this.state.showMoreClusterInfo}/>
 
                             </TabPane>
-                            <TabPane tab="集群日志" key="4">选项卡三内容</TabPane>
+                            <TabPane tab="集群日志" key="4">选项卡4内容</TabPane>
                             <TabPane tab="配置管理" key="5">
                                 <ClusterConfig showMoreClusterInfo={this.state.showMoreClusterInfo}/>
 

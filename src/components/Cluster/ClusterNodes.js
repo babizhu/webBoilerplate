@@ -41,15 +41,15 @@ class ClusterNodes extends Component {
             dataIndex: 'service',
             key: 'service'
         }, {
-            title: 'CPU [ 空闲 ]',
+            title: 'CPU',
             dataIndex: 'cpu',
             key: 'cpu'
         }, {
-            title: '内存 [ 空闲 ]',
+            title: '内存',
             dataIndex: 'mem',
             key: 'mem'
         }, {
-            title: '磁盘 [ 空闲 ]',
+            title: '磁盘',
             dataIndex: 'disk',
             key: 'disk'
         }, {

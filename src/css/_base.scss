@@ -43,4 +43,13 @@ $danger_bg_color: $danger_text_color;//危险的背景颜色，多用于删除�
     //color:darken(lightcoral,20%);
     //font-weight: bold;
   }
+
+  //没有边框的图标按钮
+
+}
+.no_border_icon_button{
+  .ant-btn {
+
+    border: 0 solid transparent;
+  }
 }
