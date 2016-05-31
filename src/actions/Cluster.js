@@ -5,17 +5,45 @@
 
 import api from '../api/index';
 
-export const CLUSTER_QUERY = 'CLUSTER_QUERY';
-export const CLUSTER_QUERY_PENDING = 'CLUSTER_QUERY_PENDING';
-export const CLUSTER_QUERY_SUCCESS = 'CLUSTER_QUERY_SUCCESS';
-export const CLUSTER_QUERY_ERROR = 'CLUSTER_QUERY_ERROR';
+//查询集群列表的信息
+export const CLUSTER_LIST_QUERY = 'CLUSTER_LIST_QUERY';
+export const CLUSTER_LIST_QUERY_PENDING = 'CLUSTER_LIST_QUERY_PENDING';
+export const CLUSTER_LIST_QUERY_SUCCESS = 'CLUSTER_LIST_QUERY_SUCCESS';
+export const CLUSTER_LIST_QUERY_ERROR = 'CLUSTER_LIST_QUERY_ERROR';
 
-export const CLUSTER_OPERATION = 'CLUSTER_OPERATION';
-export const CLUSTER_OPERATION_PENDING = 'CLUSTER_OPERATION_PENDING';
-export const CLUSTER_OPERATION_SUCCESS = 'CLUSTER_OPERATION_SUCCESS';
-export const CLUSTER_OPERATION_ERROR = 'CLUSTER_OPERATION_ERROR';
+//查询某个集群内所有节点的信息，包括ganglia收集的
+export const CLUSTER_NODES_QUERY = 'CLUSTER_NODES_QUERY';
+export const CLUSTER_NODES_QUERY_PENDING = 'CLUSTER_NODES_QUERY_PENDING';
+export const CLUSTER_NODES_QUERY_SUCCESS = 'CLUSTER_NODES_QUERY_SUCCESS';
+export const CLUSTER_NODES_QUERY_ERROR = 'CLUSTER_NODES_QUERY_ERROR';
+
+
+export const CLUSTER_LIST_OPERATION = 'CLUSTER_LIST_OPERATION';
+export const CLUSTER_LIST_OPERATION_PENDING = 'CLUSTER_LIST_OPERATION_PENDING';
+export const CLUSTER_LIST_OPERATION_SUCCESS = 'CLUSTER_LIST_OPERATION_SUCCESS';
+export const CLUSTER_LIST_OPERATION_ERROR = 'CLUSTER_LIST_OPERATION_ERROR';
 
 export const OPEN_CLUSTER_MODAL = 'OPEN_CLUSTER_MODAL';
+
+/**
+ * 获取集群内所有节点的信息
+ * @param clusterId 集群id
+ */
+export function getClusterNodes(clusterId) {
+    return {
+        type: CLUSTER_NODES_QUERY,
+        meta: {
+            clusterId
+        },
+        payload: {
+            promise: api.get('cluster/clusterSummaryInfo', {
+                params: {
+                    clusterId
+                }
+            })
+        }
+    }
+}
 
 /**
  * 获取集群的列表信息
@@ -24,9 +52,9 @@ export const OPEN_CLUSTER_MODAL = 'OPEN_CLUSTER_MODAL';
  * @param pageSize          每页的记录数量
  *
  */
-export function getClustersData(cnd = null, pageNumber = 0, pageSize = 20) {
+export function getClustersList(cnd = null, pageNumber = 0, pageSize = 20) {
     return {
-        type: CLUSTER_QUERY,
+        type: CLUSTER_LIST_QUERY,
         meta: {
             cnd,
             pageNumber,
@@ -50,9 +78,9 @@ export function getClustersData(cnd = null, pageNumber = 0, pageSize = 20) {
  * @param op            操作类型1:增 改 2:、删除
  * @param cluster       当前要操作的集群
  */
-export function clusterOperation(op, cluster) {
+export function clusterListOperation(op, cluster) {
     return {
-        type: CLUSTER_OPERATION,
+        type: CLUSTER_LIST_OPERATION,
         meta: {
             op,
             cluster

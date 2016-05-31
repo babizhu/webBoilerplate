@@ -12,6 +12,8 @@ import ClusterConfig from '../../components/Cluster/ClusterConfig'
 import ClusterNodes from '../../components/Cluster/ClusterNodes'
 import ClusterServices from '../../components/Cluster/ClusterServices'
 
+import * as clusterActions from '../../actions/Cluster'
+
 class ClusterDetail extends Component {
     constructor(props) {
         super(props);
@@ -25,11 +27,26 @@ class ClusterDetail extends Component {
     }
 
     componentDidMount() {
-
+        const {ownCluster} = this.props;
+        if (ownCluster) {
+            this.props.getClusterNodes(ownCluster.id);
+        }
     }
 
     render() {
         const {ownCluster} = this.props;
+        //const {nodeInfo} = this.props.clusterNodes[ownCluster.id];
+
+        let nodeInfo = {
+
+        };
+        //for( let x in this.props.clusterNodes){
+        //    console.log( x )
+        //}
+        if (ownCluster.id) {
+            nodeInfo = this.props.clusterNodes[ownCluster.id];
+            //alert( nodeInfo)
+        }
         return (
             <div className='cluster-detail'>
                 <div className='header'>
@@ -38,10 +55,10 @@ class ClusterDetail extends Component {
                             <tbody>
                             <tr>
                                 <td><span className='cluster-title'>{this.props.params.name}</span>
-                                    <span className='span-label'><Label  text={'运行中'} isSuccess={true}/></span></td>
+                                    <span className='span-label'><Label text={'运行中'} isSuccess={true}/></span></td>
                                 <td style={{float:'right'}}>
-                                    <Button type="ghost" icon="reload"   className='button'>重启</Button>
-                                    <Button type="ghost" icon="right"    className='button'>启动</Button>
+                                    <Button type="ghost" icon="reload" className='button'>重启</Button>
+                                    <Button type="ghost" icon="right" className='button'>启动</Button>
                                     <Button type="ghost" icon="poweroff" className='button'>停止</Button>
                                 </td>
                             </tr>
@@ -55,16 +72,17 @@ class ClusterDetail extends Component {
                             <div><b>集群服务</b> : {ownCluster && ownCluster.service}</div>
                             <div><b>所在地区</b> : 重庆新牌坊电信机房</div>
                             <div><b>创建时间</b> : {ownCluster.createTime}</div>
-                            </div>
-                         : null}
+                        </div>
+                            : null}
                         <div className='cluster-desc'>
-                            <div className='cluster-description'><b>集群描述</b> : {ownCluster && ownCluster.description}</div>
+                            <div className='cluster-description'><b>集群描述</b> : {ownCluster && ownCluster.description}
+                            </div>
                             <div className='no_border_icon_button show-more-button'>
-                                    <Button type="ghost"
-                                            icon={this.state.showMoreClusterInfo?'up':'down' }
-                                            size="small"
-                                            onClick={this.showMoreClusterInfo.bind(this)}
-                                    />
+                                <Button type="ghost"
+                                        icon={this.state.showMoreClusterInfo?'up':'down' }
+                                        size="small"
+                                        onClick={this.showMoreClusterInfo.bind(this)}
+                                />
                             </div>
                         </div>
                     </div>
@@ -76,7 +94,9 @@ class ClusterDetail extends Component {
                     <Col lg={24} sm={24} md={24}>
                         <Tabs defaultActiveKey="1" tabPosition="top">
                             <TabPane tab="集群总览" key="1">
-                                <ClusterDashBoard showMoreClusterInfo={this.state.showMoreClusterInfo}/>
+                                <ClusterDashBoard
+                                    showMoreClusterInfo={this.state.showMoreClusterInfo}
+                                    nodeInfo={nodeInfo}/>
                             </TabPane>
                             <TabPane tab="服务状态" key="2">
                                 <ClusterServices showMoreClusterInfo={this.state.showMoreClusterInfo}/>
@@ -95,21 +115,20 @@ class ClusterDetail extends Component {
                         </Tabs>
                     </Col>
                 </Row>
-
-
             </div>
         )
     }
 }
 function getClusterByName(clusters, name) {
-    return clusters.find((c)=>c.name === name );
+    return clusters.find((c)=>c.name === name);
 }
-function mapStateToProps(state,ownProps) {
+function mapStateToProps(state, ownProps) {
 
     const name = ownProps.params.name;
     //alert(name)
     return {
-        ownCluster: getClusterByName(state.cluster.clusterList.data, name)
+        clusterNodes: state.clustersInfo.clusterNodes,
+        ownCluster: getClusterByName(state.clustersInfo.clusterList.data, name)
     }
 }
 //function mapDispatchToProps() {
@@ -121,4 +140,4 @@ function mapStateToProps(state,ownProps) {
 //}
 
 //export default connect(mapStateToProps, mapDispatchToProps)(AnimEnhance(HadoopFile));
-export default connect(mapStateToProps)(AnimEnhance(ClusterDetail));
+export default connect(mapStateToProps, clusterActions)(AnimEnhance(ClusterDetail));
