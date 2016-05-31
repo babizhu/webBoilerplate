@@ -128,7 +128,8 @@ class DirectoryView extends Component {
             key: 'modificationTime',
             render: (text)=> {
                 return formatTime(text);
-            }
+            },
+            sorter: (a, b) => a.modificationTime - b.modificationTime
         }, {
             title: '操作',
             key: 'operation',

@@ -32,11 +32,11 @@ class ClusterDashBoard extends Component {
         const {nodeInfo} = this.props;
         return (
             <div className='cluster-dash-board'>
+                <Row>
 
 
-                <Row gutter={16}>
-                    <Col lg={8} sm={24} md={12} style={{paddingBottom:'10px'}}>
-                        <Card title="" bordered={true} style={{height:'450px'}}>
+                    <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
+                        <Card title="" bordered={true} style={{height:'350px'}}>
                             <Icon type="desktop"/> <span style={{paddingLeft:'6px',fontWeight:'bold'}}>节点状态</span>
                             <div >
                                 总共<span style={{fontSize:'21px',color:'#2db7f5'}}> 1806 </span>个节点 <br /> 存活
@@ -55,7 +55,7 @@ class ClusterDashBoard extends Component {
                             <Icon type="setting"/> <span style={{paddingLeft:'6px',fontWeight:'bold'}}>任务状态</span>
                             <div>
                                 总共运行<span style={{fontSize:'21px',color:'#2db7f5'}}> 10 </span>个任务<br /> 成功
-                                <span style={{fontSize:'21px',color:'#66bb6a'}}> 4970 </span>个 , 失败
+                                <span style={{fontSize:'21px',color:'#66bb6a'}}> 970 </span>个 , 失败
                                 <span style={{fontSize:'21px',color:'#f50'}}> 129 </span>个 , 正在运行
                                 <span style={{fontSize:'21px',color:'#aa6708'}}> 54 </span>个
                                 <span
@@ -79,24 +79,38 @@ class ClusterDashBoard extends Component {
                                             size="small"/>
                                 </span>
                             </div>
-                            <hr style={{border:'0px',borderBottom: '1px dashed #ccc',margin: '10px 0px'}}/>
-
-                            <Icon type="notification"/> <span style={{paddingLeft:'6px',fontWeight:'bold'}}>报警状态</span>
-                            <div >
-                                总共<span style={{fontSize:'21px',color:'#2db7f5'}}> 6 </span>个节点<br />存活
-                                <span style={{fontSize:'21px',color:'#66bb6a'}}> 4 </span>个,死亡
-                                <span style={{fontSize:'21px',color:'#f50'}}> 2 </span>个
-                                <span
-                                    className='no_border_icon_button'
-                                    style={{float:'right',position: 'relative',top:'10px'}}>
-                                    <Button className='no_border_icon_button' type="ghost" icon='double-right'
-                                            size="small"/>
-                                </span>
-                            </div>
 
                         </Card>
+
                     </Col>
-                    <Col lg={8} sm={24} md={12} style={{paddingBottom:'10px'}}>
+                    <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
+                        <Card title="" bordered={true}>
+                            <ClusterNetworkChart config={nodeInfo.clusterCharts.network}/>
+                        </Card>
+                    </Col>
+                    <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
+                        <Card title="" bordered={true}>
+                            <ClusterNetworkChart config={nodeInfo.clusterCharts.network}/>
+                        </Card>
+                    </Col><Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
+                    <Card title="" bordered={true}>
+                        <ClusterNetworkChart config={nodeInfo.clusterCharts.network}/>
+                    </Card>
+                </Col><Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
+                    <Card title="" bordered={true}>
+                        <ClusterNetworkChart config={nodeInfo.clusterCharts.network}/>
+                    </Card>
+                </Col><Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
+                    <Card title="" bordered={true}>
+                        <ClusterNetworkChart config={nodeInfo.clusterCharts.network}/>
+                    </Card>
+                </Col>
+
+                </Row>
+
+                <Row gutter={16}>
+
+                    <Col lg={24} sm={24} md={12} style={{paddingBottom:'10px'}}>
                         <Card title="" bordered={true}>
                             {
                                 nodeInfo && nodeInfo.clusterCharts &&
@@ -144,6 +158,22 @@ class ClusterDashBoard extends Component {
 
                         </Card>
                     </Col>
+
+                </Row>
+                <Row>
+
+                    <Row>
+                        <Col span="12">
+                            <ClusterNetworkChart config={nodeInfo.clusterCharts.network}/>
+                            <ClusterNetworkChart config={nodeInfo.clusterCharts.network}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span="12">
+                            <ClusterNetworkChart config={nodeInfo.clusterCharts.network}/>
+                            <ClusterNetworkChart config={nodeInfo.clusterCharts.network}/>
+                        </Col>
+                    </Row>
 
                 </Row>
             </div>

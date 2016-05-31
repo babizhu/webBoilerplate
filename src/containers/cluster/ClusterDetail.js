@@ -22,32 +22,36 @@ class ClusterDetail extends Component {
         }
     }
 
+    componentWillMount(){
+        const {ownCluster} = this.props;
+        if (ownCluster) {
+        this.props.getClusterNodes(ownCluster.id);
+        }
+    }
     showMoreClusterInfo() {
         this.setState({showMoreClusterInfo: !this.state.showMoreClusterInfo})
     }
 
     componentDidMount() {
-        const {ownCluster} = this.props;
-        if (ownCluster) {
-            this.props.getClusterNodes(ownCluster.id);
-        }
+
     }
 
     render() {
         const {ownCluster} = this.props;
-        //const {nodeInfo} = this.props.clusterNodes[ownCluster.id];
 
-        let nodeInfo = {
-
-        };
-        //for( let x in this.props.clusterNodes){
-        //    console.log( x )
-        //}
-        if (ownCluster.id) {
+        let nodeInfo;
+        if (ownCluster) {
             nodeInfo = this.props.clusterNodes[ownCluster.id];
             //alert( nodeInfo)
         }
+        console.log( 'nodeInfo' + nodeInfo);
+
+        if( !nodeInfo ){
+            return <div>loading</div>
+        }else
         return (
+
+
             <div className='cluster-detail'>
                 <div className='header'>
                     <div>
@@ -116,6 +120,7 @@ class ClusterDetail extends Component {
                     </Col>
                 </Row>
             </div>
+
         )
     }
 }

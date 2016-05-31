@@ -26,6 +26,7 @@ class ClusterNetworkChart extends Component {
     render() {
         const {config} = this.props;
         const allCfg = {
+            credits: {enabled: false},
             colors: ['lightblue','lightgreen'],
 
             chart: {
@@ -47,6 +48,10 @@ class ClusterNetworkChart extends Component {
                 //}
             },
             yAxis: {
+                titile:{
+                    enable:false,
+                    text:null
+                }
                 //title: {
                 //    text: '百分比'
                 //}
@@ -76,12 +81,12 @@ class ClusterNetworkChart extends Component {
             },
 
             series: config.list
-        }
+        };
 
 
         return (
 
-            <ReactHighcharts config={allCfg} ref='cpu'/>
+            <ReactHighcharts config={allCfg} ref='cpu' style={{height:'300px'}}/>
 
         );
 
