@@ -109,7 +109,7 @@ function mapStateToProps(state,ownProps) {
     const name = ownProps.params.name;
     //alert(name)
     return {
-        ownCluster: getClusterByName(state.cluster.clusterData.data, name)
+        ownCluster: getClusterByName(state.cluster.clusterList.data, name)
     }
 }
 //function mapDispatchToProps() {

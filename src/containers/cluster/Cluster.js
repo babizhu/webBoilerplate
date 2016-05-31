@@ -12,22 +12,22 @@ class Cluster extends Component {
         super(props)
     }
     componentDidMount() {
-        if (this.props.cluster.clusterData.data.length == 0)
+        if (this.props.cluster.clusterList.data.length == 0)
             this.props.getClustersData();
     }
 
     render() {
 
-        //const clusterData = this.props.cluster.clusterData;
+        //const clusterList = this.props.cluster.clusterList;
         const { children } = this.props;
-        const {clusterData,operationData} = this.props.cluster;
+        const {clusterList,operationData} = this.props.cluster;
         const {openClusterModal,clusterOperation,getClustersData} = this.props;
 
         return (
             <div className="cluster">
                 {children||
                 <ClusterList
-                    clusterData={clusterData}
+                    clusterList={clusterList}
                     operationData={operationData}
                     openModal={openClusterModal}
                     operation={clusterOperation}

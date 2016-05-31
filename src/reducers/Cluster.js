@@ -22,12 +22,11 @@ import {
 
 
 const initState = {
-
     pending: false,
     data: [],
     pager: {}
 };
-function clusterData(state = initState, action = {}) {
+function clusterList(state = initState, action = {}) {
     switch (action.type) {
         case CLUSTER_QUERY_PENDING:
             return {
@@ -58,6 +57,47 @@ function clusterData(state = initState, action = {}) {
         default:
             return state;
     }
+
+}
+const initNodesState = {
+    pending: false,
+    data: [],
+    pager: {}
+};
+function clusterNodesList( state = initNodesState, action={}){
+    return state;
+}
+const initServiceState = {
+    pending: false,
+    data: []
+};
+function clusterServiceList( state = initServiceState, action={}){
+    return state;
+}
+
+const initConfigState = {
+    pending: false,
+    alertMemThresHold:59,
+    alertCpuThresHold:59,
+    alertDiskThresHold:59,
+    alertMailTo:'185938@qq.com',
+    alertMsgTo:'18696590403',
+    interVal:100,//轮询间隔，单位秒
+    contactPhone:'18696590403'//紧急联系人
+};
+function clusterConfig( state = initConfigState, action={}){
+    return state;
+}
+
+const initChartsState = {
+    pending: false,
+    cpu:{},
+    mem:{},
+    disk:{},
+    network:{}
+};
+function clusterCharts( state = initChartsState, action={}){
+    return state;
 }
 
 /**
@@ -130,9 +170,12 @@ function operationData(state = operationInitState, action) {
     }
 }
 
-
 const cluster = combineReducers({
-    clusterData,
-    operationData
+    operationData,
+    clusterList,
+    clusterNodesList,
+    clusterCharts,
+    clusterServiceList,
+    clusterConfig
 });
 export default cluster;

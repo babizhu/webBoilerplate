@@ -92,7 +92,7 @@ class ClusterList extends Component {
             </Menu>
         );
 
-        const {clusterData,operationData} = this.props;
+        const {clusterList,operationData} = this.props;
         const parent = this;
         const columns = [{
             title: '名称',
@@ -156,7 +156,7 @@ class ClusterList extends Component {
                     <Input style={{ width:'25%'}} placeholder="search by name、id or description"/>
                     <div style={{float:'right'}}>
                         <Button type="primary" icon="reload" onClick={this.refresh.bind(this)}
-                                loading={clusterData.pending}
+                                loading={clusterList.pending}
                                 className='button'/>
                         <Button type="ghost" icon="plus" className='button'
                                 onClick={this.addOrEditClusterOk.bind(this,this.buildEmptyCluster(),null)}>
@@ -172,12 +172,12 @@ class ClusterList extends Component {
                 <div>
                 <Table
                     style={{minWidth:'560px'}}
-                    dataSource={clusterData.data}
+                    dataSource={clusterList.data}
                     onRowClick={this.onRowClick.bind(this)}
                     pagination={false}
                     rowSelection={rowSelection}
                     columns={columns}
-                    loading={clusterData.pending}
+                    loading={clusterList.pending}
                     size='middle'
                     rowKey={record=>record.id}/>
                 <DelClusterModal
@@ -200,7 +200,7 @@ class ClusterList extends Component {
     }
 }
 ClusterList.propTypes = {
-    clusterData: PropTypes.shape({
+    clusterList: PropTypes.shape({
         pending: PropTypes.bool.isRequired,
         data: React.PropTypes.array.isRequired
     }).isRequired,
