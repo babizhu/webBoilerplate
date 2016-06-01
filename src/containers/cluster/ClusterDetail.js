@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { Tabs ,Col, Row,Button,Icon,Tooltip } from 'antd';
+import { Tabs ,Col, Row,Button,Icon,Tooltip,Spin } from 'antd';
 const TabPane = Tabs.TabPane;
 
 import {AnimEnhance} from './../AnimEnhance'
@@ -22,36 +22,23 @@ class ClusterDetail extends Component {
         }
     }
 
-    componentWillMount(){
+    componentDidMount() {
         const {ownCluster} = this.props;
-        if (ownCluster) {
         this.props.getClusterNodes(ownCluster.id);
-        }
+        this.timer = setInterval(function () {
+            this.props.getClusterNodes(ownCluster.id);
+        }.bind(this), 10000);
+
     }
+
     showMoreClusterInfo() {
         this.setState({showMoreClusterInfo: !this.state.showMoreClusterInfo})
     }
 
-    componentDidMount() {
-
-    }
-
     render() {
         const {ownCluster} = this.props;
-
-        let nodeInfo;
-        if (ownCluster) {
-            nodeInfo = this.props.clusterNodes[ownCluster.id];
-            //alert( nodeInfo)
-        }
-        console.log( 'nodeInfo' + nodeInfo);
-
-        if( !nodeInfo ){
-            return <div>loading</div>
-        }else
+       const nodeInfo = this.props.clusterNodes[ownCluster.id];
         return (
-
-
             <div className='cluster-detail'>
                 <div className='header'>
                     <div>
@@ -72,14 +59,15 @@ class ClusterDetail extends Component {
 
                     <div style={{lineHeight:'25px'}}>
                         {this.state.showMoreClusterInfo ? <div>
-                            <div><b>I P 地 址</b> : {ownCluster && ownCluster.ip}</div>
-                            <div><b>集群服务</b> : {ownCluster && ownCluster.service}</div>
+                            <div><b>I P 地 址</b> : {ownCluster.ip}</div>
+                            <div><b>集群服务</b> : {ownCluster.service}</div>
                             <div><b>所在地区</b> : 重庆新牌坊电信机房</div>
                             <div><b>创建时间</b> : {ownCluster.createTime}</div>
                         </div>
                             : null}
                         <div className='cluster-desc'>
-                            <div className='cluster-description'><b>集群描述</b> : {ownCluster && ownCluster.description}
+                            <div className='cluster-description'><b>集群描述</b>
+                                : {ownCluster.description}
                             </div>
                             <div className='no_border_icon_button show-more-button'>
                                 <Button type="ghost"
@@ -93,33 +81,37 @@ class ClusterDetail extends Component {
 
                 </div>
 
-                <Row>
+                { nodeInfo &&
+                    <Row>
 
-                    <Col lg={24} sm={24} md={24}>
-                        <Tabs defaultActiveKey="1" tabPosition="top">
-                            <TabPane tab="集群总览" key="1">
-                                <ClusterDashBoard
-                                    showMoreClusterInfo={this.state.showMoreClusterInfo}
-                                    nodeInfo={nodeInfo}/>
-                            </TabPane>
-                            <TabPane tab="服务状态" key="2">
-                                <ClusterServices showMoreClusterInfo={this.state.showMoreClusterInfo}/>
+                        <Col lg={24} sm={24} md={24}>
+                            <Tabs defaultActiveKey="1" tabPosition="top">
+                                <TabPane tab="集群总览" key="1">
+                                    <ClusterDashBoard
+                                        showMoreClusterInfo={this.state.showMoreClusterInfo}
+                                        nodeInfo={nodeInfo}/>
+                                </TabPane>
+                                <TabPane tab="服务状态" key="2">
+                                    <ClusterServices showMoreClusterInfo={this.state.showMoreClusterInfo}/>
 
 
-                            </TabPane>
-                            <TabPane tab="节点列表" key="3">
-                                <ClusterNodes showMoreClusterInfo={this.state.showMoreClusterInfo}/>
+                                </TabPane>
+                                <TabPane tab="节点列表" key="3">
+                                    <ClusterNodes showMoreClusterInfo={this.state.showMoreClusterInfo}/>
 
-                            </TabPane>
-                            <TabPane tab="集群日志" key="4">选项卡4内容</TabPane>
-                            <TabPane tab="配置管理" key="5">
-                                <ClusterConfig showMoreClusterInfo={this.state.showMoreClusterInfo}/>
+                                </TabPane>
+                                <TabPane tab="集群日志" key="4">选项卡4内容</TabPane>
+                                <TabPane tab="配置管理" key="5">
+                                    <ClusterConfig showMoreClusterInfo={this.state.showMoreClusterInfo}/>
 
-                            </TabPane>
-                        </Tabs>
-                    </Col>
-                </Row>
+                                </TabPane>
+                            </Tabs>
+                        </Col>
+                    </Row>
+                }
             </div>
+
+
 
         )
     }

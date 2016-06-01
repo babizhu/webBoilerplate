@@ -3,15 +3,18 @@
  */
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import {notification} from 'antd'
+import {notification,Spin} from 'antd'
 import { bindActionCreators } from 'redux';
 
 import Header from './Header';
 import SideBar from './SideBar';
+import LoadingView from './LoadingView';
 import  Breadcrumb from './Breadcrumb';
 import {MINI,NORMAL} from '../actions/SideBar';
 import * as screenActions from '../actions/Screen';
 import * as appActions from '../actions/App';
+import * as clusterActions from '../actions/Cluster'
+
 import {BIG_SCREEN_WIDTH} from '../const/Const';
 
 
@@ -25,6 +28,9 @@ class App extends Component {
     componentDidMount() {
         window.addEventListener('resize', this._resize_mixin_callback.bind(this));
         this._resize_mixin_callback();
+        //首先获取所有的集群列表信息
+        if (this.props.clustersInfo.clusterList.data.length == 0)
+            this.props.clusterActions.getClustersList();
     }
 
     componentWillUnmount() {
@@ -50,13 +56,15 @@ class App extends Component {
 
         }
     }
-    componentDidUpdate( prevProps,  prevState){
+
+    componentDidUpdate(prevProps, prevState) {
         const { errMsg } = this.props.app;
 
         if (errMsg) {
             notification.error({
                 message: "出故障啦",
-                description: <span><span style={{fontWeight:'bold'}}>url:</span> {errMsg.url}<br /><br />{errMsg.msg}</span>,
+                description: <span><span
+                    style={{fontWeight:'bold'}}>url:</span> {errMsg.url}<br /><br />{errMsg.msg}</span>,
                 duration: 10
             });
 
@@ -66,8 +74,9 @@ class App extends Component {
         }
 
     }
+
     render() {
-        const { children,componentUrl,screen,sideBar,app } = this.props;
+        const { children,componentUrl,screen,sideBar,app,clustersInfo } = this.props;
         let sideBarHeight = 'auto';
         let contentStyle = {};
         if (screen.isBigScreen) {
@@ -81,8 +90,11 @@ class App extends Component {
             contentStyle = {float: 'left', width: '100%', paddingTop: '10px', paddingLeft: '10px', paddingRight: '10px'}
         }
 
+
+        const dataIsLoading = clustersInfo.clusterList.pending;
         return (
             <div>
+
 
                 <Header />
                 <div style={{float:'left',display:'table', tableLayout: 'fixed',minHeight:sideBarHeight}}>
@@ -93,7 +105,9 @@ class App extends Component {
                     <div style={{borderBottom: '1px dashed #ccc',paddingBottom:'8px' }}>
                         <Breadcrumb {...this.props} separator="/"/>
                     </div>
-                    <div style={{paddingTop:'8px',paddingBottom:'0px'}}>{children}</div>
+                    <div style={{paddingTop:'8px',paddingBottom:'0px'}}>
+                        {dataIsLoading ? <LoadingView /> : children}
+                    </div>
                 </div>
             </div>
         )
@@ -111,6 +125,7 @@ function mapStateToProps(state, ownProps) {
         screen: state.screen,
         sideBar: state.sideBar,
         app: state.app,
+        clustersInfo: state.clustersInfo,
         componentUrl: ownProps.location.pathname//当前所使用组件的url,
     }
 }
@@ -119,7 +134,8 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps() {
     return dispatch => ({
         appActions: bindActionCreators(appActions, dispatch),
-        screenActions: bindActionCreators(screenActions, dispatch)
+        screenActions: bindActionCreators(screenActions, dispatch),
+        clusterActions: bindActionCreators(clusterActions, dispatch)
     });
 
 }

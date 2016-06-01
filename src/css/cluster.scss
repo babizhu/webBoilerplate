@@ -41,7 +41,11 @@
         float: right;
       }
     }
-
+    .cluster-dash-board{
+      .ant-card-body{
+        padding:15px;
+      }
+    }
   }
   .cluster-list{
     .button {

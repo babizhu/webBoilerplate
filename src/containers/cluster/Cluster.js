@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import {Spin } from 'antd';
 
 import {AnimEnhance} from './../AnimEnhance'
 import ClusterList from '../../components/Cluster/ClusterList'
@@ -10,10 +11,6 @@ import '../../css/cluster.scss'
 class Cluster extends Component {
     constructor(props) {
         super(props)
-    }
-    componentDidMount() {
-        if (this.props.clustersInfo.clusterList.data.length == 0)
-            this.props.getClustersList();
     }
 
     render() {
@@ -34,6 +31,7 @@ class Cluster extends Component {
                     getClustersList={getClustersList}
                 />}
             </div>
+
         )
     }
 }

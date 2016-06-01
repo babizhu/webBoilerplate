@@ -9,10 +9,12 @@ import '../../css/cluster.scss'
  */
 class ClusterCpuChart extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.enableAnim = true;
     }
 
     componentDidMount() {
+        this.enableAnim = false;
         //let chart = this.refs.chart.getChart();
         //chart.series[0].addPoint({x: 10, y: 12});
     }
@@ -24,16 +26,22 @@ class ClusterCpuChart extends Component {
     }
 
     render() {
+
+        Highcharts.setOptions({ global: { useUTC: false } });
         const {config} = this.props;
         const allCfg = {
             credits: {enabled: false},
-            colors: ['#eeeeee', '#0d233a', '#8bbc21', '#910000', '#1aadce',
-                '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
-
+            colors: ['lightblue','lightgreen'],
             chart: {
-                type: 'area'
+                //type: 'area'
             },
             title: {
+                margin: 5,
+                style: {
+                    fontFamily: "Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif",
+                    fontSize:'10px',
+                    fontWeight: 'bold'
+                },
                 text: 'CPU 监控'
             },
             //subtitle: {
@@ -49,23 +57,22 @@ class ClusterCpuChart extends Component {
                 //}
             },
             yAxis: {
-                //title: {
-                //    text: '百分比'
-                //}
+
+                min:0,
+                max:100,
+                title:{
+                    text:null
+                }
             },
             tooltip: {
                 shared: true
             },
-            //legend: {
-            //    enabled: false
-            //},
+            legend: {
+                enabled: false
+            },
             plotOptions: {
-                area: {
-                    stacking: 'percent',
-                    lineWidth: 1,
-                    marker: {
-                        enabled: false
-                    }
+                series:{
+                    animation:this.enableAnim
                 }
             },
 
@@ -75,7 +82,7 @@ class ClusterCpuChart extends Component {
 
         return (
 
-            <ReactHighcharts config={allCfg} ref='cpu'/>
+            <ReactHighcharts config={allCfg} ref='cpu'  style={{height:'150px'}}/>
 
         );
 

@@ -9,10 +9,12 @@ import '../../css/cluster.scss'
  */
 class ClusterNetworkChart extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.enableAnim = true;
     }
 
     componentDidMount() {
+        this.enableAnim = false;
         //let chart = this.refs.chart.getChart();
         //chart.series[0].addPoint({x: 10, y: 12});
     }
@@ -24,15 +26,21 @@ class ClusterNetworkChart extends Component {
     }
 
     render() {
+        Highcharts.setOptions({ global: { useUTC: false } });
         const {config} = this.props;
         const allCfg = {
             credits: {enabled: false},
             colors: ['lightblue','lightgreen'],
-
             chart: {
                 //type: 'area'
             },
             title: {
+                margin: 5,
+                style: {
+                    fontFamily: "Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif",
+                    fontSize:'10px',
+                    fontWeight: 'bold'
+                },
                 text: '网络监控'
             },
             //subtitle: {
@@ -48,21 +56,20 @@ class ClusterNetworkChart extends Component {
                 //}
             },
             yAxis: {
-                titile:{
-                    enable:false,
+                title:{
                     text:null
                 }
-                //title: {
-                //    text: '百分比'
-                //}
             },
             tooltip: {
                 shared: true
             },
-            //legend: {
-            //    enabled: false
-            //},
+            legend: {
+                enabled: false
+            },
             plotOptions: {
+                series:{
+                    animation:this.enableAnim
+                },
                 area: {
 
                     lineWidth: 1,
@@ -86,7 +93,7 @@ class ClusterNetworkChart extends Component {
 
         return (
 
-            <ReactHighcharts config={allCfg} ref='cpu' style={{height:'300px'}}/>
+            <ReactHighcharts config={allCfg} ref='network' style={{height:'150px'}}/>
 
         );
 
