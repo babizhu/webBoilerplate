@@ -18,8 +18,14 @@ class ClusterDashBoard extends Component {
     }
 
     componentDidMount() {
-        //let chart = this.refs.chart.getChart();
-        //chart.series[0].addPoint({x: 10, y: 12});
+        const {ownCluster,getClusterNodes} = this.props;
+        this.timer = setInterval(function () {
+            getClusterNodes(ownCluster.id);
+        }.bind(this), 10000);
+
+    }
+    componentWillUnmount(){
+        clearInterval(this.timer);
     }
 
     shouldComponentUpdate(nextProps) {

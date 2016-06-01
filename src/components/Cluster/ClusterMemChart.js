@@ -20,12 +20,12 @@ class ClusterMemChart extends Component {
         //chart.series[0].addPoint({x: 10, y: 12});
     }
     componentWillUnmount() {
-
-        let chart = this.refs.mem.getChart();
-        var node = ReactDOM.findDOMNode(this.refs.mem);
-        node.destroy();
-
-        chart=null;
+        //
+        //let chart = this.refs.mem.getChart();
+        //var node = ReactDOM.findDOMNode(this.refs.mem);
+        //node.destroy();
+        //
+        //chart=null;
     }
 
     shouldComponentUpdate(nextProps) {

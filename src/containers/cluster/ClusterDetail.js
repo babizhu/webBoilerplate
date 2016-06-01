@@ -22,22 +22,17 @@ class ClusterDetail extends Component {
         }
     }
 
-    componentDidMount() {
-        console.log(2222222);
-        const {ownCluster} = this.props;
-        this.props.getClusterNodes(ownCluster.id);
-        this.timer = setInterval(function () {
-            this.props.getClusterNodes(ownCluster.id);
-        }.bind(this), 10000);
 
-    }
 
     showMoreClusterInfo() {
         this.setState({showMoreClusterInfo: !this.state.showMoreClusterInfo});
     }
 
-    componentWillUnmount(){
-        clearInterval(this.timer);
+    componentDidMount() {
+
+        const {ownCluster,getClusterNodes} = this.props;
+        getClusterNodes(ownCluster.id);
+
     }
     render() {
         const {ownCluster} = this.props;
@@ -93,7 +88,9 @@ class ClusterDetail extends Component {
                                 <TabPane tab="集群总览" key="1">
                                     <ClusterDashBoard
                                         showMoreClusterInfo={this.state.showMoreClusterInfo}
-                                        nodeInfo={nodeInfo}/>
+                                        nodeInfo={nodeInfo}
+                                        {...this.props}
+                                    />
                                 </TabPane>
                                 <TabPane tab="服务状态" key="2">
                                     <ClusterServices showMoreClusterInfo={this.state.showMoreClusterInfo}/>
@@ -132,13 +129,4 @@ function mapStateToProps(state, ownProps) {
         ownCluster: getClusterByName(state.clustersInfo.clusterList.data, name)
     }
 }
-//function mapDispatchToProps() {
-//    return dispatch => ({
-//        fileExplorerActions: bindActionCreators(fileExplorerActions, dispatch),
-//        appActions: bindActionCreators(appActions, dispatch)
-//    });
-//
-//}
-
-//export default connect(mapStateToProps, mapDispatchToProps)(AnimEnhance(HadoopFile));
 export default connect(mapStateToProps, clusterActions)(AnimEnhance(ClusterDetail));

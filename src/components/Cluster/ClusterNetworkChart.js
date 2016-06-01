@@ -15,11 +15,11 @@ class ClusterNetworkChart extends Component {
 
     componentWillUnmount() {
 
-        let chart = this.refs.network.getChart();
-        var node = ReactDOM.findDOMNode(this.refs.network);
-        node.destroy();
-
-        chart=null;
+        //let chart = this.refs.network.getChart();
+        //var node = ReactDOM.findDOMNode(this.refs.network);
+        //node.destroy();
+        //
+        //chart=null;
     }
     componentDidMount() {
         this.enableAnim = false;

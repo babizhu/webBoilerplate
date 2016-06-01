@@ -20,12 +20,12 @@ class ClusterDiskChart extends Component {
     }
     componentWillUnmount() {
 
-        let chart = this.refs.disk.getChart();
-        var node = ReactDOM.findDOMNode(this.refs.disk);
-        node.destroy();
-        node = null;
-
-        chart=null;
+        //let chart = this.refs.disk.getChart();
+        //var node = ReactDOM.findDOMNode(this.refs.disk);
+        //node.destroy();
+        //node = null;
+        //
+        //chart=null;
     }
 
     shouldComponentUpdate(nextProps) {

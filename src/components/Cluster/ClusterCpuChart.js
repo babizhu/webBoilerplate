@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import ReactDOM from 'react-dom'
 
 import ReactHighcharts,{Highcharts} from 'react-highcharts'
 
@@ -20,12 +21,12 @@ class ClusterCpuChart extends Component {
     }
     componentWillUnmount() {
 
-        let chart = this.refs.cpu.getChart();
-        var node = ReactDOM.findDOMNode(this.refs.cpu);
-        node.destroy();
-        node = null;
-
-        chart=null;
+        //let chart = this.refs.cpu.getChart();
+        //var node = ReactDOM.findDOMNode(this.refs.cpu);
+        //node.destroy();
+        //node = null;
+        //
+        //chart=null;
     }
 
     shouldComponentUpdate(nextProps) {
