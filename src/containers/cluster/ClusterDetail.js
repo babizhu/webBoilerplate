@@ -23,6 +23,7 @@ class ClusterDetail extends Component {
     }
 
     componentDidMount() {
+        console.log(2222222);
         const {ownCluster} = this.props;
         this.props.getClusterNodes(ownCluster.id);
         this.timer = setInterval(function () {
@@ -32,9 +33,12 @@ class ClusterDetail extends Component {
     }
 
     showMoreClusterInfo() {
-        this.setState({showMoreClusterInfo: !this.state.showMoreClusterInfo})
+        this.setState({showMoreClusterInfo: !this.state.showMoreClusterInfo});
     }
 
+    componentWillUnmount(){
+        clearInterval(this.timer);
+    }
     render() {
         const {ownCluster} = this.props;
        const nodeInfo = this.props.clusterNodes[ownCluster.id];

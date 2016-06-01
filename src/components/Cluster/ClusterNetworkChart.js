@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-
+import ReactDOM from 'react-dom'
 import ReactHighcharts,{Highcharts} from 'react-highcharts'
 
 import '../../css/cluster.scss'
@@ -13,6 +13,14 @@ class ClusterNetworkChart extends Component {
         this.enableAnim = true;
     }
 
+    componentWillUnmount() {
+
+        let chart = this.refs.network.getChart();
+        var node = ReactDOM.findDOMNode(this.refs.network);
+        node.destroy();
+
+        chart=null;
+    }
     componentDidMount() {
         this.enableAnim = false;
         //let chart = this.refs.chart.getChart();
@@ -38,22 +46,15 @@ class ClusterNetworkChart extends Component {
                 margin: 5,
                 style: {
                     fontFamily: "Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif",
-                    fontSize:'10px',
+                    fontSize:'12px',
                     fontWeight: 'bold'
                 },
                 text: '网络监控'
             },
-            //subtitle: {
-            //    text: document.ontouchstart === undefined ?
-            //        'Click and drag in the plot area to zoom in' :
-            //        'Pinch the chart to zoom in'
-            //},
             xAxis: {
                 type: 'datetime',
-                maxZoom: config.list[0].data.length * config.list[0].pointInterval, // fourteen days
-                //title: {
-                //    text: 'cpu title',
-                //}
+                maxZoom: config.list[0].data.length * config.list[0].pointInterval
+
             },
             yAxis: {
                 title:{

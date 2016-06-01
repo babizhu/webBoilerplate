@@ -13,7 +13,7 @@ class Pannel extends Component {
             <div className='components-util-pannel'>
                 <div className='bs-callout-warning  bs-callout '>
                     <h3>{this.props.title}</h3>
-                    <p>{this.props.content}</p>
+                    {this.props.content}
                 </div>
             </div>
         );

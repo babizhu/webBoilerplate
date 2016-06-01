@@ -19,6 +19,14 @@ class ClusterMemChart extends Component {
         //let chart = this.refs.chart.getChart();
         //chart.series[0].addPoint({x: 10, y: 12});
     }
+    componentWillUnmount() {
+
+        let chart = this.refs.mem.getChart();
+        var node = ReactDOM.findDOMNode(this.refs.mem);
+        node.destroy();
+
+        chart=null;
+    }
 
     shouldComponentUpdate(nextProps) {
         //if( nextProps.showMoreClusterInfo )
@@ -39,7 +47,7 @@ class ClusterMemChart extends Component {
                 margin: 5,
                 style: {
                     fontFamily: "Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif",
-                    fontSize:'10px',
+                    fontSize:'12px',
                     fontWeight: 'bold'
                 },
                 text: '内存监控'
@@ -59,8 +67,13 @@ class ClusterMemChart extends Component {
             yAxis: {
                 min:0,
                 max:100,
+                minorTickInterval: 25,
+                tickInterval: 50,
                 title:{
                     text:null
+                },
+                labels: {
+                    format: '{value} %'
                 }
             },
             tooltip: {

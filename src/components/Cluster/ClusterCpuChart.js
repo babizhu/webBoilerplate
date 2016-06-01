@@ -18,6 +18,15 @@ class ClusterCpuChart extends Component {
         //let chart = this.refs.chart.getChart();
         //chart.series[0].addPoint({x: 10, y: 12});
     }
+    componentWillUnmount() {
+
+        let chart = this.refs.cpu.getChart();
+        var node = ReactDOM.findDOMNode(this.refs.cpu);
+        node.destroy();
+        node = null;
+
+        chart=null;
+    }
 
     shouldComponentUpdate(nextProps) {
         //if( nextProps.showMoreClusterInfo )
@@ -39,7 +48,7 @@ class ClusterCpuChart extends Component {
                 margin: 5,
                 style: {
                     fontFamily: "Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif",
-                    fontSize:'10px',
+                    fontSize:'12px',
                     fontWeight: 'bold'
                 },
                 text: 'CPU 监控'
@@ -60,8 +69,14 @@ class ClusterCpuChart extends Component {
 
                 min:0,
                 max:100,
+                //minorGridLineColor: '#C5EEFA',
+                minorTickInterval: 25,
+                tickInterval: 50,
                 title:{
                     text:null
+                },
+                labels: {
+                    format: '{value} %'
                 }
             },
             tooltip: {
