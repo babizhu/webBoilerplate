@@ -21,6 +21,7 @@ class ClusterNetworkChart extends Component {
         //
         //chart=null;
     }
+
     componentDidMount() {
         this.enableAnim = false;
         //let chart = this.refs.chart.getChart();
@@ -34,11 +35,11 @@ class ClusterNetworkChart extends Component {
     }
 
     render() {
-        Highcharts.setOptions({ global: { useUTC: false } });
+        Highcharts.setOptions({global: {useUTC: false}});
         const {config} = this.props;
         const allCfg = {
             credits: {enabled: false},
-            colors: ['lightblue','lightgreen'],
+            colors: ['lightblue', 'lightgreen'],
             chart: {
                 //type: 'area'
             },
@@ -46,7 +47,7 @@ class ClusterNetworkChart extends Component {
                 margin: 5,
                 style: {
                     fontFamily: "Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif",
-                    fontSize:'12px',
+                    fontSize: '12px',
                     fontWeight: 'bold'
                 },
                 text: '网络监控'
@@ -57,19 +58,31 @@ class ClusterNetworkChart extends Component {
 
             },
             yAxis: {
-                title:{
-                    text:null
+                title: {
+                    text: null
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value + config.yunit;
+
+                    }
                 }
             },
             tooltip: {
-                shared: true
+                xDateFormat: '%Y-%m-%d %H:%M:%S',
+                shared: true,
+                valueSuffix: ' ' + config.yunit,
+                //formatter: function () {
+                //    return Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' + this.series.name  + ': ' + this.y + config.yunit
+                //        + '<br/><br/>Total: ' + config.total + config.totalUnit ;
+                //}
             },
             legend: {
                 enabled: false
             },
             plotOptions: {
-                series:{
-                    animation:this.enableAnim
+                series: {
+                    animation: this.enableAnim
                 },
                 area: {
 

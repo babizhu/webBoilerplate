@@ -13,7 +13,7 @@ class LoadingView extends Component {
 
     render() {
 
-        return(<div style={{textAlign: 'center',PaddingTop:'100px'}}><Spin   /></div>)
+        return(<div style={{textAlign: 'center',Padding:'25%'}}><Spin   /></div>)
     }
 }
 

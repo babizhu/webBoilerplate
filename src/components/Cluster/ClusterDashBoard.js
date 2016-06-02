@@ -21,7 +21,7 @@ class ClusterDashBoard extends Component {
         const {ownCluster,getClusterNodes} = this.props;
         this.timer = setInterval(function () {
             getClusterNodes(ownCluster.id);
-        }.bind(this), 10000);
+        }.bind(this), 100000);
 
     }
     componentWillUnmount(){
@@ -30,15 +30,17 @@ class ClusterDashBoard extends Component {
 
     shouldComponentUpdate(nextProps) {
         //if( nextProps.showMoreClusterInfo )
+        if( nextProps.clusterNodes.pending ){
+            return false;
+        }
         return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
 
     }
 
     render() {
-
         const {nodeInfo} = this.props;
+            console.log("ClusterDashBoard 开始重绘！！！！！！！！！！！！！");
         return (
-
             <div className='cluster-dash-board'>
                 <Row>
                     <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
@@ -70,7 +72,6 @@ class ClusterDashBoard extends Component {
                     </Col>
                 </Row>
             </div>
-
         );
 
     }

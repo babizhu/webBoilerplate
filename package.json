@@ -13,7 +13,7 @@
   "author": "liulaoye",
   "license": "ISC",
   "dependencies": {
-    "antd": "^1.0.1",
+    "antd": "^1.2.1",
     "babel-polyfill": "latest",
     "css-loader": "latest",
     "highcharts-3d": "^0.1.2",

@@ -18,6 +18,7 @@ class ClusterDiskChart extends Component {
         //let chart = this.refs.chart.getChart();
         //chart.series[0].addPoint({x: 10, y: 12});
     }
+
     componentWillUnmount() {
 
         //let chart = this.refs.disk.getChart();
@@ -35,13 +36,13 @@ class ClusterDiskChart extends Component {
     }
 
     render() {
-        Highcharts.setOptions({ global: { useUTC: false } });
+        Highcharts.setOptions({global: {useUTC: false}});
 
         const {config} = this.props;
         const allCfg = {
             //global: { useUTC: false },
             credits: {enabled: false},
-            colors: ['lightblue','lightgreen'],
+            colors: ['lightblue', 'lightgreen'],
             chart: {
                 //type: 'area'
             },
@@ -49,7 +50,7 @@ class ClusterDiskChart extends Component {
                 margin: 5,
                 style: {
                     fontFamily: "Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif",
-                    fontSize:'12px',
+                    fontSize: '12px',
                     fontWeight: 'bold'
                 },
                 text: '磁盘监控'
@@ -67,26 +68,35 @@ class ClusterDiskChart extends Component {
                 //}
             },
             yAxis: {
-                min:0,
-                max:100,
+                min: 0,
+                max: 100,
                 minorTickInterval: 25,
                 tickInterval: 50,
-                title:{
-                    text:null
+                title: {
+                    text: null
                 },
                 labels: {
                     format: '{value} %'
                 }
             },
+
             tooltip: {
-                shared: true
+                xDateFormat: '%Y-%m-%d %H:%M:%S',
+                shared: true,
+                valueSuffix: ' ' + config.yunit
+
+                //formatter: function () {
+                //    return Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/><strong>' + this.series.name + '</strong>' + ': ' + this.y + config.yunit
+                //    + '<br/><br/>Total: ' + config.total + config.totalUnit ;
+                //}
             },
+
             legend: {
                 enabled: false
             },
             plotOptions: {
-                series:{
-                    animation:this.enableAnim
+                series: {
+                    animation: this.enableAnim
                 },
                 area: {
 
@@ -111,7 +121,7 @@ class ClusterDiskChart extends Component {
 
         return (
 
-            <ReactHighcharts config={allCfg} ref='disk'  style={{height:'150px'}}/>
+            <ReactHighcharts config={allCfg} ref='disk' style={{height:'150px'}}/>
 
         );
 

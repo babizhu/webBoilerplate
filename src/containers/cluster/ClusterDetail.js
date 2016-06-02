@@ -6,6 +6,7 @@ const TabPane = Tabs.TabPane;
 
 import {AnimEnhance} from './../AnimEnhance'
 import Label from '../../components/Utils/Label'
+import LoadingView from '../LoadingView';
 
 import ClusterDashBoard from '../../components/Cluster/ClusterDashBoard'
 import ClusterConfig from '../../components/Cluster/ClusterConfig'
@@ -22,21 +23,18 @@ class ClusterDetail extends Component {
         }
     }
 
-
-
     showMoreClusterInfo() {
         this.setState({showMoreClusterInfo: !this.state.showMoreClusterInfo});
     }
 
     componentDidMount() {
-
         const {ownCluster,getClusterNodes} = this.props;
         getClusterNodes(ownCluster.id);
-
     }
+
     render() {
         const {ownCluster} = this.props;
-       const nodeInfo = this.props.clusterNodes[ownCluster.id];
+        const nodeInfo = this.props.clusterNodes[ownCluster.id];
         return (
             <div className='cluster-detail'>
                 <div className='header'>
@@ -80,7 +78,7 @@ class ClusterDetail extends Component {
 
                 </div>
 
-                { nodeInfo &&
+                { !nodeInfo ? <LoadingView /> :
                     <Row>
 
                         <Col lg={24} sm={24} md={24}>
@@ -109,7 +107,9 @@ class ClusterDetail extends Component {
                             </Tabs>
                         </Col>
                     </Row>
+
                 }
+
             </div>
 
 

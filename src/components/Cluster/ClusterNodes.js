@@ -5,6 +5,7 @@ import HighchartsMore from 'highcharts-3d'
 HighchartsMore(ReactHighcharts.Highcharts);
 
 import Label from '../Utils/Label'
+import ResourceUsePercent from '../Utils/ResourceUsePercent'
 import '../../css/cluster.scss'
 
 /**
@@ -21,7 +22,12 @@ class ClusterNodes extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        //if( nextProps.showMoreClusterInfo )
+        for (let x in nextProps) {
+            console.log(x + ":" + nextProps[x])
+        }
+        //if( nextProps.clusterNodes.pending ){
+        //    return false;
+        //}
         return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
 
     }
@@ -41,15 +47,15 @@ class ClusterNodes extends Component {
             dataIndex: 'service',
             key: 'service'
         }, {
-            title: 'CPU',
+            title: 'CPU %',
             dataIndex: 'cpu',
             key: 'cpu'
         }, {
-            title: '内存',
+            title: '内存 %',
             dataIndex: 'mem',
             key: 'mem'
         }, {
-            title: '磁盘',
+            title: '磁盘 %',
             dataIndex: 'disk',
             key: 'disk'
         }, {
@@ -107,63 +113,64 @@ class ClusterNodes extends Component {
                 name: 'master',
                 service: 'Hadoop,Zookeeper',
                 ip: '192.168.1.5',
-                cpu: <Progress type="circle" percent={parseInt(Math.random()*90)} width={40} />,
-                mem: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>,
-                disk: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>
+                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
+
             },
             {
                 id: 2,
                 name: 'slave1',
                 service: 'Hadoop,Spark,Storm,Flume,Pig',
                 ip: '192.168.1.6',
-                cpu: <Progress type="circle" percent={parseInt(Math.random()*90)} width={40} />,
-                mem: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>,
-                disk: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>
+                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
             },
             {
                 id: 3,
                 name: 'slave2',
                 service: 'Hadoop,Zookeeper,Spark,HBase',
                 ip: '192.168.1.7',
-                cpu: <Progress type="circle" percent={parseInt(Math.random()*90)} width={40} />,
-                mem: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>,
-                disk: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>
+                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
             },
             {
                 id: 4,
                 name: 'slave3',
                 service: 'Hadoop,Zookeeper',
                 ip: '192.168.1.8',
-                cpu: <Progress type="circle" percent={parseInt(Math.random()*90)} width={40} />,
-                mem: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>,
-                disk: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>
+                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
             },
             {
                 id: 5,
                 name: 'slave4',
                 service: 'Hadoop,Flume,Storm',
                 ip: '192.168.1.9',
-                cpu: <Progress type="circle" percent={parseInt(Math.random()*90)} width={40} />,
-                mem: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>,
-                disk: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>
+                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
             },
             {
                 id: 6,
                 name: 'slave5',
                 service: 'Hadoop,Storm',
                 ip: '192.168.1.10',
-                cpu: <Progress type="circle" percent={parseInt(Math.random()*90)} width={40} />,
-                mem: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>,
-                disk: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>
+                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
             },
             {
                 id: 7,
                 name: 'slave6',
                 service: 'Hadoop,HBase',
                 ip: '192.168.1.11',
-                cpu: <Progress type="circle" percent={parseInt(Math.random()*90)} width={40} />,
-                mem: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>,
-                disk: <span> <Progress type="circle" percent={parseInt(Math.random()*90)} width={40}  /></span>
+                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
+                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
             },
             {
                 id: 8,
@@ -178,6 +185,7 @@ class ClusterNodes extends Component {
     }
 
     render() {
+        console.log("ClusterNodes 开始重绘！！！！！！！！！！！！！");
         return (
             <div>
                 <div style={{margin:'10px 0px',height:'auto',minWidth:'560px'}}>

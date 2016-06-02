@@ -77,7 +77,13 @@ class ClusterMemChart extends Component {
                 }
             },
             tooltip: {
-                shared: true
+                xDateFormat: '%Y-%m-%d %H:%M:%S',
+                shared: true,
+                valueSuffix: ' %'
+                //formatter: function () {
+                //    return Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' + this.series.name  + ': ' + this.y + config.yunit
+                //        + '<br/><br/>Total: ' + config.total + config.totalUnit ;
+                //}
             },
             legend: {
                 enabled: false
