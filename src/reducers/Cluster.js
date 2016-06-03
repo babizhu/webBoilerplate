@@ -100,7 +100,7 @@ function clusterNodesInfo(state = initNodesState, action = {}) {
 
             return {
                 ...state,
-                [action.meta.clusterId]: getClusterNodeList(state[action.meta.clusterId], action )
+                [action.meta.clusterId]: getClusterNodeList(state[action.meta.clusterId], action)
             };
         default:
             return state;
@@ -114,7 +114,7 @@ function clusterNodesInfo(state = initNodesState, action = {}) {
  * @param action
  * @returns {*}
  */
-function getClusterNodeList( state, action ){
+function getClusterNodeList(state, action) {
     switch (action.type) {
         case CLUSTER_NODE_LIST_QUERY_PENDING:
             return {
@@ -124,7 +124,7 @@ function getClusterNodeList( state, action ){
         case CLUSTER_NODE_LIST_QUERY_SUCCESS:
             return {
                 ...state,
-                clusterNodesList:action.payload
+                clusterNodesList: action.payload
             };
         case CLUSTER_NODE_LIST_QUERY_ERROR:
             return {
@@ -224,6 +224,21 @@ function operationData(state = operationInitState, action) {
     }
 }
 
+const cluster = {
+    name: {},
+    service: {},
+    nodeList: [],
+    charts: {
+        cpu: {},
+        mem: {},
+        network: {},
+        disk: {}
+    }
+
+};
+function clusterInfo(state = {}, action) {
+
+}
 const clustersInfo = combineReducers({
     operationData,
     clusterList,

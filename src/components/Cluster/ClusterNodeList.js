@@ -17,9 +17,9 @@ class ClusterNodeList extends Component {
     }
 
     componentDidMount() {
-        const{getClusterNodeList,oneClusterInfo} = this.props;
+        const{getClusterNodeList,oneClusterInfo,ownCluster} = this.props;
         if( !oneClusterInfo.clusterNodeList ){
-            getClusterNodeList();
+            getClusterNodeList(ownCluster.id);
         }
     }
 

@@ -7,6 +7,7 @@ import sideBar from './SideBar'
 import hadoopFile from './HadoopFile'
 import app from './App'
 import clustersInfo from './Cluster'
+import clusters from './ClustersInfo'
 
 function todos(state, action) {
     return [1];
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     hadoopFile,
     app,
     clustersInfo,
+    clusters,
     routing
 });
 
