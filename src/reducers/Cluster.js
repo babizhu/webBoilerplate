@@ -14,16 +14,21 @@ import {
     CLUSTER_LIST_QUERY_SUCCESS,
     CLUSTER_LIST_QUERY_ERROR,
 
-    CLUSTER_NODES_QUERY,
-    CLUSTER_NODES_QUERY_PENDING,
-    CLUSTER_NODES_QUERY_SUCCESS,
-    CLUSTER_NODES_QUERY_ERROR,
+    CLUSTER_ALL_QUERY,
+    CLUSTER_ALL_QUERY_PENDING,
+    CLUSTER_ALL_QUERY_SUCCESS,
+    CLUSTER_ALL_QUERY_ERROR,
 
     CLUSTER_LIST_OPERATION,
     CLUSTER_LIST_OPERATION_PENDING,
     CLUSTER_LIST_OPERATION_SUCCESS,
     CLUSTER_LIST_OPERATION_ERROR,
-    OPEN_CLUSTER_MODAL
+    OPEN_CLUSTER_MODAL,
+
+    CLUSTER_NODE_LIST_QUERY,
+    CLUSTER_NODE_LIST_QUERY_PENDING,
+    CLUSTER_NODE_LIST_QUERY_SUCCESS,
+    CLUSTER_NODE_LIST_QUERY_ERROR
 } from '../actions/Cluster'
 
 
@@ -67,43 +72,67 @@ function clusterList(state = initState, action = {}) {
 
 }
 const initNodesState = {
-    pending: false,
-    //7:{
-    //    clusterCharts:{
-    //        cpu:{},
-    //        mem:{},
-    //        disk:{},
-    //        network:{}
-    //    }
-    //}
-
+    pending: false
 };
-
-function clusterNodes(state = initNodesState, action = {}) {
+function clusterNodesInfo(state = initNodesState, action = {}) {
     switch (action.type) {
-        case CLUSTER_NODES_QUERY_PENDING:
+        case CLUSTER_ALL_QUERY_PENDING:
             return {
                 ...state,
                 pending: true
             };
-        case CLUSTER_NODES_QUERY_SUCCESS:
+        case CLUSTER_ALL_QUERY_SUCCESS:
             return {
                 ...state,
                 [action.meta.clusterId]: action.payload,
                 pending: false,
                 error: null
             };
-        case CLUSTER_NODES_QUERY_ERROR:
+        case CLUSTER_ALL_QUERY_ERROR:
             return {
                 ...state,
                 pending: false,
                 error: action.payload
             };
+        case CLUSTER_NODE_LIST_QUERY_PENDING:
+        case CLUSTER_NODE_LIST_QUERY_SUCCESS:
+        case CLUSTER_NODE_LIST_QUERY_ERROR:
 
+            return {
+                ...state,
+                [action.meta.clusterId]: getClusterNodeList(state[action.meta.clusterId], action )
+            };
         default:
             return state;
     }
 
+}
+
+/**
+ * 获取集群节点列表
+ * @param state
+ * @param action
+ * @returns {*}
+ */
+function getClusterNodeList( state, action ){
+    switch (action.type) {
+        case CLUSTER_NODE_LIST_QUERY_PENDING:
+            return {
+                ...state,
+                pending: true
+            };
+        case CLUSTER_NODE_LIST_QUERY_SUCCESS:
+            return {
+                ...state,
+                clusterNodesList:action.payload
+            };
+        case CLUSTER_NODE_LIST_QUERY_ERROR:
+            return {
+                ...state,
+                pending: false,
+                error: action.payload
+            }
+    }
 }
 const initServiceState = {
     pending: false,
@@ -127,16 +156,6 @@ function clusterConfig(state = initConfigState, action = {}) {
     return state;
 }
 
-const initChartsState = {
-    pending: false,
-    cpu: {},
-    mem: {},
-    disk: {},
-    network: {}
-};
-function clusterCharts(state = initChartsState, action = {}) {
-    return state;
-}
 
 /**
  * 根据增删改操作的返回结果更新客户端内存的业务数据
@@ -208,7 +227,7 @@ function operationData(state = operationInitState, action) {
 const clustersInfo = combineReducers({
     operationData,
     clusterList,
-    clusterNodes
+    clusterNodesInfo
     //clusterData
 });
 export default clustersInfo;

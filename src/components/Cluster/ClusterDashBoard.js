@@ -18,27 +18,24 @@ class ClusterDashBoard extends Component {
     }
 
     componentDidMount() {
-        const {ownCluster,getClusterNodes} = this.props;
+        const {ownCluster,getClusterAll} = this.props;
         this.timer = setInterval(function () {
-            getClusterNodes(ownCluster.id);
+            getClusterAll(ownCluster.id);
         }.bind(this), 100000);
-
     }
     componentWillUnmount(){
         clearInterval(this.timer);
     }
 
     shouldComponentUpdate(nextProps) {
-        //if( nextProps.showMoreClusterInfo )
-        if( nextProps.clusterNodes.pending ){
+        if( nextProps.clusterNodesInfo.pending ){
             return false;
         }
         return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
-
     }
 
     render() {
-        const {nodeInfo} = this.props;
+        const {oneClusterInfo} = this.props;
             console.log("ClusterDashBoard 开始重绘！！！！！！！！！！！！！");
         return (
             <div className='cluster-dash-board'>
@@ -53,18 +50,18 @@ class ClusterDashBoard extends Component {
                         <Card title="" bordered={true}>
                             <Row>
                                 <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
-                                    <ClusterCpuChart config={nodeInfo.clusterCharts.cpu}/>
+                                    <ClusterCpuChart config={oneClusterInfo.clusterCharts.cpu}/>
                                 </Col>
                                 <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
-                                    <ClusterMemChart config={nodeInfo.clusterCharts.mem}/>
+                                    <ClusterMemChart config={oneClusterInfo.clusterCharts.mem}/>
                                 </Col>
                             </Row>
                             <Row>
                                 <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
-                                    <ClusterNetworkChart config={nodeInfo.clusterCharts.network}/>
+                                    <ClusterNetworkChart config={oneClusterInfo.clusterCharts.network}/>
                                 </Col>
                                 <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
-                                    <ClusterDiskChart config={nodeInfo.clusterCharts.disk}/>
+                                    <ClusterDiskChart config={oneClusterInfo.clusterCharts.disk}/>
                                 </Col>
                             </Row>
 

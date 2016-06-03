@@ -11,25 +11,20 @@ import '../../css/cluster.scss'
 /**
  * 集群节点列表
  */
-class ClusterNodes extends Component {
+class ClusterNodeList extends Component {
     constructor(props) {
         super(props)
     }
 
     componentDidMount() {
-        //let chart = this.refs.chart.getChart();
-        //chart.series[0].addPoint({x: 10, y: 12});
+        const{getClusterNodeList,oneClusterInfo} = this.props;
+        if( !oneClusterInfo.clusterNodeList ){
+            getClusterNodeList();
+        }
     }
 
     shouldComponentUpdate(nextProps) {
-        for (let x in nextProps) {
-            console.log(x + ":" + nextProps[x])
-        }
-        //if( nextProps.clusterNodes.pending ){
-        //    return false;
-        //}
         return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
-
     }
 
     getColumns() {
@@ -185,7 +180,7 @@ class ClusterNodes extends Component {
     }
 
     render() {
-        console.log("ClusterNodes 开始重绘！！！！！！！！！！！！！");
+        console.log("ClusterNodeList 开始重绘！！！！！！！！！！！！！");
         return (
             <div>
                 <div style={{margin:'10px 0px',height:'auto',minWidth:'560px'}}>
@@ -219,4 +214,4 @@ class ClusterNodes extends Component {
 }
 
 
-export default ClusterNodes;
+export default ClusterNodeList;
