@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { Card, Col, Row,Table,Button,Input,Tooltip,Icon,Progress } from 'antd';
-import ReactHighcharts,{Highcharts} from 'react-highcharts'
-import HighchartsMore from 'highcharts-3d'
-HighchartsMore(ReactHighcharts.Highcharts);
+//import ReactHighcharts,{Highcharts} from 'react-highcharts'
+//import HighchartsMore from 'highcharts-3d'
+//HighchartsMore(ReactHighcharts.Highcharts);
 
 import Label from '../Utils/Label'
 import ResourceUsePercent from '../Utils/ResourceUsePercent'
@@ -10,13 +10,13 @@ import SearchInput from '../Utils/SearchInput'
 import '../../css/cluster.scss'
 
 
-const InputGroup = Input.Group;
+
 /**
  * 集群节点列表
  */
 class ClusterNodeList extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             keyword: ''
         }
@@ -76,14 +76,14 @@ class ClusterNodeList extends Component {
                 title: '网络 ',
                 key: 'network',
                 render(text, record){
-                    return record.netIn + ' ' + record.netOut + ' ' + record.netUnit
+                    return record.netIn + ' | ' + record.netOut + ' ' + record.netUnit
                 }
             }, {
                 title: '状态',
                 width: 70,
                 key: 'status',
                 render(text, record){
-                    const s = record.host.indexOf('m') > 0;
+                    const s = 0 < record.host.indexOf('m');
                     return <Label text={s?'运行中':'已停止'} isSuccess={s}/>
                 }
             }, {
@@ -124,7 +124,7 @@ class ClusterNodeList extends Component {
 
         const {nodeList} = this.props.clusterDetail;
 
-        if (this.state.keyword.length > 0) {
+        if (0 < this.state.keyword.length) {
             return nodeList.filter((node)=>
                     node.host.indexOf(this.state.keyword) != -1
                 ||  node.description.indexOf(this.state.keyword) != -1
