@@ -28,10 +28,13 @@ class ClusterDashBoard extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        if( nextProps.clusterDetailList.pending ){
+        const {ownCluster,getClusterDetail} = this.props;
+        if( nextProps.clusterDetailList[ownCluster.id].clusterCharts !== this.props.clusterDetailList[ownCluster.id].clusterCharts ){
+            return true;
+        }else{
             return false;
         }
-        return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
+        //return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
     }
 
     render() {
