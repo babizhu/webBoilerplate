@@ -29,7 +29,7 @@ class App extends Component {
         window.addEventListener('resize', this._resize_mixin_callback.bind(this));
         this._resize_mixin_callback();
         //首先获取所有的集群列表信息
-        if (this.props.clustersInfo.clusterList.data.length == 0)
+        if (this.props.clusterList.data.length == 0)
             this.props.clusterActions.getClustersList();
     }
 
@@ -76,7 +76,7 @@ class App extends Component {
     }
 
     render() {
-        const { children,componentUrl,screen,sideBar,app,clustersInfo } = this.props;
+        const { children,componentUrl,screen,sideBar,app,clusterList } = this.props;
         let sideBarHeight = 'auto';
         let contentStyle = {};
         if (screen.isBigScreen) {
@@ -91,7 +91,7 @@ class App extends Component {
         }
 
 
-        const dataIsLoading = clustersInfo.clusterList.pending;
+        const dataIsLoading = clusterList.pending;
         return (
             <div>
 
@@ -125,7 +125,8 @@ function mapStateToProps(state, ownProps) {
         screen: state.screen,
         sideBar: state.sideBar,
         app: state.app,
-        clustersInfo: state.clustersInfo,
+        clusterList: state.clusters.clusterList,
+
         componentUrl: ownProps.location.pathname//当前所使用组件的url,
     }
 }

@@ -6,19 +6,25 @@ HighchartsMore(ReactHighcharts.Highcharts);
 
 import Label from '../Utils/Label'
 import ResourceUsePercent from '../Utils/ResourceUsePercent'
+import SearchInput from '../Utils/SearchInput'
 import '../../css/cluster.scss'
 
+
+const InputGroup = Input.Group;
 /**
  * 集群节点列表
  */
 class ClusterNodeList extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            keyword: ''
+        }
     }
 
     componentDidMount() {
-        const{getClusterNodeList,oneClusterInfo,ownCluster} = this.props;
-        if( !oneClusterInfo.clusterNodeList ){
+        const {getClusterNodeList,clusterDetail,ownCluster} = this.props;
+        if (!clusterDetail.nodeList) {
             getClusterNodeList(ownCluster.id);
         }
     }
@@ -28,53 +34,78 @@ class ClusterNodeList extends Component {
     }
 
     getColumns() {
+        const parent = this;
         return [{
             title: 'Host',
-            dataIndex: 'name',
+            dataIndex: 'host',
             width: 90,
-            key: 'name'
+            key: 'host'
         }, {
             title: 'IP',
             dataIndex: 'ip',
             key: 'ip'
-        }, {
-            title: '服务',
-            dataIndex: 'service',
-            key: 'service'
-        }, {
-            title: 'CPU %',
-            dataIndex: 'cpu',
-            key: 'cpu'
-        }, {
-            title: '内存 %',
-            dataIndex: 'mem',
-            key: 'mem'
-        }, {
-            title: '磁盘 %',
-            dataIndex: 'disk',
-            key: 'disk'
-        }, {
-            title: '状态',
-            width: 70,
-            key: 'status',
-            render(text, record){
-                const s = record.name.indexOf('d') > 0;
-                return <Label text={s?'运行中':'已停止'} isSuccess={s}/>
-            }
-        }, {
-            title: '操作',
-            key: 'operation',
-            render(text, record) {
-                return (
-                    <div onClick={(e)=>ignoreClick(e)}>
+        }
+            //    , {
+            //    title: '服务',
+            //    dataIndex: 'service',
+            //    key: 'service'
+            //}
+            , {
+                title: 'CPU %',
+                dataIndex: 'cpuUsedPercent',
+                key: 'cpuUsedPercent',
+                render(text){
+                    return <ResourceUsePercent percent={parseInt(text)}/>
+                }
+            }, {
+                title: '内存 %',
+                dataIndex: 'memUsedPercent',
+                key: 'memUsedPercent',
+                render(text){
+                    return <ResourceUsePercent percent={parseInt(text)}/>
+                }
+            }, {
+                title: '磁盘 %',
+                dataIndex: 'diskUsedPercent',
+                key: 'diskUsedPercent',
+                render(text){
+                    return <ResourceUsePercent percent={parseInt(text)}/>
+                }
+            },
+            {
+                title: '网络 ',
+                key: 'network',
+                render(text, record){
+                    return record.netIn + ' ' + record.netOut + ' ' + record.netUnit
+                }
+            }, {
+                title: '状态',
+                width: 70,
+                key: 'status',
+                render(text, record){
+                    const s = record.host.indexOf('m') > 0;
+                    return <Label text={s?'运行中':'已停止'} isSuccess={s}/>
+                }
+            }, {
+                title: '描述',
+                dataIndex: 'description'
+            },
+            {
+                title: ' 操作 ',
+                key: 'operation',
+                render(text, record) {
+                    return (
+                        <div
+                            onClick={parent.addOrEditClusterNode.bind(parent,record,null)}>
+
                         <span className='table-actions'>
-                            <Tooltip title="编辑集群">
+                            <Tooltip title="编辑节点">
                                 <Button type="ghost" className='button'
                                 >
                                     <Icon type="edit"/>
                                 </Button>
                             </Tooltip>
-                            <Tooltip title="删除集群">
+                            <Tooltip title="删除节点">
                                 <Button type="ghost"
                                         className='button'
                                 >
@@ -82,10 +113,31 @@ class ClusterNodeList extends Component {
                                 </Button>
                             </Tooltip>
                         </span>
-                    </div>
-                );
-            }
-        }];
+                        </div>
+                    );
+                }
+            }];
+
+    }
+
+    filterNodeList() {
+
+        const {nodeList} = this.props.clusterDetail;
+
+        if (this.state.keyword.length > 0) {
+            return nodeList.filter((node)=>
+                    node.host.indexOf(this.state.keyword) != -1
+                ||  node.description.indexOf(this.state.keyword) != -1
+                ||  node.ip.indexOf(this.state.keyword) != -1
+                //|| node.id === parseInt(this.state.keyword)
+            );
+            //return nodeList.filter((node)=>node.host===this.state.keyword);
+        } else {
+            return nodeList;
+        }
+
+        //console.log('this.state.keyword = ' + this.state.keyword.length);
+        //return nodeList;
 
     }
 
@@ -98,96 +150,31 @@ class ClusterNodeList extends Component {
     }
 
     refresh() {
+        const {getClusterNodeList,ownCluster} = this.props;
+        getClusterNodeList(ownCluster.id);
 
     }
 
-    getData() {
-        return [
-            {
-                id: 1,
-                name: 'master',
-                service: 'Hadoop,Zookeeper',
-                ip: '192.168.1.5',
-                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
-
-            },
-            {
-                id: 2,
-                name: 'slave1',
-                service: 'Hadoop,Spark,Storm,Flume,Pig',
-                ip: '192.168.1.6',
-                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
-            },
-            {
-                id: 3,
-                name: 'slave2',
-                service: 'Hadoop,Zookeeper,Spark,HBase',
-                ip: '192.168.1.7',
-                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
-            },
-            {
-                id: 4,
-                name: 'slave3',
-                service: 'Hadoop,Zookeeper',
-                ip: '192.168.1.8',
-                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
-            },
-            {
-                id: 5,
-                name: 'slave4',
-                service: 'Hadoop,Flume,Storm',
-                ip: '192.168.1.9',
-                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
-            },
-            {
-                id: 6,
-                name: 'slave5',
-                service: 'Hadoop,Storm',
-                ip: '192.168.1.10',
-                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
-            },
-            {
-                id: 7,
-                name: 'slave6',
-                service: 'Hadoop,HBase',
-                ip: '192.168.1.11',
-                cpu: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                mem: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>,
-                disk: <ResourceUsePercent percent={parseInt(Math.random()*90)}/>
-            },
-            {
-                id: 8,
-                name: 'slave7',
-                service: 'Hadoop,HBase',
-                ip: '192.168.1.12',
-                cpu: <span>4核心 [ <span style={{color:'red'}}>23%</span> ]</span>,
-                mem: <span>128G [ <span style={{color:'green'}}>66%</span> ]</span>,
-                disk: <span>1024G [ <span style={{color:'green'}}>56%</span> ]</span>,
-            }
-        ]
+    search(keyword) {
+        this.setState({keyword: keyword});
     }
 
     render() {
         console.log("ClusterNodeList 开始重绘！！！！！！！！！！！！！");
+        const {clusterDetail} = this.props;
+        //<Input style={{ width:'25%'}} placeholder="search by name、id or description"/>
         return (
-            <div>
+            <div className='cluster-node-list'>
+
                 <div style={{margin:'10px 0px',height:'auto',minWidth:'560px'}}>
 
-                    <Input style={{ width:'25%'}} placeholder="search by name、id or description"/>
-                    <div style={{float:'right'}}>
+                    <SearchInput placeholder="search by name、ip or description"
+                                 onSearch={keyword => this.search(keyword)} style={{ width: '30%' }}/>
 
+                    <div style={{float:'right'}}>
+                        <Button type="primary" icon="reload" onClick={this.refresh.bind(this)}
+                                loading={clusterDetail.pending}
+                                className='button'/>
                         <Button type="ghost" icon="plus" className='button'
                                 onClick={this.addOrEditClusterNode.bind(this,this.buildEmptyNode(),null)}>
                             添加</Button>
@@ -197,13 +184,14 @@ class ClusterNodeList extends Component {
                 </div>
                 <div>
                     <Table
+                        expandedRowRender={record => <span><p>内存 100G</p><p>{record.description}</p></span>}
                         style={{minWidth:'560px'}}
-                        dataSource={this.getData()}
+                        dataSource={this.filterNodeList()}
                         //onRowClick={this.onRowClick.bind(this)}
                         pagination={false}
                         //rowSelection={rowSelection}
                         columns={this.getColumns()}
-                        //loading={clusterData.pending}
+                        loading={clusterDetail.pending}
                         size='middle'
                         rowKey={record=>record.id}/>
 

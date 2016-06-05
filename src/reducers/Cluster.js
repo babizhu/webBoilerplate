@@ -14,10 +14,10 @@ import {
     CLUSTER_LIST_QUERY_SUCCESS,
     CLUSTER_LIST_QUERY_ERROR,
 
-    CLUSTER_ALL_QUERY,
-    CLUSTER_ALL_QUERY_PENDING,
-    CLUSTER_ALL_QUERY_SUCCESS,
-    CLUSTER_ALL_QUERY_ERROR,
+    CLUSTER_DETAIL_QUERY,
+    CLUSTER_DETAIL_QUERY_PENDING,
+    CLUSTER_DETAIL_QUERY_ERROR,
+    CLUSTER_DETAIL_QUERY_SUCCESS,
 
     CLUSTER_LIST_OPERATION,
     CLUSTER_LIST_OPERATION_PENDING,
@@ -76,19 +76,19 @@ const initNodesState = {
 };
 function clusterNodesInfo(state = initNodesState, action = {}) {
     switch (action.type) {
-        case CLUSTER_ALL_QUERY_PENDING:
+        case CLUSTER_DETAIL_QUERY_PENDING:
             return {
                 ...state,
                 pending: true
             };
-        case CLUSTER_ALL_QUERY_SUCCESS:
+        case CLUSTER_DETAIL_QUERY_SUCCESS:
             return {
                 ...state,
                 [action.meta.clusterId]: action.payload,
                 pending: false,
                 error: null
             };
-        case CLUSTER_ALL_QUERY_ERROR:
+        case CLUSTER_NODE_LIST_QUERY_ERROR:
             return {
                 ...state,
                 pending: false,

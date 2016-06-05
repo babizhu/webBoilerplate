@@ -16,13 +16,12 @@ class Cluster extends Component {
     render() {
 
         //const clusterList = this.props.cluster.clusterList;
-        const { children } = this.props;
-        const {clusterList,operationData} = this.props.clustersInfo;
-        const {openClusterModal,clusterListOperation,getClustersList} = this.props;
+        const { children,openClusterModal,clusterListOperation,getClustersList } = this.props;
+        const {clusterList,operationData } = this.props.clusters;
 
         return (
             <div className="cluster">
-                {children||
+                {children ||
                 <ClusterList
                     clusterList={clusterList}
                     operationData={operationData}
@@ -37,7 +36,8 @@ class Cluster extends Component {
 }
 function mapStateToProps(state) {
     return {
-        clustersInfo: state.clustersInfo
+        clusters: state.clusters,
+
     }
 }
 //function mapDispatchToProps() {

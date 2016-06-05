@@ -28,13 +28,13 @@ class ClusterDetail extends Component {
     }
 
     componentDidMount() {
-        const {ownCluster,getClusterAll} = this.props;
-        getClusterAll(ownCluster.id);
+        const {ownCluster,getClusterDetail} = this.props;
+        getClusterDetail(ownCluster.id);
     }
 
     render() {
-        const {ownCluster,clusterNodesInfo} = this.props;
-        const oneClusterInfo = clusterNodesInfo[ownCluster.id];
+        const {ownCluster,clusterDetailList} = this.props;
+        const clusterDetail = clusterDetailList[ownCluster.id];
         return (
             <div className='cluster-detail'>
                 <div className='header'>
@@ -78,7 +78,7 @@ class ClusterDetail extends Component {
 
                 </div>
 
-                { !oneClusterInfo ? <LoadingView /> :
+                { !clusterDetail ? <LoadingView /> :
                     <Row>
 
                         <Col lg={24} sm={24} md={24}>
@@ -86,7 +86,7 @@ class ClusterDetail extends Component {
                                 <TabPane tab="集群总览" key="1">
                                     <ClusterDashBoard
                                         showMoreClusterInfo={this.state.showMoreClusterInfo}
-                                        oneClusterInfo={oneClusterInfo}
+                                        clusterDetail={clusterDetail}
                                         {...this.props}
                                     />
                                 </TabPane>
@@ -98,7 +98,8 @@ class ClusterDetail extends Component {
                                 <TabPane tab="节点列表" key="3">
                                     <ClusterNodeList
                                         showMoreClusterInfo={this.state.showMoreClusterInfo}
-                                        oneClusterInfo={oneClusterInfo}
+                                        clusterDetail={clusterDetail}
+
                                         {...this.props}
                                     />
 
@@ -127,10 +128,9 @@ function getClusterByName(clusters, name) {
 function mapStateToProps(state, ownProps) {
 
     const name = ownProps.params.name;
-    //alert(name)
     return {
-        clusterNodesInfo: state.clustersInfo.clusterNodesInfo,
-        ownCluster: getClusterByName(state.clustersInfo.clusterList.data, name)
+        clusterDetailList: state.clusters.clusterDetailList,
+        ownCluster: getClusterByName(state.clusters.clusterList.data, name)
     }
 }
 export default connect(mapStateToProps, clusterActions)(AnimEnhance(ClusterDetail));

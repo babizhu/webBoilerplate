@@ -9,6 +9,7 @@ const DropdownButton = Dropdown.Button;
 import { Link } from 'react-router'
 import { browserHistory } from 'react-router'
 import Label from '../Utils/Label'
+import SearchInput from '../Utils/SearchInput'
 
 import DelClusterModal from './DelClusterModal'
 import ClusterModal from './ClusterModal'
@@ -153,7 +154,9 @@ class ClusterList extends Component {
             <div className='cluster-list'>
                 <div style={{margin:'10px 0px',height:'auto',minWidth:'560px'}}>
 
-                    <Input style={{ width:'25%'}} placeholder="search by name、id or description"/>
+                    <SearchInput placeholder="search by name、id or description"
+                                 onSearch={value => console.log(value)} style={{ width: '25%' }} />
+
                     <div style={{float:'right'}}>
                         <Button type="primary" icon="reload" onClick={this.refresh.bind(this)}
                                 loading={clusterList.pending}
