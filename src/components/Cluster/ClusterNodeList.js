@@ -9,8 +9,6 @@ import ResourceUsePercent from '../Utils/ResourceUsePercent'
 import SearchInput from '../Utils/SearchInput'
 import '../../css/cluster.scss'
 
-
-
 /**
  * 集群节点列表
  */
