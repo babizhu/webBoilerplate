@@ -61,7 +61,7 @@ class ClusterCpuChart extends Component {
             //},
             xAxis: {
                 type: 'datetime',
-                maxZoom: config.list[0].data.length * config.list[0].pointInterval, // fourteen days
+                maxZoom: config.list[0].data.length * config.list[0].pointInterval // fourteen days
                 //title: {
                 //    text: 'cpu title',
                 //}

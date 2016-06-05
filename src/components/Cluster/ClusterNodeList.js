@@ -28,6 +28,9 @@ class ClusterNodeList extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
+        if( nextProps.clusterDetailList.pending ){
+            return false;
+        }
         return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
     }
 
@@ -122,7 +125,7 @@ class ClusterNodeList extends Component {
 
         const {nodeList} = this.props.clusterDetail;
 
-        if (0 < this.state.keyword.length) {
+        if (0 < this.state.keyword.length && nodeList) {
             return nodeList.filter((node)=>
                     node.host.indexOf(this.state.keyword) != -1
                 ||  node.description.indexOf(this.state.keyword) != -1

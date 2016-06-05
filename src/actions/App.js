@@ -1,5 +1,7 @@
 /**
  * Created by liukun on 16/4/17.
+ * 程序主入口
+ *
  */
 
 export const SHOW_ERROR_MSG = 'SHOW_ERROR_MSG';

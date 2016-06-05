@@ -27,6 +27,8 @@ class ClusterServices extends Component {
     }
 
     render() {
+        console.log("ClusterServices 开始重绘！！！！！！！！！！！！！");
+
 
         const content = <div>
             <div><span style={{}}>空闲空间</span><span> 100G </span></div>

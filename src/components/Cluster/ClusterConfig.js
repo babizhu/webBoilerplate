@@ -24,7 +24,7 @@ class ClusterConfig extends Component {
 
     }
    render(){
-       const cfg5={
+       const cfg={
            chart: {
                type: 'pie',
                options3d: {
@@ -63,7 +63,7 @@ class ClusterConfig extends Component {
        return(
            <span>
            <h3>报警设置</h3>
-           <ReactHighcharts config={cfg5} ref="chart5"/>
+           <ReactHighcharts config={cfg} ref="chart5"/>
                </span>
 
    )

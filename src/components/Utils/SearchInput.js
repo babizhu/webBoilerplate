@@ -18,7 +18,7 @@ export default class SearchInput extends Component {
 
     handleInputChange(e) {
         this.setState({
-            value: e.target.value,
+            value: e.target.value
         });
         if (this.props.onSearch) {
             this.props.onSearch( e.target.value);
@@ -27,7 +27,7 @@ export default class SearchInput extends Component {
 
     handleFocusBlur(e) {
         this.setState({
-            focus: e.target === document.activeElement,
+            focus: e.target === document.activeElement
         });
     }
 
@@ -41,11 +41,11 @@ export default class SearchInput extends Component {
         const { style, size, ...restProps } = this.props;
         const btnCls = classNames({
             'ant-search-btn': true,
-            'ant-search-btn-noempty': !!this.state.value.trim(),
+            'ant-search-btn-noempty': !!this.state.value.trim()
         });
         const searchCls = classNames({
             'ant-search-input': true,
-            'ant-search-input-focus': this.state.focus,
+            'ant-search-input-focus': this.state.focus
         });
         return (
             <div className="ant-search-input-wrapper" style={style}>

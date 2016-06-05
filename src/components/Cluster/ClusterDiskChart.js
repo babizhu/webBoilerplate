@@ -36,9 +36,11 @@ class ClusterDiskChart extends Component {
     }
 
     render() {
+        //noinspection JSUnresolvedFunction
         Highcharts.setOptions({global: {useUTC: false}});
 
         const {config} = this.props;
+        //noinspection JSUnresolvedVariable
         const allCfg = {
             //global: { useUTC: false },
             credits: {enabled: false},
@@ -62,7 +64,7 @@ class ClusterDiskChart extends Component {
             //},
             xAxis: {
                 type: 'datetime',
-                maxZoom: config.list[0].data.length * config.list[0].pointInterval, // fourteen days
+                maxZoom: config.list[0].data.length * config.list[0].pointInterval // fourteen days
                 //title: {
                 //    text: 'cpu title',
                 //}

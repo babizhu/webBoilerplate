@@ -34,18 +34,6 @@ import {
 
 } from '../actions/Cluster'
 
-const cluster = {
-    name: {},
-    service: {},
-    nodeList: [],
-    charts: {
-        cpu: {},
-        mem: {},
-        network: {},
-        disk: {}
-    }
-
-};
 
 const initClusterListState = {
     pending: false,
@@ -53,15 +41,11 @@ const initClusterListState = {
     pager: {}
 };
 /**
- * 获取某个集群所有的节点列表
+ * 获取所有集群列表
  */
 function clusterList(state = initClusterListState, action) {
     switch (action.type) {
-        case CLUSTER_LIST_QUERY_PENDING:
-            return {
-                ...state,
-                pending: true
-            };
+
         case CLUSTER_LIST_QUERY_PENDING:
             return {
                 ...state,
@@ -85,18 +69,50 @@ function clusterList(state = initClusterListState, action) {
                 pending: false,
                 error: action.payload
             };
+        case CLUSTER_LIST_OPERATION_SUCCESS:
+            //console.log('CLUSTER_LIST_OPERATION_SUCCESS 之后' + JSON.stringify(action.payload));
+            //console.log(updateClusterState(state.data, action.payload));
             return {
                 ...state,
-                data: updateClusterState(state.data, action.payload.data, action.meta.op === 2)//todo 开始的data肯定需要修改
+                data: updateClusterState(state.data, action.payload.data, action.meta.op === 2)
             };
-
-
+        default:
+            return state;
     }
-    return state;
-
 }
 
+/**
+ * 根据增删改操作的返回结果更新客户端内存的业务数据
+ * @param initData      原始内容
+ * @param changeData    变化的数据
+ * @param isDelete      是否删除操作导致的变化
+ * @returns {Array}
+ */
+function updateClusterState(initData, changeData, isDelete) {
+    //console.log('是否删除？ ' + isDelete);
+    if (!changeData) {
+        return;
+    }
+    let result = [];
+    let isExist = false;
+    for (const cluster of initData) {
+        if (cluster.id === changeData.id) {//更新或者删除
+            if (!isDelete) {//更新
 
+                result.push({...cluster, ...changeData});
+            }
+            isExist = true;//找到了此cluster
+        } else {
+            result.push(cluster);
+        }
+    }
+    if (!isExist) {//新增
+        result.unshift(changeData);
+    }
+
+    return result;
+
+}
 function clusterNodeList(state = {}, action) {
     switch (action.type) {
         case CLUSTER_NODE_LIST_QUERY_PENDING:
@@ -161,17 +177,7 @@ function operationData(state = operationInitState, action) {
     }
 }
 
-const initClusterChart = {
-    cpu: {},
-    mem: {},
-    network: {},
-    disk: {}
-};
-function clusterCharts(state = initClusterChart, action) {
-    return state;
-
-}
-
+//获取某个集群的详细信息
 function clusterDetailList(state = {}, action) {
     let clusterId;
 

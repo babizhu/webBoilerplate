@@ -21,13 +21,18 @@ class ClusterList extends Component {
     constructor() {
         super();
         this.currentCluster = {id: -1};
-        this.state = {selectedRowKeys: []}
+        this.state = {selectedRowKeys: [],
+            keyword: ''
+        }
     }
 
+
+    //noinspection JSMethodCanBeStatic
     buildEmptyCluster() {
         return {id: -1};
     }
 
+    //noinspection JSMethodCanBeStatic
     /**
      * 响应单击表格的row的事件
      * @param record    当前记录
@@ -68,6 +73,29 @@ class ClusterList extends Component {
             openModal(2);
         }
     }
+    search(keyword) {
+        this.setState({keyword: keyword});
+    }
+
+    /**
+     * 本地搜索集群列表
+     */
+    filterNodeList() {
+
+        const {data} = this.props.clusterList;
+
+
+
+        if (0 < this.state.keyword.length && data ) {
+            return data.filter((node)=>
+                node.name.indexOf(this.state.keyword) != -1
+                ||  node.description.indexOf(this.state.keyword) != -1
+                ||  node.ip.indexOf(this.state.keyword) != -1
+            );
+        } else {
+            return data;
+        }
+    }
 
     onSelectChange(selectedRowKeys) {
         console.log('selectedRowKeys changed: ', selectedRowKeys);
@@ -95,6 +123,7 @@ class ClusterList extends Component {
 
         const {clusterList,operationData} = this.props;
         const parent = this;
+        //noinspection JSUnusedLocalSymbols
         const columns = [{
             title: '名称',
             dataIndex: 'name',
@@ -154,8 +183,8 @@ class ClusterList extends Component {
             <div className='cluster-list'>
                 <div style={{margin:'10px 0px',height:'auto',minWidth:'560px'}}>
 
-                    <SearchInput placeholder="search by name、id or description"
-                                 onSearch={value => console.log(value)} style={{ width: '25%' }} />
+                    <SearchInput placeholder="search by name、ip or description"
+                                 onSearch={keyword => this.search(keyword)} style={{ width: '25%' }}/>
 
                     <div style={{float:'right'}}>
                         <Button type="primary" icon="reload" onClick={this.refresh.bind(this)}
@@ -175,7 +204,8 @@ class ClusterList extends Component {
                 <div>
                 <Table
                     style={{minWidth:'560px'}}
-                    dataSource={clusterList.data}
+                    dataSource={this.filterNodeList()}
+
                     onRowClick={this.onRowClick.bind(this)}
                     pagination={false}
                     rowSelection={rowSelection}

@@ -28,7 +28,7 @@ class ClusterDashBoard extends Component {
     }
 
     shouldComponentUpdate(nextProps) {
-        if( nextProps.clusterDetail.pending ){
+        if( nextProps.clusterDetailList.pending ){
             return false;
         }
         return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;

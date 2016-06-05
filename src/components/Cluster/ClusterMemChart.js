@@ -34,8 +34,10 @@ class ClusterMemChart extends Component {
     }
 
     render() {
+        //noinspection JSUnresolvedFunction
         Highcharts.setOptions({ global: { useUTC: false } });
         const {config} = this.props;
+        //noinspection JSUnresolvedFunction
         const allCfg = {
             credits: {enabled: false},
             colors: ['lightblue','lightgreen'],

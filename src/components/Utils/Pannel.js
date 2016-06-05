@@ -1,5 +1,6 @@
 /**
  * Created by liukun on 16/5/22.
+ * 面板元素,
  */
 
 import React, { Component } from 'react';

@@ -54,7 +54,6 @@ export function getFilesData(path,readAsText=true,block=0) {
  *                      2、删除                无参数（需要支持删除目录吗？）
  *                      3、新建目录            新建目录的名字
  *
- * @returns {{type: string, meta: {path: *, noSysErrMsg: boolean, readAsText: boolean}, payload: {promise: *}}}
  */
 export function hadoopOperation(op,path,args) {
     return {
