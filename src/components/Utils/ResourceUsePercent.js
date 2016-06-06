@@ -16,9 +16,14 @@ export default class ResourceUsePercent extends Component {
     render(){
         const {percent} = this.props;
         let status = 'success';
-        if( percent > 40 && percent <= 70 ){
-            status = 'active';
-        }else if(percent > 70){
+        if( percent) {
+
+            if (percent > 40 && percent <= 70) {
+                status = 'active';
+            } else if (percent > 70) {
+                status = 'exception';
+            }
+        }else{
             status = 'exception';
         }
         return(

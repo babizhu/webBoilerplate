@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { Card, Col, Row } from 'antd';
 import ReactHighcharts from 'react-highcharts'
-//import HighchartsMore from 'highcharts-3d'
-//HighchartsMore(ReactHighcharts.Highcharts);
+import HighchartsMore from 'highcharts-3d'
+HighchartsMore(ReactHighcharts.Highcharts);
 
 import '../../css/cluster.scss'
 
@@ -23,7 +23,8 @@ class ClusterConfig extends Component {
         return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
 
     }
-   render(){
+   //noinspection JSMethodCanBeStatic
+    render(){
        const cfg={
            chart: {
                type: 'pie',

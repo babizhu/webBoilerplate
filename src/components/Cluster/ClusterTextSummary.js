@@ -25,15 +25,15 @@ class ClusterTextSummary extends Component {
     }
 
     render() {
-
+        const {clusterNodeList} = this.props;
         return (
 
             <div>
                 <Icon type="desktop"/> <span style={{paddingLeft:'6px',fontWeight:'bold'}}>节点状态</span>
                 <div >
-                    总共<span style={{fontSize:'21px',color:'#2db7f5'}}> 1806 </span>个节点 <br /> 存活
-                    <span style={{fontSize:'21px',color:'#66bb6a'}}> 806 </span>个 , 宕机
-                    <span style={{fontSize:'21px',color:'#f50'}}> 1000 </span>个
+                    总共<span style={{fontSize:'21px',color:'#2db7f5'}}> {clusterNodeList.totalCount} </span>个节点 <br /> 存活
+                    <span style={{fontSize:'21px',color:'#66bb6a'}}> {clusterNodeList.aliveCount} </span>个 , 宕机
+                    <span style={{fontSize:'21px',color:'#f50'}}> {clusterNodeList.totalCount - clusterNodeList.aliveCount } </span>个
                                 <span
                                     className='no_border_icon_button'
                                     style={{float:'right',position: 'relative',top:'10px'}}>

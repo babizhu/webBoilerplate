@@ -1,6 +1,6 @@
 /**
  * Created by liukun on 16/4/25.
- * 删除集群
+ * 删除节点节点
  */
 
 import React, { Component,PropTypes } from 'react';
@@ -9,22 +9,24 @@ import { Button, Form, Input, Modal,Icon,Switch  } from 'antd';
 const createForm = Form.create;
 const FormItem = Form.Item;
 
-class DelClusterModal extends Component {
+class ClusterDelNodeModal extends Component {
 
     onOk() {
-        const {delClusterOk,form,currentCluster} = this.props;
+        const {delNodeOk,form,currentNode} = this.props;
         //noinspection JSUnresolvedFunction
         form.validateFields((errors, values) => {
             if (!!errors) {
             } else {
-                delClusterOk(null,{id:currentCluster.id});
+                delNodeOk(null,{id:currentNode.id});
+                //noinspection JSUnresolvedFunction
+
             }
         });
     }
 
     onCancle() {
-        const {delClusterOk} = this.props;
-        delClusterOk();
+        const {delNodeOk} = this.props;
+        delNodeOk();
 
     }
     componentWillReceiveProps(nextProps) {
@@ -34,21 +36,20 @@ class DelClusterModal extends Component {
             form.resetFields();
 
         }
-
     }
 
     checkName(rule, value, callback) {
         //const {delDirectoryOk,form} = this.props;
-        const {currentCluster} = this.props;
-        if (value && value !== currentCluster.name) {
-            callback('未输入正确的集群名称！');
+        const {currentNode} = this.props;
+        if (value && value !== currentNode.host) {
+            callback('未输入正确的节点名称！');
         } else {
             callback();
         }
     }
 
     render() {
-        const {visible,pending,currentCluster} = this.props;
+        const {visible,pending,currentNode} = this.props;
         const { getFieldProps } = this.props.form;
 
         const formItemLayout = {
@@ -56,18 +57,18 @@ class DelClusterModal extends Component {
             wrapperCol: {span: 20}
         };
 
-        const checkName = getFieldProps('reDirectory', {
+        const checkName = getFieldProps('host', {
             rules: [{
                 required: true,
                 whitespace: true,
-                message: '请输入要删除的集群名称'
+                message: '请输入要删除的节点名称'
             }, {
                 validator: this.checkName.bind(this)
             }]
         });
         const redTitle = <span className='dangerText'>危险操作：</span>;
         return (
-            <Modal title="删除集群" visible={visible}
+            <Modal title="删除节点" visible={visible}
                    confirmLoading={pending}
                    onOk={this.onOk.bind(this)}
                    onCancel={this.onCancle.bind(this)}>
@@ -75,7 +76,7 @@ class DelClusterModal extends Component {
                     <FormItem
                         label="删除："
                         {...formItemLayout}>
-                        <p className="ant-form-text" id="static" name="static">{currentCluster.name}</p>
+                        <p className="ant-form-text" id="static" name="static">{currentNode.host}</p>
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
@@ -85,7 +86,7 @@ class DelClusterModal extends Component {
                             autoFocus="autoFocus"
                             ref='name'
                             type="text" autoComplete="off"
-                            placeholder="请输入要删除集群的名称，以免误操作"/>
+                            placeholder="请输入要删除节点的名称，以免误操作"/>
                     </FormItem>
                 </Form>
             </Modal>
@@ -93,11 +94,11 @@ class DelClusterModal extends Component {
     }
 }
 
-DelClusterModal.propTypes = {
+ClusterDelNodeModal.propTypes = {
     visible: PropTypes.bool.isRequired,//是否显示对话框
-    delClusterOk: PropTypes.func.isRequired,//点击关闭将调用此函数
-    currentCluster: PropTypes.object.isRequired//要删除的集群
+    delNodeOk: PropTypes.func.isRequired,//点击关闭将调用此函数
+    currentNode: PropTypes.object.isRequired//要删除的节点节点
 };
-DelClusterModal.defaultProps = {};
+ClusterDelNodeModal.defaultProps = {};
 
-export default createForm()(DelClusterModal);
+export default createForm()(ClusterDelNodeModal);

@@ -20,7 +20,8 @@ class ClusterDetail extends Component {
         super(props);
         this.state = {
             showMoreClusterInfo: false
-        }
+        };
+        this.activeTab = 'dashboard';
     }
 
     showMoreClusterInfo() {
@@ -31,9 +32,13 @@ class ClusterDetail extends Component {
         const {ownCluster,getClusterDetail} = this.props;
         getClusterDetail(ownCluster.id);
     }
-
+    tabChange( tab ){
+        //console.log( tab );
+        this.activeTab = tab;
+    }
     render() {
-        const {ownCluster,clusterDetailList} = this.props;
+        const {ownCluster,clusterDetailList,openClusterModal,clusterNodeOperation} = this.props;
+
         const clusterDetail = clusterDetailList[ownCluster.id];
         return (
             <div className='cluster-detail'>
@@ -80,26 +85,26 @@ class ClusterDetail extends Component {
 
                 { !clusterDetail ? <LoadingView /> :
                     <Row>
-
                         <Col lg={24} sm={24} md={24}>
-                            <Tabs defaultActiveKey="1" tabPosition="top">
-                                <TabPane tab="集群总览" key="1">
+                            <Tabs defaultActiveKey={this.activeTab} tabPosition="top" onChange={this.tabChange.bind(this)}>
+                                <TabPane tab="集群总览" key="dashboard"  >
                                     <ClusterDashBoard
                                         showMoreClusterInfo={this.state.showMoreClusterInfo}
                                         clusterDetail={clusterDetail}
+                                        activeTab={this.activeTab}
                                         {...this.props}
                                     />
                                 </TabPane>
                                 <TabPane tab="服务状态" key="2">
                                     <ClusterServices showMoreClusterInfo={this.state.showMoreClusterInfo}/>
 
-
                                 </TabPane>
-                                <TabPane tab="节点列表" key="3">
+                                <TabPane tab="节点列表" key="nodeList">
                                     <ClusterNodeList
                                         showMoreClusterInfo={this.state.showMoreClusterInfo}
                                         clusterDetail={clusterDetail}
-
+                                        operation={clusterNodeOperation}
+                                        openModal={openClusterModal}
                                         {...this.props}
                                     />
 
@@ -129,6 +134,7 @@ function mapStateToProps(state, ownProps) {
 
     const name = ownProps.params.name;
     return {
+        operationData : state.clusters.operationData,
         clusterDetailList: state.clusters.clusterDetailList,
         ownCluster: getClusterByName(state.clusters.clusterList.data, name)
     }

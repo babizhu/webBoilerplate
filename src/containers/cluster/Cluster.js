@@ -36,7 +36,7 @@ class Cluster extends Component {
 }
 function mapStateToProps(state) {
     return {
-        clusters: state.clusters,
+        clusters: state.clusters
 
     }
 }

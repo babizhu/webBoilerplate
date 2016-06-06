@@ -21,31 +21,32 @@ class ClusterDashBoard extends Component {
         const {ownCluster,getClusterDetail} = this.props;
         this.timer = setInterval(function () {
             getClusterDetail(ownCluster.id);
-        }.bind(this), 100000);
+        }.bind(this), 50000);
     }
-    componentWillUnmount(){
+
+    componentWillUnmount() {
         clearInterval(this.timer);
     }
 
     shouldComponentUpdate(nextProps) {
-        const {ownCluster,getClusterDetail} = this.props;
-        if( nextProps.clusterDetailList[ownCluster.id].clusterCharts !== this.props.clusterDetailList[ownCluster.id].clusterCharts ){
-            return true;
-        }else{
+        const {ownCluster,getClusterDetail,activeTab} = this.props;
+        if (activeTab !== 'dashboard') {
             return false;
         }
+        const clusterId = ownCluster.id;
+        return nextProps.clusterDetailList[clusterId].clusterCharts !== this.props.clusterDetailList[clusterId].clusterCharts;
         //return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
     }
 
     render() {
-        const {clusterCharts} = this.props.clusterDetail;
-            console.log("ClusterDashBoard 开始重绘！！！！！！！！！！！！！");
+        const {clusterCharts,clusterNodeList} = this.props.clusterDetail;
+        console.log("ClusterDashBoard 开始重绘！！！！！！！！！！！！！");
         return (
             <div className='cluster-dash-board'>
                 <Row>
                     <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
                         <Card title="" bordered={true} style={{height:'346px'}}>
-                            <ClusterTextSummary/>
+                            <ClusterTextSummary clusterNodeList={clusterNodeList}/>
                         </Card>
 
                     </Col>

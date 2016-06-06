@@ -121,10 +121,9 @@ function clusterNodeList(state = {}, action) {
                 pending: true
             };
         case CLUSTER_NODE_LIST_QUERY_SUCCESS:
-
             return {
                 ...state,
-                clusterNodeList: action.payload.nodeList,
+                clusterNodeList: action.payload,
                 pending: false,
                 error: null
             };
@@ -220,28 +219,28 @@ function clusterDetailList(state = {}, action) {
     return state;
 }
 //获取某个集群的节点列表
-function clusterNodeList(state, action) {
-    switch (action.type) {
-        case CLUSTER_NODE_LIST_QUERY_PENDING:
-            return {
-                ...state,
-                pending: true
-            };
-        case CLUSTER_NODE_LIST_QUERY_SUCCESS:
-            return {
-                ...state,
-                pending: false,
-                ...action.payload
-            };
-        case CLUSTER_NODE_LIST_QUERY_ERROR:
-            return {
-                ...state,
-                pending: false,
-                error: action.payload
-            };
-    }
-    return state;
-}
+//function clusterNodeList(state, action) {
+//    switch (action.type) {
+//        case CLUSTER_NODE_LIST_QUERY_PENDING:
+//            return {
+//                ...state,
+//                pending: true
+//            };
+//        case CLUSTER_NODE_LIST_QUERY_SUCCESS:
+//            return {
+//                ...state,
+//                pending: false,
+//                ...action.payload
+//            };
+//        case CLUSTER_NODE_LIST_QUERY_ERROR:
+//            return {
+//                ...state,
+//                pending: false,
+//                error: action.payload
+//            };
+//    }
+//    return state;
+//}
 
 const clustersInfo = combineReducers({
     operationData,

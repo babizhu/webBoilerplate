@@ -134,6 +134,30 @@ export function clusterListOperation(op, cluster) {
     }
 }
 /**
+ * 增删改 统一到这里处理
+ * 增和改统一到一个操作中处理
+ * @param op            操作类型1:增 改 2:、删除
+ * @param clusterNode   当前要操作的节点
+ */
+export function clusterNodeOperation(op, clusterNode) {
+    return {
+        type: CLUSTER_NODE_LIST_OPERATION,
+        meta: {
+            op,
+            clusterNode
+            //path,
+        },
+        payload: {
+            promise: api.get('clusterNode/operation', {
+                params: {
+                    op,
+                    ...clusterNode
+                }
+            })
+        }
+    }
+}
+/**
  * 打开某个对话框
  *  * 增和改统一到一个对话框中处理
 
