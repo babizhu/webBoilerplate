@@ -4,6 +4,11 @@ import { Card, Col, Row,Table,Button,Input,Tooltip,Icon,Progress } from 'antd';
 import ClusterNodeModal from './ClusterNodeModal'
 import ClusterDelNodeModal from './ClusterDelNodeModal'
 
+import ClusterCpuChart from './ClusterCpuChart'
+import ClusterMemChart from './ClusterMemChart'
+import ClusterDiskChart from './ClusterDiskChart'
+import ClusterNetworkChart from './ClusterNetworkChart'
+
 
 import Label from '../Utils/Label'
 import ResourceUsePercent from '../Utils/ResourceUsePercent'
@@ -42,7 +47,9 @@ class ClusterNodeList extends Component {
             title: 'Host',
             dataIndex: 'host',
             width: 90,
-            key: 'host'
+            key: 'host',
+            sorter: (a, b) => a.host - b.host
+
         }, {
             title: 'IP',
             dataIndex: 'ip',
@@ -57,21 +64,25 @@ class ClusterNodeList extends Component {
             key: 'cpuUsedPercent',
             render(text){
                 return <ResourceUsePercent percent={parseInt(text)}/>
-            }
+            },
+            sorter: (a, b) => a.cpuUsedPercent - b.cpuUsedPercent
         }, {
             title: '内存 %',
             dataIndex: 'memUsedPercent',
             key: 'memUsedPercent',
             render(text){
                 return <ResourceUsePercent percent={parseInt(text)}/>
-            }
+            },
+            sorter: (a, b) => a.memUsedPercent - b.memUsedPercent
         }, {
             title: '磁盘 %',
             dataIndex: 'diskUsedPercent',
             key: 'diskUsedPercent',
             render(text){
                 return <ResourceUsePercent percent={parseInt(text)}/>;
-            }
+            },
+            sorter: (a, b) => a.diskUsedPercent - b.diskUsedPercent
+
         },
             {
                 title: '网络 ',
@@ -130,7 +141,7 @@ class ClusterNodeList extends Component {
         if (0 < this.state.keyword.length && nodeList) {
             return nodeList.filter((node)=>
                 node.host.indexOf(this.state.keyword) != -1
-                || node.description.indexOf(this.state.keyword) != -1
+                || (node.description && node.description.indexOf(this.state.keyword) != -1)
                 || node.ip.indexOf(this.state.keyword) != -1
             );
         } else {
@@ -139,8 +150,10 @@ class ClusterNodeList extends Component {
     }
 
     addOrEditNodeOk(record, node) {
-        const {openModal,operation} = this.props;
+        const {openModal,operation,ownCluster} = this.props;
+
         if (node) {//从弹出窗口回调而来的
+            node.clusterId = ownCluster.id;
             operation(1, node);
         } else {
             if (record) {
@@ -175,16 +188,39 @@ class ClusterNodeList extends Component {
         this.setState({keyword: keyword});
     }
 
+//2016-05-31 13:46:29.517 [nioEventLoopGroup-1-0] DEBUG net.WawajiDispatcher - /192.168.0.41:50461:LoginHandler{handlerId=1, clientId='000000000000000000000000'} | ResponseDataContainer{handlerId=1, buf=}
+//2016-05-31 13:46:30.330 [nioEventLoopGroup-1-0] DEBUG net.WawajiDispatcher - /192.168.0.41:50461:ReeceiveCoinHandler{handlerId=2, clientId='000000000000000000000000', coinNumber=3, consumeId=12345678} | null
+
+
     //展示节点的详细信息
+//<Row>
+//<Col span="12"><b>节点服务</b> : {record.service}</Col>
+//<Col span="12"><b>节点描述</b> : {record.description}</Col>
+//</Row>
     showNodeDetail(record) {
         return (
             <div style={{lineHeight:'25px'}}>
-                <div>
-                    <div><b>内存总量</b> : {record.memTotal} {record.memUnit}</div>
-                    <div><b>磁盘总量</b> : {record.diskTotal} {record.diskUnit}</div>
-                    <div><b>节点服务</b> : {record.service}</div>
-                    <div><b>节点描述</b> : {record.description}</div>
-                </div>
+                <Row>
+                    <Col span="8"><b>Cpu频率</b> : {record.cpuTotal} {record.cpuUnit}</Col>
+                    <Col span="8"><b>磁盘总量</b> : {record.diskTotal} {record.diskUnit}</Col>
+                    <Col span="8"><b>内存总量</b> : {record.memTotal} {record.memUnit}</Col>
+                </Row>
+                <Row>
+                    <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
+                        {record.charts.cpu && <ClusterCpuChart config={record.charts.cpu}/>}
+                    </Col>
+                    <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
+                        {record.charts.mem && <ClusterMemChart config={record.charts.mem}/>}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
+                        {record.charts.network && <ClusterNetworkChart config={record.charts.network}/>}
+                    </Col>
+                    <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
+                        {record.charts.disk && <ClusterDiskChart config={record.charts.disk}/>}
+                    </Col>
+                </Row>
             </div>)
 
     }

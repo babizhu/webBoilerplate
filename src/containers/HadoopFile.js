@@ -29,7 +29,7 @@ export default class HadoopFile extends Component {
                 message.success('操作成功。',6);
 
                 if( !this.props.hadoopFile.fileSystemData.currentPathIsFile ) {
-                    console.log('应该刷新整个界面?,当前目录 ' + this.props.hadoopFile.fileSystemData.currentPath);
+                    //console.log('应该刷新整个界面?,当前目录 ' + this.props.hadoopFile.fileSystemData.currentPath);
                     this.props.fileExplorerActions.getFilesData(this.props.hadoopFile.fileSystemData.currentPath)
                 }
             }
