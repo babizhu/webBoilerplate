@@ -30,7 +30,10 @@ import {
     CLUSTER_NODE_LIST_QUERY_SUCCESS,
     CLUSTER_NODE_LIST_QUERY_ERROR,
 
-
+    CLUSTER_NODE_LIST_OPERATION,
+    CLUSTER_NODE_LIST_OPERATION_PENDING,
+    CLUSTER_NODE_LIST_OPERATION_SUCCESS,
+    CLUSTER_NODE_LIST_OPERATION_ERROR
 
 } from '../actions/Cluster'
 
@@ -70,8 +73,8 @@ function clusterList(state = initClusterListState, action) {
                 error: action.payload
             };
         case CLUSTER_LIST_OPERATION_SUCCESS:
+
             //console.log('CLUSTER_LIST_OPERATION_SUCCESS 之后' + JSON.stringify(action.payload));
-            //console.log(updateClusterState(state.data, action.payload));
             return {
                 ...state,
                 data: updateClusterState(state.data, action.payload.data, action.meta.op === 2)
@@ -113,7 +116,7 @@ function updateClusterState(initData, changeData, isDelete) {
     return result;
 
 }
-function clusterNodeList(state = {}, action) {
+function clusterNodeList(state, action) {
     switch (action.type) {
         case CLUSTER_NODE_LIST_QUERY_PENDING:
             return {
@@ -133,11 +136,18 @@ function clusterNodeList(state = {}, action) {
                 pending: false,
                 error: action.payload
             };
+        case CLUSTER_NODE_LIST_OPERATION_SUCCESS:
 
+            console.log('CLUSTER_NODE_LIST_OPERATION_SUCCESS 之后' + state.clusterNodeList.nodeList);
+
+            //console.log(updateClusterState(state.data, action.payload));
+            return {
+                ...state,
+                clusterNodeList: {nodeList:updateClusterState(state.clusterNodeList.nodeList, action.payload.data, action.meta.op === 2)}
+            };
         default:
             return state;
     }
-    return state;
 }
 
 const operationInitState = {
@@ -154,11 +164,13 @@ function operationData(state = operationInitState, action) {
                 currentOpenModal: state.currentOpenModal == action.modal ? -1 : action.modal
             };
         case CLUSTER_LIST_OPERATION_PENDING:
+        case CLUSTER_NODE_LIST_OPERATION_PENDING:
             return {
                 ...state,
                 pending: true
             };
         case CLUSTER_LIST_OPERATION_SUCCESS:
+        case CLUSTER_NODE_LIST_OPERATION_SUCCESS:
             return {
                 ...state,
                 currentOpenModal: -1,
@@ -166,6 +178,8 @@ function operationData(state = operationInitState, action) {
                 error: null
             };
         case CLUSTER_LIST_OPERATION_ERROR:
+        case CLUSTER_NODE_LIST_OPERATION_ERROR:
+
             return {
                 ...state,
                 pending: false,
@@ -206,8 +220,10 @@ function clusterDetailList(state = {}, action) {
 
         case CLUSTER_NODE_LIST_QUERY_PENDING:
         case CLUSTER_NODE_LIST_QUERY_SUCCESS:
-            case CLUSTER_NODE_LIST_QUERY_ERROR:
+        case CLUSTER_NODE_LIST_QUERY_ERROR:
+        case CLUSTER_NODE_LIST_OPERATION_SUCCESS:
             clusterId = action.meta.clusterId;
+
 
             return {
                 ...state,
@@ -246,7 +262,5 @@ const clustersInfo = combineReducers({
     operationData,
     clusterList,
     clusterDetailList
-    //clusterNodesInfo
-    //clusterData
 });
 export default clustersInfo;

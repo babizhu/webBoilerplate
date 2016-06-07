@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Card, Col, Row,Table,Button,Input,Tooltip,Icon,Progress } from 'antd';
+import { Card, Col, Row,Table,Button,Input,Tooltip,Icon,message } from 'antd';
 
 import ClusterNodeModal from './ClusterNodeModal'
 import ClusterDelNodeModal from './ClusterDelNodeModal'
@@ -40,7 +40,13 @@ class ClusterNodeList extends Component {
         }
         return this.props.showMoreClusterInfo == nextProps.showMoreClusterInfo;
     }
-
+    componentWillReceiveProps(nextProps) {
+        if (this.props.operationData.pending && !nextProps.operationData.pending) {
+            if (nextProps.operationData.error === null) {
+                message.success('操作成功。', 6);
+            }
+        }
+    }
     getColumns() {
         const parent = this;
         return [{
@@ -62,24 +68,24 @@ class ClusterNodeList extends Component {
             title: 'CPU %',
             dataIndex: 'cpuUsedPercent',
             key: 'cpuUsedPercent',
-            render(text){
-                return <ResourceUsePercent percent={parseInt(text)}/>
+            render(text,record){
+                return record.status === 1 ?<ResourceUsePercent percent={parseInt(text)}/> : '-';
             },
             sorter: (a, b) => a.cpuUsedPercent - b.cpuUsedPercent
         }, {
             title: '内存 %',
             dataIndex: 'memUsedPercent',
             key: 'memUsedPercent',
-            render(text){
-                return <ResourceUsePercent percent={parseInt(text)}/>
+            render(text,record){
+                return record.status === 1 ?<ResourceUsePercent percent={parseInt(text)}/> : '-';
             },
             sorter: (a, b) => a.memUsedPercent - b.memUsedPercent
         }, {
             title: '磁盘 %',
             dataIndex: 'diskUsedPercent',
             key: 'diskUsedPercent',
-            render(text){
-                return <ResourceUsePercent percent={parseInt(text)}/>;
+            render(text,record){
+                return record.status === 1 ?<ResourceUsePercent percent={parseInt(text)}/> : '-';
             },
             sorter: (a, b) => a.diskUsedPercent - b.diskUsedPercent
 

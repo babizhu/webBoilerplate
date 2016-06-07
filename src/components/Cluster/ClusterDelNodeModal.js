@@ -17,7 +17,7 @@ class ClusterDelNodeModal extends Component {
         form.validateFields((errors, values) => {
             if (!!errors) {
             } else {
-                delNodeOk(null,{id:currentNode.id});
+                delNodeOk(null,{id:currentNode.id,clusterId:currentNode.clusterId});
                 //noinspection JSUnresolvedFunction
 
             }

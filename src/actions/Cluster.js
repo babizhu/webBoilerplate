@@ -143,6 +143,7 @@ export function clusterNodeOperation(op, clusterNode) {
     return {
         type: CLUSTER_NODE_LIST_OPERATION,
         meta: {
+            clusterId:clusterNode.clusterId,
             op,
             clusterNode
             //path,
