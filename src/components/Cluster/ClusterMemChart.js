@@ -61,7 +61,7 @@ class ClusterMemChart extends Component {
             //},
             xAxis: {
                 type: 'datetime',
-                maxZoom: config.list[0].data.length * config.list[0].pointInterval // fourteen days
+                maxZoom: config ? config.list[0].data.length * config.list[0].pointInterval : 0
                 //title: {
                 //    text: 'cpu title',
                 //}
@@ -116,7 +116,7 @@ class ClusterMemChart extends Component {
                 }
             },
 
-            series: config.list
+            series: config ? config.list:null
         };
 
 

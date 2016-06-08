@@ -64,7 +64,8 @@ class ClusterDiskChart extends Component {
             //},
             xAxis: {
                 type: 'datetime',
-                maxZoom: config.list[0].data.length * config.list[0].pointInterval // fourteen days
+                maxZoom: config ? config.list[0].data.length * config.list[0].pointInterval : 0
+
                 //title: {
                 //    text: 'cpu title',
                 //}
@@ -85,7 +86,7 @@ class ClusterDiskChart extends Component {
             tooltip: {
                 xDateFormat: '%Y-%m-%d %H:%M:%S',
                 shared: true,
-                valueSuffix: ' ' + config.yunit
+                valueSuffix: ' ' + (config ? config.yunit : '')
 
                 //formatter: function () {
                 //    return Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/><strong>' + this.series.name + '</strong>' + ': ' + this.y + config.yunit
@@ -117,7 +118,7 @@ class ClusterDiskChart extends Component {
 
             },
 
-            series: config.list
+            series: config ? config.list : null
         };
 
 

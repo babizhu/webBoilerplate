@@ -54,16 +54,13 @@ class ClusterNodeList extends Component {
             dataIndex: 'host',
             width: 90,
             key: 'host',
-            sorter: (a, b) => a.host - b.host
+            //sorter: (a, b) => a.host - b.host
 
         }, {
             title: 'IP',
             dataIndex: 'ip',
-            key: 'ip'
-        }, {
-            title: '服务',
-            dataIndex: 'service',
-            key: 'service'
+            key: 'ip',
+            //sorter: (a, b) => a.ip - b.ip
         }, {
             title: 'CPU %',
             dataIndex: 'cpuUsedPercent',
@@ -99,6 +96,8 @@ class ClusterNodeList extends Component {
                         :
                         '-'
                 }
+                //sorter: (a, b) => a.netOut+ a.netUnit - b.netOut+ b.netUnit
+
             }, {
                 title: '状态',
                 width: 70,
@@ -108,7 +107,8 @@ class ClusterNodeList extends Component {
                     //const s = 0 < record.status.indexOf('m');
                     const isSuccess = text === 1;
                     return <Label text={isSuccess ?'运行中':'已停止'} isSuccess={isSuccess}/>
-                }
+                },
+                sorter: (a, b) => a.status - b.status
             }, {
                 title: '描述',
                 dataIndex: 'description'
@@ -207,9 +207,15 @@ class ClusterNodeList extends Component {
         return (
             <div style={{lineHeight:'25px'}}>
                 <Row>
-                    <Col span="8"><b>Cpu频率</b> : {record.cpuTotal} {record.cpuUnit}</Col>
-                    <Col span="8"><b>磁盘总量</b> : {record.diskTotal} {record.diskUnit}</Col>
-                    <Col span="8"><b>内存总量</b> : {record.memTotal} {record.memUnit}</Col>
+                    <Col span="4"><b>Cpu频率</b> : {record.cpuTotal} {record.cpuUnit}</Col>
+                    <Col span="4"><b>磁盘总量</b> : {record.diskTotal} {record.diskUnit}</Col>
+                    <Col span="4"><b>内存总量</b> : {record.memTotal} {record.memUnit}</Col>
+                    <Col span="12"><b>运行服务</b> : {record.service} </Col>
+                </Row>
+
+                <Row>
+                    <Col span="24"><b>运行图表</b>  : <br/></Col>
+
                 </Row>
                 <Row>
                     <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>

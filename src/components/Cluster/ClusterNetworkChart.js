@@ -54,7 +54,7 @@ class ClusterNetworkChart extends Component {
             },
             xAxis: {
                 type: 'datetime',
-                maxZoom: config.list[0].data.length * config.list[0].pointInterval
+                maxZoom: config? config.list[0].data.length * config.list[0].pointInterval:100
 
             },
             yAxis: {
@@ -63,7 +63,7 @@ class ClusterNetworkChart extends Component {
                 },
                 labels: {
                     formatter: function () {
-                        return this.value + config.yunit;
+                        return this.value + ' ' + (config ? config.yunit : '');
 
                     }
                 }
@@ -71,7 +71,7 @@ class ClusterNetworkChart extends Component {
             tooltip: {
                 xDateFormat: '%Y-%m-%d %H:%M:%S',
                 shared: true,
-                valueSuffix: ' ' + config.yunit,
+                valueSuffix: config ? ' ' + config.yunit : ' ',
                 //formatter: function () {
                 //    return Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' + this.series.name  + ': ' + this.y + config.yunit
                 //        + '<br/><br/>Total: ' + config.total + config.totalUnit ;
@@ -101,7 +101,7 @@ class ClusterNetworkChart extends Component {
 
             },
 
-            series: config.list
+            series: config ? config.list:null
         };
 
 
