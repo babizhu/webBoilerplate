@@ -52,14 +52,13 @@ class ClusterNodeList extends Component {
         return [{
             title: 'Host',
             dataIndex: 'host',
-            width: 90,
-            key: 'host',
+            key: 'host'
             //sorter: (a, b) => a.host - b.host
 
         }, {
             title: 'IP',
             dataIndex: 'ip',
-            key: 'ip',
+            key: 'ip'
             //sorter: (a, b) => a.ip - b.ip
         }, {
             title: 'CPU %',

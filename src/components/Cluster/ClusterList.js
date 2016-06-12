@@ -109,6 +109,7 @@ class ClusterList extends Component {
     render() {
         const { selectedRowKeys } = this.state;
         const rowSelection = {
+            //type: 'radio',
             selectedRowKeys,
             onChange: this.onSelectChange.bind(this)
         };
@@ -124,7 +125,8 @@ class ClusterList extends Component {
         const {clusterList,operationData} = this.props;
         const parent = this;
         //noinspection JSUnusedLocalSymbols
-        const columns = [{
+        const columns = [
+            {
             title: '名称',
             dataIndex: 'name',
             width: 90,
@@ -205,10 +207,10 @@ class ClusterList extends Component {
                 <Table
                     style={{minWidth:'560px'}}
                     dataSource={this.filterNodeList()}
-
+                    rowSelection={rowSelection}
                     onRowClick={this.onRowClick.bind(this)}
                     pagination={false}
-                    rowSelection={rowSelection}
+
                     columns={columns}
                     loading={clusterList.pending}
                     size='middle'
