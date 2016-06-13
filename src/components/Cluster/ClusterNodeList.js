@@ -87,11 +87,11 @@ class ClusterNodeList extends Component {
 
         },
             {
-                title: '网络 ',
+                title: '网络 in , out',
                 key: 'network',
                 render(text, record){
                     return record.status === 1 ?
-                    record.netIn + ' | ' + record.netOut + ' ' + record.netUnit
+                    record.netIn + ' , ' + record.netOut + ' ' + record.netUnit
                         :
                         '-'
                 }
@@ -193,15 +193,6 @@ class ClusterNodeList extends Component {
         this.setState({keyword: keyword});
     }
 
-//2016-05-31 13:46:29.517 [nioEventLoopGroup-1-0] DEBUG net.WawajiDispatcher - /192.168.0.41:50461:LoginHandler{handlerId=1, clientId='000000000000000000000000'} | ResponseDataContainer{handlerId=1, buf=}
-//2016-05-31 13:46:30.330 [nioEventLoopGroup-1-0] DEBUG net.WawajiDispatcher - /192.168.0.41:50461:ReeceiveCoinHandler{handlerId=2, clientId='000000000000000000000000', coinNumber=3, consumeId=12345678} | null
-
-
-    //展示节点的详细信息
-//<Row>
-//<Col span="12"><b>节点服务</b> : {record.service}</Col>
-//<Col span="12"><b>节点描述</b> : {record.description}</Col>
-//</Row>
     showNodeDetail(record) {
         return (
             <div style={{lineHeight:'25px'}}>
@@ -213,7 +204,7 @@ class ClusterNodeList extends Component {
                 </Row>
 
                 <Row>
-                    <Col span="24"><b>运行图表</b>  : <br/></Col>
+                    <Col span="24"></Col>
 
                 </Row>
                 <Row>

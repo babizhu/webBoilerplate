@@ -27,7 +27,7 @@ export default class ResourceUsePercent extends Component {
             status = 'exception';
         }
         return(
-            <Progress type="circle" percent={percent} width={30} status={status}
+            <Progress type="circle" percent={percent} width={25} status={status}
                       format={percent => percent}
             />
         )

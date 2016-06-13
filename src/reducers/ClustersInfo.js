@@ -33,7 +33,9 @@ import {
     CLUSTER_NODE_LIST_OPERATION,
     CLUSTER_NODE_LIST_OPERATION_PENDING,
     CLUSTER_NODE_LIST_OPERATION_SUCCESS,
-    CLUSTER_NODE_LIST_OPERATION_ERROR
+    CLUSTER_NODE_LIST_OPERATION_ERROR,
+
+    SWITCH_ACTIVE_TAB
 
 } from '../actions/Cluster'
 
@@ -61,7 +63,7 @@ function clusterList(state = initClusterListState, action) {
             //}
             return {
                 ...state,
-                data:action.payload.list,
+                data: action.payload.list,
                 pager: action.payload.page,
                 pending: false,
                 error: null
@@ -143,7 +145,7 @@ function clusterNodeList(state, action) {
             //console.log(updateClusterState(state.data, action.payload));
             return {
                 ...state,
-                clusterNodeList: {nodeList:updateClusterState(state.clusterNodeList.nodeList, action.payload.data, action.meta.op === 2)}
+                clusterNodeList: {nodeList: updateClusterState(state.clusterNodeList.nodeList, action.payload.data, action.meta.op === 2)}
             };
         default:
             return state;
@@ -189,7 +191,30 @@ function operationData(state = operationInitState, action) {
             return state;
     }
 }
+const uiInitState = {
 
+    clusterDetailTabs: {
+        activeTab: 'dashboard'
+    }
+};
+/**
+ * ui相关的数据
+ * @param state
+ * @param action
+ */
+function ui(state = uiInitState, action) {
+    switch (action.type) {
+        case SWITCH_ACTIVE_TAB:
+            return {
+                ...state,
+                clusterDetailTabs: {
+                    activeTab: action.activeTab
+                }
+            }
+    }
+    return state;
+
+}
 //获取某个集群的详细信息
 function clusterDetailList(state = {}, action) {
     let clusterId;
@@ -261,6 +286,7 @@ function clusterDetailList(state = {}, action) {
 const clustersInfo = combineReducers({
     operationData,
     clusterList,
-    clusterDetailList
+    clusterDetailList,
+    ui
 });
 export default clustersInfo;

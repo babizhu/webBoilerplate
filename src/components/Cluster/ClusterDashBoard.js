@@ -40,13 +40,14 @@ class ClusterDashBoard extends Component {
 
     render() {
         const {clusterCharts,clusterNodeList} = this.props.clusterDetail;
+        const {switchActiveTab} = this.props;
         console.log("ClusterDashBoard 开始重绘！！！！！！！！！！！！！");
         return (
             <div className='cluster-dash-board'>
                 <Row>
                     <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
                         <Card title="" bordered={true} style={{height:'346px'}}>
-                            <ClusterTextSummary clusterNodeList={clusterNodeList}/>
+                            <ClusterTextSummary clusterNodeList={clusterNodeList} switchActiveTab={switchActiveTab}/>
                         </Card>
 
                     </Col>

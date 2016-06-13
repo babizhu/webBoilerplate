@@ -24,6 +24,10 @@ class ClusterTextSummary extends Component {
 
     }
 
+    switchActiveTab( tab ){
+        const {switchActiveTab} = this.props;
+        switchActiveTab( tab );
+    }
     render() {
         const {clusterNodeList} = this.props;
         return (
@@ -34,11 +38,9 @@ class ClusterTextSummary extends Component {
                     总共<span style={{fontSize:'21px',color:'#2db7f5'}}> {clusterNodeList.totalCount} </span>个节点 <br /> 存活
                     <span style={{fontSize:'21px',color:'#66bb6a'}}> {clusterNodeList.aliveCount} </span>个 , 宕机
                     <span style={{fontSize:'21px',color:'#f50'}}> {clusterNodeList.totalCount - clusterNodeList.aliveCount } </span>个
-                                <span
-                                    className='no_border_icon_button'
-                                    style={{float:'right',position: 'relative',top:'10px'}}>
-                                    <Button className='no_border_icon_button' type="ghost" icon='double-right'
-                                            size="small"/>
+                                <span className='no_border_icon_button'  style={{float:'right',position: 'relative',top:'10px'}}>
+                                    <Button type="ghost" icon='double-right'
+                                            size="small" onClick = {this.switchActiveTab.bind(this, 'nodeList')}/>
                                 </span>
                 </div>
 
@@ -46,14 +48,13 @@ class ClusterTextSummary extends Component {
 
                 <Icon type="setting"/> <span style={{paddingLeft:'6px',fontWeight:'bold'}}>任务状态</span>
                 <div>
-                    总共运行<span style={{fontSize:'21px',color:'#2db7f5'}}> 10 </span>个任务<br /> 成功
-                    <span style={{fontSize:'21px',color:'#66bb6a'}}> 970 </span>个 , 失败
-                    <span style={{fontSize:'21px',color:'#f50'}}> 129 </span>个 , 正在运行
-                    <span style={{fontSize:'21px',color:'#aa6708'}}> 54 </span>个
-                                <span
-                                    className='no_border_icon_button'
-                                    style={{float:'right',position: 'relative',top:'10px'}}>
-                                    <Button className='no_border_icon_button' type="ghost" icon='double-right'
+                    总共运行<span style={{fontSize:'21px',color:'#2db7f5'}}> 0 </span>个任务<br /> 成功
+                    <span style={{fontSize:'21px',color:'#66bb6a'}}> 0 </span>个 , 失败
+                    <span style={{fontSize:'21px',color:'#f50'}}> 0 </span>个 , 正在运行
+                    <span style={{fontSize:'21px',color:'#aa6708'}}> 0 </span>个
+                                <span className='no_border_icon_button' style={{float:'right',position: 'relative',top:'10px'}}>
+                                    <Button type="ghost" icon='double-right'
+                                            onClick = {this.switchActiveTab.bind(this, 'task')}
                                             size="small"/>
                                 </span>
                 </div>
@@ -61,13 +62,12 @@ class ClusterTextSummary extends Component {
 
                 <Icon type="cloud-o"/> <span style={{paddingLeft:'6px',fontWeight:'bold'}}>服务状态</span>
                 <div >
-                    总共运行<span style={{fontSize:'21px',color:'#2db7f5'}}> 8 </span>个服务<br />正常运行
-                    <span style={{fontSize:'21px',color:'#66bb6a'}}> 5 </span>个 , 停止
-                    <span style={{fontSize:'21px',color:'#f50'}}> 3 </span>个
-                                <span
-                                    className='no_border_icon_button'
-                                    style={{float:'right',position: 'relative',top:'10px'}}>
-                                    <Button className='no_border_icon_button' type="ghost" icon='double-right'
+                    总共运行<span style={{fontSize:'21px',color:'#2db7f5'}}> 0 </span>个服务<br />正常运行
+                    <span style={{fontSize:'21px',color:'#66bb6a'}}> 0 </span>个 , 停止
+                    <span style={{fontSize:'21px',color:'#f50'}}> 0 </span>个
+                                <span className='no_border_icon_button' style={{float:'right',position: 'relative',top:'10px'}}>
+                                    <Button type="ghost" icon='double-right'
+                                            onClick = {this.switchActiveTab.bind(this, 'service')}
                                             size="small"/>
                                 </span>
                 </div>

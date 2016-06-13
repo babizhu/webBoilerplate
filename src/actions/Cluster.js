@@ -34,8 +34,12 @@ export const CLUSTER_NODE_LIST_OPERATION_PENDING = 'CLUSTER_NODE_LIST_OPERATION_
 export const CLUSTER_NODE_LIST_OPERATION_SUCCESS = 'CLUSTER_NODE_LIST_OPERATION_SUCCESS';
 export const CLUSTER_NODE_LIST_OPERATION_ERROR = 'CLUSTER_NODE_LIST_OPERATION_ERROR';
 
-//本地搜索集群中的节点
-export const CLUSTER_NODE_LIST_SEARCH = 'CLUSTER_NODE_LIST_SEARCH';
+/**
+ * 切换当前活动的tab
+ * @type {string}
+ */
+export const SWITCH_ACTIVE_TAB = 'SWICH_ACTIVE_TAB';
+
 
 
 export const OPEN_CLUSTER_MODAL = 'OPEN_CLUSTER_MODAL';
@@ -59,10 +63,10 @@ export function getClusterDetail(clusterId) {
         }
     }
 }
-export function searchClusterNodeList(keyword) {
+export function switchActiveTab( activeTab) {
     return {
-        type: CLUSTER_NODE_LIST_SEARCH,
-        keyword
+        type: SWITCH_ACTIVE_TAB,
+        activeTab
     }
 }
 

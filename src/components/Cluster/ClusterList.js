@@ -143,15 +143,17 @@ class ClusterList extends Component {
             title: '创建时间',
             dataIndex: 'createTime',
             key: 'createTime'
-        }, {
-            title: '状态',
-            width: 70,
-            key: 'status',
-            render(text,record){
-                const s = record.name.indexOf('d') > 0;
-                return <Label text={s?'运行中':'已停止'} isSuccess={s}/>
-            }
-        }, {
+        },
+        //    {
+        //    title: '状态',
+        //    width: 70,
+        //    key: 'status',
+        //    render(text,record){
+        //        const s = record.name.indexOf('d') > 0;
+        //        return <Label text={s?'运行中':'已停止'} isSuccess={s}/>
+        //    }
+        //},
+            {
             title: '描述',
             dataIndex: 'description',
             key: 'description'
