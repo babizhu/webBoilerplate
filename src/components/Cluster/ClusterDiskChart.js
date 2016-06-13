@@ -99,6 +99,9 @@ class ClusterDiskChart extends Component {
             },
             plotOptions: {
                 series: {
+                    marker: {
+                        radius: 1
+                    },
                     animation: this.enableAnim
                 },
                 area: {
