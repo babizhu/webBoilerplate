@@ -8,7 +8,7 @@ import { Steps,Menu, Dropdown, Button, Icon } from 'antd';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 
-import DropDownMenu from '../components/header/DropDownMenu'
+
 import '../css/header.scss'
 
 import * as profileActions from '../actions/Profile'
