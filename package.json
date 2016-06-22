@@ -23,7 +23,7 @@
     "react-dom": "^0.14.0",
     "react-highcharts": "^8.3.0",
     "react-redux": "latest",
-    "react-router": "^0.13.3",
+    "react-router": "^2.4.1",
     "react-router-redux": "latest",
     "redux": "latest",
     "redux-logger": "latest",
