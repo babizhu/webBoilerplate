@@ -196,7 +196,7 @@ class ClusterNodeList extends Component {
     showNodeDetail(record) {
         return (
             <div style={{lineHeight:'25px'}}>
-                <Row>
+                <Row >
                     <Col span="4"><b>Cpu频率</b> : {record.cpuTotal} {record.cpuUnit}</Col>
                     <Col span="4"><b>磁盘总量</b> : {record.diskTotal} {record.diskUnit}</Col>
                     <Col span="4"><b>内存总量</b> : {record.memTotal} {record.memUnit}</Col>
@@ -207,7 +207,7 @@ class ClusterNodeList extends Component {
                     <Col span="24"></Col>
 
                 </Row>
-                <Row>
+                <Row gutter={10}>
                     <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
                         {record.charts.cpu && <ClusterCpuChart config={record.charts.cpu}/>}
                     </Col>
@@ -215,7 +215,7 @@ class ClusterNodeList extends Component {
                         {record.charts.mem && <ClusterMemChart config={record.charts.mem}/>}
                     </Col>
                 </Row>
-                <Row>
+                <Row gutter={10}>
                     <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
                         {record.charts.network && <ClusterNetworkChart config={record.charts.network}/>}
                     </Col>

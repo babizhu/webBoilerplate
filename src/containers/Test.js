@@ -156,10 +156,7 @@ class Test extends Component {
                             <Box visible={this.state.visible}/>
                         </Animate>
                     </div>
-
-
                 </QueueAnim>
-
 
                 <Dragger {...props} className="upload-list-inline"><p className="ant-upload-drag-icon">
                     <Icon type="inbox"/>
@@ -167,6 +164,7 @@ class Test extends Component {
                     <p className="ant-upload-text">点击或将文件拖拽到此区域上传</p>
                     <p className="ant-upload-hint">支持单个或批量上传，请注意信息安全</p>
                 </Dragger>
+
             </div>
 
 

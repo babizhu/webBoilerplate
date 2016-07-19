@@ -44,7 +44,7 @@ class ClusterDashBoard extends Component {
         console.log("ClusterDashBoard 开始重绘！！！！！！！！！！！！！");
         return (
             <div className='cluster-dash-board'>
-                <Row>
+                <Row gutter={16}>
                     <Col lg={12} sm={12} md={12} style={{paddingBottom:'10px'}}>
                         <Card title="" bordered={true} style={{height:'346px'}}>
                             <ClusterTextSummary clusterNodeList={clusterNodeList} switchActiveTab={switchActiveTab}/>
