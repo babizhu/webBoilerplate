@@ -35,17 +35,24 @@ const errors = {
  * 通过错误id来获取错误描述文本
  * @param errId 错误id
  * @param args  错误的相关参数
+ * @param url   发生错误的url
  * @returns {*}
  */
 export function getErrMsg(errId, args,url) {
 
     let msg = errors[errId].text;
+    if( !msg ){
+        return{
+            url,
+            msg:"未知错误：errId=" + errId + ",args=" + args
+        }
+    }
     for( const arg of args.split(',')){
         msg = msg.replace( '%s', arg);
     }
     return{
         url,
         msg
-    }
+    };
     //return 'url: ' + url + '\n' + msg;
 }

@@ -13,15 +13,6 @@ class ClusterNetworkChart extends Component {
         this.enableAnim = true;
     }
 
-    componentWillUnmount() {
-
-        //let chart = this.refs.network.getChart();
-        //var node = ReactDOM.findDOMNode(this.refs.network);
-        //node.destroy();
-        //
-        //chart=null;
-    }
-
     componentDidMount() {
         this.enableAnim = false;
         //let chart = this.refs.chart.getChart();
@@ -71,7 +62,7 @@ class ClusterNetworkChart extends Component {
             tooltip: {
                 xDateFormat: '%Y-%m-%d %H:%M:%S',
                 shared: true,
-                valueSuffix: config ? ' ' + config.yunit : ' ',
+                valueSuffix: config ? ' ' + config.yunit : ' '
                 //formatter: function () {
                 //    return Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' + this.series.name  + ': ' + this.y + config.yunit
                 //        + '<br/><br/>Total: ' + config.total + config.totalUnit ;
